@@ -1,16 +1,24 @@
+using System.Collections.Generic;
 using WeaverCore;
+using UnityEngine;
 
-public class DreamEchoes : WeaverMod
+namespace DreamEchoes
 {
-    public DreamEchoes() : base("DreamEchoes") { }
-
-    public override string GetVersion()
+    public class DreamEchoes : WeaverMod
     {
-        return "1.0";
-    }
+        public DreamEchoes() : base("DreamEchoes") { }
 
-    public override void Initialize()
-    {
-        
+        public override string GetVersion()
+        {
+            return "1.0.0.0";
+        }
+        public override List<(string, string)> GetPreloadNames()
+        {
+            return Preloader.GetPreloadNames();
+        }
+        public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
+        {
+            Preloader.Initialize(preloadedObjects);
+        }
     }
 }

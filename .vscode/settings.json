@@ -1,0 +1,5 @@
+{
+    "dotnet.defaultSolution": "DreamEchoes.sln",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false
+}
