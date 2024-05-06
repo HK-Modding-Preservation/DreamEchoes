@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bridge", "Bridge\Bridge.csproj", "{15BBF2AF-1868-491C-BEA9-86C4E6C184C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{FB6C13AC-31E8-4DAD-9DBA-43C5CFFC8EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15BBF2AF-1868-491C-BEA9-86C4E6C184C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BBF2AF-1868-491C-BEA9-86C4E6C184C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BBF2AF-1868-491C-BEA9-86C4E6C184C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BBF2AF-1868-491C-BEA9-86C4E6C184C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6C13AC-31E8-4DAD-9DBA-43C5CFFC8EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6C13AC-31E8-4DAD-9DBA-43C5CFFC8EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6C13AC-31E8-4DAD-9DBA-43C5CFFC8EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6C13AC-31E8-4DAD-9DBA-43C5CFFC8EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFF03762-B62F-41E5-B5CA-FFFB6FB7176A}
+	EndGlobalSection
+EndGlobal

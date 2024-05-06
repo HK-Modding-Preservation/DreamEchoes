@@ -1,16 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<OutputType>Library</OutputType>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<LangVersion>latest</LangVersion>
-		<Deterministic>true</Deterministic>
-		<ImplicitUsings>true</ImplicitUsings>
-		<DebugType>portable</DebugType>
-		<GamePath>C:/Program Files (x86)/Steam/steamapps/common/Hollow Knight/hollow_knight_Data/Managed</GamePath>
-		<UnityName>DreamEchoes</UnityName>
-		<UnityPath>C:/Users/yunjo/Projects/DreamEchoes/Unity/Assets/Dependencies</UnityPath>
-	</PropertyGroup>
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(GamePath)/Assembly-CSharp.dll</HintPath>
@@ -59,7 +47,7 @@
 		</Reference>
 	</ItemGroup>
 	<Target Name="GamePath" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="$(TargetDir)/$(TargetName).dll" DestinationFiles="$(GamePath)/Mods/$(UnityName)/$(TargetName).dll" />
-		<Copy SourceFiles="$(TargetDir)/$(TargetName).pdb" DestinationFiles="$(GamePath)/Mods/$(UnityName)/$(TargetName).pdb" />
+		<Copy SourceFiles="$(TargetDir)/$(TargetName).dll" DestinationFiles="$(GamePath)/Mods/$(UnityName)/$(CoreName).dll" />
+		<Copy SourceFiles="$(TargetDir)/$(TargetName).pdb" DestinationFiles="$(GamePath)/Mods/$(UnityName)/$(CoreName).pdb" />
 	</Target>
 </Project>

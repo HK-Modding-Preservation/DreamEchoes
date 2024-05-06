@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(GamePath)/UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<Target Name="GamePath" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="$(TargetDir)/$(TargetName).dll" DestinationFiles="$(UnityPath)/$(CoreName).dll" />
+	</Target>
+</Project>
