@@ -1,3 +1,3 @@
-[submodule "Assets/Dependencies/WeaverCore"]
-	path = Assets/Dependencies/WeaverCore
+[submodule "Unity/Assets/Dependencies/WeaverCore"]
+	path = Unity/Assets/Dependencies/WeaverCore
 	url = git@github.com:danirainy/WeaverCore.git
