@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-namespace DreamEchoes.Entities.NPCs;
+namespace DreamEchoesCore.Entities.NPCs;
 
-public class SeerOld : MonoBehaviour { }
+internal class SeerOld : MonoBehaviour { }

@@ -1,4 +1,4 @@
-﻿namespace DreamEchoes.RingLib;
+﻿namespace DreamEchoesCore.RingLib;
 
 internal class Log
 {

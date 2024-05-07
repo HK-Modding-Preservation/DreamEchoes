@@ -1,13 +1,7 @@
-﻿using System.Collections;
-using WeaverCore.Assets.Components;
+﻿using DreamEchoesCore.RingLib.StateMachine;
 
-namespace DreamEchoes.Entities.Enemies;
+namespace DreamEchoesCore.Entities.Enemies;
 
-public class Seer : Conversation
+internal class Seer : StateMachine
 {
-    protected override IEnumerator DoConversation()
-    {
-        DisplayTitle("Seer");
-        yield return Speak("Hello, little one!");
-    }
 }

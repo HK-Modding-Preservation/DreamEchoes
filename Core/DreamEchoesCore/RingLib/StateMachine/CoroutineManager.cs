@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace DreamEchoes.RingLib.StateMachine;
+namespace DreamEchoesCore.RingLib.StateMachine;
 
 internal class CoroutineManager
 {

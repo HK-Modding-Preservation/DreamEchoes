@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 
-namespace DreamEchoes.RingLib;
+namespace DreamEchoesCore.RingLib;
 internal static class ComponentPatcher<T> where T : Component
 {
     private static BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;

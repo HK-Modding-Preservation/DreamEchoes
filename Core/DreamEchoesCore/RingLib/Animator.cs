@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DreamEchoes.RingLib;
+namespace DreamEchoesCore.RingLib;
 
 internal class Animator : MonoBehaviour
 {

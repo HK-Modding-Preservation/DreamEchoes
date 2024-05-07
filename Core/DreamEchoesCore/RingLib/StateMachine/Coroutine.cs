@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace DreamEchoes.RingLib.StateMachine;
+namespace DreamEchoesCore.RingLib.StateMachine;
 
 internal class Coroutine
 {

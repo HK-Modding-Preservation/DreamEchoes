@@ -1,8 +1,8 @@
-﻿using DreamEchoes.RingLib;
+﻿using DreamEchoesCore.RingLib;
 using Modding;
 using UnityEngine;
 
-namespace DreamEchoes;
+namespace DreamEchoesCore;
 
 public class DreamEchoesCore : Mod
 {

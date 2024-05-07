@@ -1,9 +1,9 @@
-﻿using DreamEchoes.RingLib;
+﻿using DreamEchoesCore.RingLib;
 using UnityEngine;
 
-namespace DreamEchoes.Entities.NPCs;
+namespace DreamEchoesCore.Entities.NPCs;
 
-public class SeerOld : MonoBehaviour
+internal class SeerOld : MonoBehaviour
 {
     private void Start()
     {

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace DreamEchoes.RingLib;
+namespace DreamEchoesCore.RingLib;
 
-internal class ParryBehaviour : MonoBehaviour
+internal class ParryableNailSlash : MonoBehaviour
 {
     private GameObject parryableNailSlash;
     private PolygonCollider2D originalCollider2D;
