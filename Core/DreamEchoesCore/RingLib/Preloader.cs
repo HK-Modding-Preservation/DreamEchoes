@@ -1,14 +1,17 @@
-namespace DreamEchoes;
+using UnityEngine;
+
+namespace DreamEchoes.RingLib;
 
 internal class Preloader
 {
+    public static List<(string, string)> PreloadNames = new List<(string, string)>
+    {
+        ("GG_Sly", "Battle Scene"),
+    };
     private static Dictionary<string, Dictionary<string, GameObject>> preloadedObjects;
     public static List<(string, string)> GetPreloadNames()
     {
-        return new List<(string, string)>
-        {
-            ("RestingGrounds_07", "Dream Moth")
-        };
+        return PreloadNames;
     }
     public static void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
     {

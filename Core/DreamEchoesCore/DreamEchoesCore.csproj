@@ -18,6 +18,9 @@
 		<Reference Include="UnityEngine">
 			<HintPath>$(GamePath)/UnityEngine.dll</HintPath>
 		</Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>$(GamePath)/UnityEngine.AnimationModule.dll</HintPath>
+		</Reference>
 		<Reference Include="UnityEngine.AudioModule">
 			<HintPath>$(GamePath)/UnityEngine.AudioModule.dll</HintPath>
 		</Reference>

@@ -1,3 +1,5 @@
-﻿namespace DreamEchoes.Entities.NPCs;
+﻿using UnityEngine;
+
+namespace DreamEchoes.Entities.Enemies;
 
 public class Seer : MonoBehaviour { }
