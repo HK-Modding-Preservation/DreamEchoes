@@ -5,7 +5,7 @@ namespace DreamEchoesCore.RingLib;
 internal class Animator : MonoBehaviour
 {
     private UnityEngine.Animator animator;
-    private Dictionary<string, float> clipLengths = new Dictionary<string, float>();
+    private Dictionary<string, float> clipLengths = [];
     private AudioSource audioSource;
     private void Start()
     {
