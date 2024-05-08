@@ -1,7 +1,9 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+using DreamEchoesCore.RingLib;
 using DreamEchoesCore.RingLib.StateMachine;
 using HKMirror.Reflection;
+using Modding.Utils;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
@@ -42,6 +44,7 @@ internal class SeerStateMachine : StateMachine
     {
         if (Input.GetKeyDown(KeyCode.F5))
         {
+            Target().GetOrAddComponent<ControllingHero>().InstallControlled(gameObject);
             ReceiveMessage("Control");
         }
     }
