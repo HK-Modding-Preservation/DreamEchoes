@@ -25,10 +25,10 @@ internal class StateMachine : MonoBehaviour
             this.globalTransitions.Add(globalTransition.Key, globalTransition.Value.Name);
         }
     }
-    private List<StateMachine> GetInstances()
+    protected virtual void StateMachineStart() { }
+    private void Start()
     {
-        instances.RemoveAll(instance => instance == null);
-        return instances;
+        StateMachineStart();
     }
     private string EnterCurrentState()
     {
@@ -61,8 +61,10 @@ internal class StateMachine : MonoBehaviour
             interrupted = false;
         }
     }
+    protected virtual void StateMachineUpdate() { }
     private void Update()
     {
+        StateMachineUpdate();
         if (CurrentState == null)
         {
             SetState(startState, false);
@@ -84,6 +86,11 @@ internal class StateMachine : MonoBehaviour
             return;
         }
         SetState(globalTransitions[message], true);
+    }
+    private List<StateMachine> GetInstances()
+    {
+        instances.RemoveAll(instance => instance == null);
+        return instances;
     }
     public new void BroadcastMessage(string message)
     {

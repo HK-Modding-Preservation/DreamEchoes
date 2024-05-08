@@ -1,5 +1,7 @@
-﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 using DreamEchoesCore.RingLib.StateMachine;
+using HKMirror.Reflection;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
@@ -7,7 +9,6 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 internal class SeerStateMachine : StateMachine
 {
     public Config Config { get; }
-    public RingLib.Animator Animator { get; private set; }
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rigidbody2D;
     public Vector2 Velocity
@@ -21,17 +22,28 @@ internal class SeerStateMachine : StateMachine
             rigidbody2D.velocity = value;
         }
     }
-    public SeerStateMachine() : base(typeof(Idle), [])
+    public RingLib.Animator Animator { get; private set; }
+    public HeroActions InputActions;
+    public SeerStateMachine() : base(typeof(Idle), new Dictionary<string, Type> {
+        { "Control", typeof(ControlledIdle) } })
     {
         Config = new();
     }
-    private void Start()
+    protected override void StateMachineStart()
     {
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
         Animator = animation.GetComponent<RingLib.Animator>();
+        InputActions = HeroController.instance.Reflect().inputHandler.inputActions;
+    }
+    protected override void StateMachineUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            ReceiveMessage("Control");
+        }
     }
     public GameObject Target()
     {
