@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace DreamEchoesCore.RingLib.StateMachine;
+namespace RingLib.StateMachine;
 
 internal class StateManager
 {

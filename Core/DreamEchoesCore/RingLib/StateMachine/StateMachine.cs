@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using RingLib.StateMachine.Transition;
 using UnityEngine;
 
-namespace DreamEchoesCore.RingLib.StateMachine;
+namespace RingLib.StateMachine;
 
 internal class StateMachine : MonoBehaviour
 {
@@ -34,7 +34,20 @@ internal class StateMachine : MonoBehaviour
     {
         var state = states[CurrentState];
         Log.LogInfo(GetType().Name, $"Entering state {state.GetType().Name}");
-        return state.Enter()?.Name;
+        var transition = state.Enter();
+        if (transition is CurrentState)
+        {
+            return null;
+        }
+        else if (transition is ToState toState)
+        {
+            return toState.State.Name;
+        }
+        else
+        {
+            Log.LogError(GetType().Name, $"Invalid transition");
+            return null;
+        }
     }
     private void ExitCurrentState(bool interrupted)
     {
@@ -64,19 +77,25 @@ internal class StateMachine : MonoBehaviour
     protected virtual void StateMachineUpdate() { }
     private void Update()
     {
-        StateMachineUpdate();
         if (CurrentState == null)
         {
             SetState(startState, false);
         }
-        if (states[CurrentState].Update() is Type nextStateUpdate)
+        StateMachineUpdate();
+        void Transit(Transition.Transition transition)
         {
-            SetState(nextStateUpdate.Name, false);
+            if (transition is CurrentState) { }
+            else if (transition is ToState toState)
+            {
+                SetState(toState.State.Name, false);
+            }
+            else
+            {
+                Log.LogError(GetType().Name, $"Invalid transition");
+            }
         }
-        if (coroutineManager.UpdateCoroutines() is string nextStateCoroutine)
-        {
-            SetState(nextStateCoroutine, false);
-        }
+        Transit(states[CurrentState].Update());
+        Transit(coroutineManager.UpdateCoroutines());
     }
     public void ReceiveMessage(string message)
     {
@@ -99,7 +118,7 @@ internal class StateMachine : MonoBehaviour
             instance.ReceiveMessage(message);
         }
     }
-    public new void StartCoroutine(IEnumerator coroutine)
+    public void StartCoroutine(IEnumerator<Transition.Transition> coroutine)
     {
         coroutineManager.StartCoroutine(coroutine);
     }

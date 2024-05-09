@@ -1,25 +1,38 @@
-﻿using System.Collections;
+﻿using RingLib.StateMachine.Transition;
 
-namespace DreamEchoesCore.RingLib.StateMachine;
+namespace RingLib.StateMachine;
 
 internal class CoroutineManager
 {
     private List<Coroutine> activeCoroutines = new();
-    public void StartCoroutine(IEnumerator coroutine)
+    public void StartCoroutine(IEnumerator<Transition.Transition> coroutine)
     {
         activeCoroutines.Add(new Coroutine(coroutine));
     }
-    public String UpdateCoroutines()
+    public Transition.Transition UpdateCoroutines()
     {
+        var newActiveCoroutines = new List<Coroutine>();
         foreach (var coroutine in activeCoroutines)
         {
-            var nextState = coroutine.Update();
-            if (nextState != null)
+            var transition = coroutine.Update();
+            if (transition != null)
             {
-                return nextState;
+                if (transition is CurrentState)
+                {
+                    newActiveCoroutines.Add(coroutine);
+                }
+                else if (transition is ToState)
+                {
+                    return transition;
+                }
+                else
+                {
+                    Log.LogError(GetType().Name, $"Invalid transition {transition}");
+                }
             }
         }
-        return null;
+        activeCoroutines = newActiveCoroutines;
+        return new CurrentState();
     }
     public void StopCoroutines()
     {

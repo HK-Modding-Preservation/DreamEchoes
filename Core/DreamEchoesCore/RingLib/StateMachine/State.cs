@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 
-namespace DreamEchoesCore.RingLib.StateMachine;
+namespace RingLib.StateMachine;
 
 internal class StateBase
 {
     public StateMachine StateMachine { get; set; }
-    public virtual Type? Enter() { return null; }
+    public virtual Transition.Transition Enter() { return null; }
     public virtual void Exit(bool interrupted) { }
-    public virtual Type? Update() { return null; }
+    public virtual Transition.Transition Update() { return null; }
     public void StartCoroutine(IEnumerator routine)
     {
         if (StateMachine == null)

@@ -1,17 +1,18 @@
-﻿using DreamEchoesCore.RingLib.StateMachine;
+﻿using RingLib.StateMachine;
+using RingLib.StateMachine.Transition;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 
 internal class ControlledIdle : State<SeerStateMachine>
 {
-    public override Type? Enter()
+    public override Transition Enter()
     {
         StateMachine.Velocity = Vector2.zero;
         StateMachine.Animator.PlayAnimation("Idle");
-        return null;
+        return new CurrentState();
     }
-    public override Type? Update()
+    public override Transition Update()
     {
         var inputActions = StateMachine.InputActions;
         if (inputActions.left.IsPressed || inputActions.right.IsPressed)
@@ -21,8 +22,8 @@ internal class ControlledIdle : State<SeerStateMachine>
             {
                 StateMachine.Turn();
             }
-            return typeof(ControlledRun);
+            return new ToState { State = typeof(ControlledRun) };
         }
-        return null;
+        return new CurrentState();
     }
 }

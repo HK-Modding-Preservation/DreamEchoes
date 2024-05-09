@@ -1,22 +1,22 @@
 ﻿
-using DreamEchoesCore.RingLib.StateMachine;
-using System.Collections;
+using RingLib.StateMachine;
+using RingLib.StateMachine.Transition;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
 internal class Idle : State<SeerStateMachine>
 {
-    public override Type? Enter()
+    public override Transition Enter()
     {
         StartCoroutine(Routine());
-        return null;
+        return new CurrentState();
     }
-    private IEnumerator Routine()
+    private IEnumerator<Transition> Routine()
     {
         StateMachine.Velocity = Vector2.zero;
         StateMachine.Animator.PlayAnimation("Idle");
-        yield return StateMachine.Config.IdleDuration;
-        yield return typeof(Run);
+        yield return new WaitFor { Time = StateMachine.Config.IdleDuration };
+        yield return new ToState { State = typeof(Run) };
     }
 }

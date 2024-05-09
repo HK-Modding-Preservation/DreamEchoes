@@ -1,4 +1,4 @@
-﻿using DreamEchoesCore.RingLib;
+﻿using RingLib;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.NPCs;

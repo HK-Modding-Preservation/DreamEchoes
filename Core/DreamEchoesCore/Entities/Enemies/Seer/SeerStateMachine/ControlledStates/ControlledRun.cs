@@ -1,17 +1,17 @@
-﻿using DreamEchoesCore.RingLib.StateMachine;
-using System.Collections;
+﻿using RingLib.StateMachine;
+using RingLib.StateMachine.Transition;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 
 internal class ControlledRun : State<SeerStateMachine>
 {
-    public override Type? Enter()
+    public override Transition Enter()
     {
         StartCoroutine(Routine());
-        return null;
+        return new CurrentState();
     }
-    private IEnumerator Routine()
+    private IEnumerator<Transition> Routine()
     {
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.RunVelocityX * direction;
@@ -22,7 +22,7 @@ internal class ControlledRun : State<SeerStateMachine>
             var currentVelocityX = Mathf.Lerp(0, velocityX, timer / startDuration);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
-            yield return 0;
+            yield return new CurrentState();
         }
         StateMachine.Velocity = new Vector2(velocityX, 0);
         StateMachine.Animator.PlayAnimation("Run");
@@ -34,7 +34,7 @@ internal class ControlledRun : State<SeerStateMachine>
             {
                 StateMachine.Turn();
             }
-            yield return 0;
+            yield return new CurrentState();
         }
         var endDuration = StateMachine.Animator.PlayAnimation("RunEnd");
         timer = 0f;
@@ -43,8 +43,8 @@ internal class ControlledRun : State<SeerStateMachine>
             var currentVelocityX = Mathf.Lerp(velocityX, 0, timer / endDuration);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
-            yield return 0;
+            yield return new CurrentState();
         }
-        yield return typeof(ControlledIdle);
+        yield return new ToState { State = typeof(ControlledIdle) };
     }
 }

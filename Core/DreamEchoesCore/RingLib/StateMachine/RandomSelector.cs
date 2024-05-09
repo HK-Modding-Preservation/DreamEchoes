@@ -1,4 +1,4 @@
-﻿namespace DreamEchoesCore.RingLib.StateMachine;
+﻿namespace RingLib.StateMachine;
 
 internal class RandomSelectorItem
 {

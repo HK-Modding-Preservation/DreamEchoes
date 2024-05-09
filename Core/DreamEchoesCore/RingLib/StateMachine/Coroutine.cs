@@ -1,18 +1,17 @@
-﻿using System.Collections;
+﻿using RingLib.StateMachine.Transition;
 using UnityEngine;
-
-namespace DreamEchoesCore.RingLib.StateMachine;
+namespace RingLib.StateMachine;
 
 internal class Coroutine
 {
-    private IEnumerator enumerator;
+    private IEnumerator<Transition.Transition> enumerator;
     private float time;
-    public Coroutine(IEnumerator enumerator)
+    public Coroutine(IEnumerator<Transition.Transition> enumerator)
     {
         this.enumerator = enumerator;
         time = 0;
     }
-    public string Update()
+    public Transition.Transition Update()
     {
         if (time > 0)
         {
@@ -24,22 +23,20 @@ internal class Coroutine
         }
         if (enumerator.MoveNext())
         {
-            object current = enumerator.Current;
-            if (current is Type nextState)
+            var transition = enumerator.Current;
+            if (transition is CurrentState || transition is ToState)
             {
-                return nextState.Name;
+                return transition;
             }
-            if (current is float waitForSecondsFloat)
+            else if (transition is WaitFor waitFor)
             {
-                time = waitForSecondsFloat;
-                return null;
+                time = waitFor.Time;
+                return new CurrentState();
             }
-            if (current is int waitForSecondsInt)
+            else
             {
-                time = waitForSecondsInt;
-                return null;
+                Log.LogError(GetType().Name, $"Invalid transition {transition}");
             }
-            Log.LogError(GetType().Name, $"Invalid yield return {current}");
         }
         return null;
     }

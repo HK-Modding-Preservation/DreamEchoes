@@ -1,9 +1,9 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
-using DreamEchoesCore.RingLib;
-using DreamEchoesCore.RingLib.StateMachine;
 using HKMirror.Reflection;
 using Modding.Utils;
+using RingLib;
+using RingLib.StateMachine;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;

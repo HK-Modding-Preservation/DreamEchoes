@@ -1,5 +1,5 @@
-﻿using DreamEchoesCore.RingLib;
-using Modding;
+﻿using Modding;
+using RingLib;
 using UnityEngine;
 
 namespace DreamEchoesCore;
@@ -10,6 +10,10 @@ public class DreamEchoesCore : Mod
     public DreamEchoesCore() : base("DreamEchoesCore")
     {
         Instance = this;
+#if DEBUG
+        RingLib.Log.LoggerInfo = Log;
+#endif
+        RingLib.Log.LoggerError = LogError;
     }
     public override string GetVersion() => "1.0.0.0";
     public override List<(string, string)> GetPreloadNames()
