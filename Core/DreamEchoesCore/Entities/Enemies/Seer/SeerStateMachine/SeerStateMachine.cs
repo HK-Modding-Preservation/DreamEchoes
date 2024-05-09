@@ -44,7 +44,7 @@ internal class SeerStateMachine : StateMachine
     {
         if (Input.GetKeyDown(KeyCode.F5))
         {
-            Target().GetOrAddComponent<ControllingHero>().InstallControlled(gameObject);
+            Target().GetOrAddComponent<Control>().InstallControlled(gameObject);
             ReceiveMessage("Control");
         }
     }

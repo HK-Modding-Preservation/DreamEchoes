@@ -1,5 +1,4 @@
-﻿using RingLib.StateMachine.Transition;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RingLib.StateMachine;
 
@@ -82,7 +81,7 @@ internal class StateMachine : MonoBehaviour
             SetState(startState, false);
         }
         StateMachineUpdate();
-        void Transit(Transition.Transition transition)
+        void Transit(Transition transition)
         {
             if (transition is CurrentState) { }
             else if (transition is ToState toState)
@@ -118,7 +117,7 @@ internal class StateMachine : MonoBehaviour
             instance.ReceiveMessage(message);
         }
     }
-    public void StartCoroutine(IEnumerator<Transition.Transition> coroutine)
+    public void StartCoroutine(IEnumerator<Transition> coroutine)
     {
         coroutineManager.StartCoroutine(coroutine);
     }

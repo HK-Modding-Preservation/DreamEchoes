@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-namespace DreamEchoesCore.RingLib;
+namespace RingLib;
 
 internal class DeactivateOnStart : MonoBehaviour { }

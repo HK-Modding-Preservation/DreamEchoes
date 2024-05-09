@@ -1,14 +1,12 @@
-﻿using System.Collections;
-
-namespace RingLib.StateMachine;
+﻿namespace RingLib.StateMachine;
 
 internal class StateBase
 {
     public StateMachine StateMachine { get; set; }
-    public virtual Transition.Transition Enter() { return null; }
+    public virtual Transition Enter() { return new CurrentState(); }
     public virtual void Exit(bool interrupted) { }
-    public virtual Transition.Transition Update() { return null; }
-    public void StartCoroutine(IEnumerator routine)
+    public virtual Transition Update() { return new CurrentState(); }
+    public void StartCoroutine(IEnumerator<Transition> routine)
     {
         if (StateMachine == null)
         {

@@ -1,4 +1,4 @@
-﻿namespace RingLib.StateMachine;
+﻿namespace RingLib;
 
 internal class RandomSelectorItem
 {

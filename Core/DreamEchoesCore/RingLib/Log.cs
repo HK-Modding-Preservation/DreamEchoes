@@ -1,4 +1,6 @@
-﻿namespace RingLib;
+﻿using System.Diagnostics;
+
+namespace RingLib;
 
 internal class Log
 {
@@ -18,6 +20,7 @@ internal class Log
         {
             return;
         }
-        LoggerError($"{key}: {message}");
+        StackTrace stackTrace = new StackTrace();
+        LoggerError($"{key}: {stackTrace}\n{message}");
     }
 }

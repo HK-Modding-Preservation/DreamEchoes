@@ -1,24 +1,23 @@
-﻿using RingLib.StateMachine.Transition;
-using UnityEngine;
+﻿using UnityEngine;
 namespace RingLib.StateMachine;
 
 internal class Coroutine
 {
-    private IEnumerator<Transition.Transition> enumerator;
+    private IEnumerator<Transition> enumerator;
     private float time;
-    public Coroutine(IEnumerator<Transition.Transition> enumerator)
+    public Coroutine(IEnumerator<Transition> enumerator)
     {
         this.enumerator = enumerator;
         time = 0;
     }
-    public Transition.Transition Update()
+    public Transition Update()
     {
         if (time > 0)
         {
             time -= Time.deltaTime;
             if (time > 0)
             {
-                return null;
+                return new CurrentState();
             }
         }
         if (enumerator.MoveNext())

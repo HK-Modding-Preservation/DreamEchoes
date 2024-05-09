@@ -2,7 +2,7 @@
 
 namespace RingLib;
 
-internal class ControllingHero : MonoBehaviour
+internal class Control : MonoBehaviour
 {
     private void DestroyControlled()
     {
