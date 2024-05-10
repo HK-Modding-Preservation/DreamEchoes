@@ -9,4 +9,6 @@ internal class Config
 
     public float RunVelocityX = 10;
     public float RunDuration = 0.5f;
+
+    public float SlashVelocityX = 7.5f;
 }

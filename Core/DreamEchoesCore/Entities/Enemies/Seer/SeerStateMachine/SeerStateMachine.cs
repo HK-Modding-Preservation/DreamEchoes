@@ -1,4 +1,5 @@
-﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -34,6 +35,15 @@ internal class SeerStateMachine : StateMachine
         var animation = gameObject.transform.Find("Animation");
         Animator = animation.GetComponent<RingLib.Animator>();
         InputManager = gameObject.AddComponent<RingLib.InputManager>();
+    }
+    protected override void StateMachineUpdate()
+    {
+        var attackPressed = InputManager.AttackPressed;
+        var controlldFree = CurrentState == typeof(ControlledIdle).Name || CurrentState == typeof(ControlledRun).Name;
+        if (attackPressed && controlldFree)
+        {
+            SetState(typeof(ControlledSlash));
+        }
     }
     public GameObject Target()
     {

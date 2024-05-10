@@ -73,6 +73,15 @@ internal class StateMachine : MonoBehaviour
             interrupted = false;
         }
     }
+    public void SetState(Type State)
+    {
+        if (CurrentState == null)
+        {
+            Log.LogInfo(GetType().Name, $"StateMachine has not started yet");
+            return;
+        }
+        SetState(State.Name, true);
+    }
     protected virtual void StateMachineUpdate() { }
     private void Update()
     {

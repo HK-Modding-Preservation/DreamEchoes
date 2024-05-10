@@ -8,9 +8,11 @@ internal class InputManager : MonoBehaviour
     public bool LeftPressed;
     public bool RightPressed;
     public float Direction => LeftPressed ? -1 : RightPressed ? 1 : 0;
+    public bool AttackPressed;
     private HeroActions heroActions;
     private bool leftPressed;
     private bool rightPressed;
+    private bool attackPressed;
     public InputManager()
     {
         heroActions = HeroController.instance.Reflect().inputHandler.inputActions;
@@ -44,6 +46,11 @@ internal class InputManager : MonoBehaviour
                 LeftPressed = leftPressed;
             }
             rightPressed = heroActions.right.IsPressed;
+        }
+        if (attackPressed != heroActions.attack.IsPressed)
+        {
+            AttackPressed = attackPressed;
+            attackPressed = heroActions.attack.IsPressed;
         }
     }
 }
