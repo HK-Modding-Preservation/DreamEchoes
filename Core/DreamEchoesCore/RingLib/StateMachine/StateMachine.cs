@@ -119,7 +119,7 @@ internal class StateMachine : MonoBehaviour
         }
         SetState(globalTransitions[event_], true);
     }
-    private static List<StateMachine> GetInstances()
+    public static List<StateMachine> GetInstances()
     {
         instances.RemoveAll(instance => instance == null);
         return instances;

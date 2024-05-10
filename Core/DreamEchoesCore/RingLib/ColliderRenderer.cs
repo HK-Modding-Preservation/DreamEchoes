@@ -7,6 +7,8 @@ namespace RingLib;
 
 internal class ColliderRenderer : MonoBehaviour
 {
+    public bool Enabled = false;
+
     private static class Drawing
     {
         private static Texture2D aaLineTex = null;
@@ -54,10 +56,12 @@ internal class ColliderRenderer : MonoBehaviour
             }
             GL.PopMatrix();
         }
+
         public static void DrawCircle(Vector2 center, int radius, Color color, float width, int segmentsPerQuarter)
         {
             DrawCircle(center, radius, color, width, false, segmentsPerQuarter);
         }
+
         public static void DrawCircle(Vector2 center, int radius, Color color, float width, bool antiAlias, int segmentsPerQuarter)
         {
             float rh = radius * 0.551915024494f;
@@ -78,6 +82,7 @@ internal class ColliderRenderer : MonoBehaviour
             DrawBezierLine(p3, p3_tan_a, p4, p4_tan_b, color, width, antiAlias, segmentsPerQuarter);
             DrawBezierLine(p4, p4_tan_a, p1, p1_tan_a, color, width, antiAlias, segmentsPerQuarter);
         }
+
         public static void DrawBezierLine(Vector2 start, Vector2 startTangent, Vector2 end, Vector2 endTangent, Color color, float width,
                 bool antiAlias, int segments)
         {
@@ -89,15 +94,18 @@ internal class ColliderRenderer : MonoBehaviour
                 lastV = v;
             }
         }
+
         private static Vector2 CubeBezier(Vector2 s, Vector2 st, Vector2 e, Vector2 et, float t)
         {
             float rt = 1 - t;
             return rt * rt * rt * s + 3 * rt * rt * t * st + 3 * rt * t * t * et + t * t * t * e;
         }
+
         static Drawing()
         {
             Initialize();
         }
+
         private static void Initialize()
         {
             if (lineTex == null)
@@ -118,6 +126,7 @@ internal class ColliderRenderer : MonoBehaviour
             blendMaterial = (Material)typeof(GUI).GetMethod("get_blendMaterial", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
         }
     }
+
     public struct HitboxType
     {
         public static readonly HitboxType Knight = new(Color.yellow, 0);                     // yellow
@@ -138,12 +147,13 @@ internal class ColliderRenderer : MonoBehaviour
             Depth = depth;
         }
     }
-    public static float LineWidth => Math.Max(0.7f, Screen.width / 960f * GameCameras.instance.tk2dCam.ZoomFactor);
+
     private Vector2 LocalToScreenPoint(Camera camera, Collider2D collider2D, Vector2 point)
     {
         Vector2 result = camera.WorldToScreenPoint((Vector2)collider2D.transform.TransformPoint(point + collider2D.offset));
         return new Vector2((int)Math.Round(result.x), (int)Math.Round(Screen.height - result.y));
     }
+
     public static HitboxType TryAddHitboxes(Collider2D collider2D)
     {
         if (collider2D == null)
@@ -198,21 +208,27 @@ internal class ColliderRenderer : MonoBehaviour
         }
         return HitboxType.None;
     }
+
     private void OnGUI()
     {
+        if (!Enabled)
+        {
+            return;
+        }
         if (Event.current?.type != EventType.Repaint || Camera.main == null || GameManager.instance == null || GameManager.instance.isPaused)
         {
             return;
         }
         GUI.depth = int.MaxValue;
         Camera camera = Camera.main;
-        float lineWidth = LineWidth;
+        float lineWidth = Math.Max(0.7f, Screen.width / 960f * GameCameras.instance.tk2dCam.ZoomFactor);
         foreach (var collider2D in gameObject.GetComponentsInChildren<Collider2D>())
         {
             var pairKey = TryAddHitboxes(collider2D);
             DrawHitbox(camera, collider2D, pairKey, lineWidth);
         }
     }
+
     private void DrawHitbox(Camera camera, Collider2D collider2D, HitboxType hitboxType, float lineWidth)
     {
         if (collider2D == null || !collider2D.isActiveAndEnabled)
@@ -262,6 +278,7 @@ internal class ColliderRenderer : MonoBehaviour
         }
         GUI.depth = origDepth;
     }
+
     private void DrawPointSequence(List<Vector2> points, Camera camera, Collider2D collider2D, HitboxType hitboxType, float lineWidth)
     {
         for (int i = 0; i < points.Count - 1; i++)

@@ -1,33 +1,32 @@
 ﻿namespace RingLib;
 
-internal class RandomSelectorItem
+internal class RandomSelector<T>
 {
-    public Type Key { get; }
-    public float Weight { get; }
-    public int MaxCount { get; }
-    public int CurrentCount = 0;
-    public RandomSelectorItem(Type key, float weight, int maxCount)
-    {
-        Key = key;
-        Weight = weight;
-        MaxCount = maxCount;
-    }
-}
+    private List<RandomSelectorItem<T>> items;
 
-internal class RandomSelector
-{
-    private List<RandomSelectorItem> items;
-    public RandomSelector(List<RandomSelectorItem> items)
+    private class RandomSelectorItem<T>
     {
-        foreach (var item in items)
+        public T Value { get; }
+        public float Weight { get; }
+        public int MaxCount { get; }
+        public int CurrentCount = 0;
+        public RandomSelectorItem(T value, float weight, int maxCount)
         {
-            if (item.Weight < 0)
+            Value = value;
+            if (weight < 0)
             {
-                Log.LogError(GetType().Name, "Weights must be non-negative");
+                Log.LogError(GetType().Name, "Weight must be non-negative");
             }
+            Weight = weight;
+            MaxCount = maxCount;
         }
-        this.items = items;
     }
+
+    public RandomSelector(List<(T, float, int)> items)
+    {
+        this.items = items.Select(item => new RandomSelectorItem<T>(item.Item1, item.Item2, item.Item3)).ToList();
+    }
+
     private int GetRandomIndex(List<int> candidates)
     {
         List<float> newWeights = new();
@@ -61,7 +60,8 @@ internal class RandomSelector
         Log.LogError(GetType().Name, "Failed to get random key");
         return -1;
     }
-    public Type Get()
+
+    public T Get()
     {
         List<int> candidates = new();
         for (int i = 0; i < items.Count; i++)
@@ -92,6 +92,6 @@ internal class RandomSelector
                 items[i].CurrentCount = 0;
             }
         }
-        return items[randomIndex].Key;
+        return items[randomIndex].Value;
     }
 }

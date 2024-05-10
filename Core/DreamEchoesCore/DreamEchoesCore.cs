@@ -12,6 +12,7 @@ namespace DreamEchoesCore;
 public class DreamEchoesCore : Mod
 {
     public static DreamEchoesCore Instance { get; private set; }
+    private bool renederColliders = false;
     public DreamEchoesCore() : base("DreamEchoesCore")
     {
         Instance = this;
@@ -58,6 +59,14 @@ public class DreamEchoesCore : Mod
             else
             {
                 control.UninstallControlled();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            renederColliders = !renederColliders;
+            foreach (var stateMachine in RingLib.StateMachine.StateMachine.GetInstances())
+            {
+                stateMachine.gameObject.GetOrAddComponent<ColliderRenderer>().Enabled = renederColliders;
             }
         }
         orig(self);
