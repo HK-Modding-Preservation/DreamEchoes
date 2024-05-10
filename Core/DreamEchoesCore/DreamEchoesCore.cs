@@ -1,6 +1,10 @@
-﻿using Modding;
+﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
+using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+using Modding;
+using Modding.Utils;
 using RingLib;
 using UnityEngine;
+using WeaverCore.Utilities;
 
 namespace DreamEchoesCore;
 
@@ -24,5 +28,33 @@ public class DreamEchoesCore : Mod
     public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
     {
         Preloader.Initialize(preloadedObjects);
+        On.HeroController.Update += HeroControllerUpdate;
+    }
+
+    private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)
+    {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            var control = self.gameObject.GetOrAddComponent<Control>();
+            if (!control.HasControlled)
+            {
+                if (!self.controlReqlinquished)
+                {
+                    var seerPrefab = WeaverAssets.LoadAssetFromBundle<GameObject, DreamEchoes.DreamEchoes>("Seer");
+                    var seer = GameObject.Instantiate(seerPrefab, self.transform.position, Quaternion.identity);
+                    seer.GetComponent<SeerStateMachine>().StartState = typeof(ControlledIdle);
+                    control.InstallControlled(seer);
+                }
+                else
+                {
+                    RingLib.Log.LogInfo(GetType().Name, "Cannot install controlled while control is relinquished");
+                }
+            }
+            else
+            {
+                control.UninstallControlled();
+            }
+        }
+        orig(self);
     }
 }

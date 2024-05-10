@@ -4,6 +4,13 @@ namespace RingLib;
 
 internal class Control : MonoBehaviour
 {
+    public bool HasControlled { get; private set; }
+    public GameObject Controlled { get; private set; }
+    private float originalGravityScale;
+    private Vector2 originalColliderOffset;
+    private Vector2 originalColliderSize;
+    private Vector2 originalHeroBoxColliderOffset;
+    private Vector2 originalHeroBoxColliderSize;
     private void DestroyControlled()
     {
         if (!HasControlled)
@@ -80,11 +87,4 @@ internal class Control : MonoBehaviour
             }
         }
     }
-    public bool HasControlled { get; private set; }
-    public GameObject Controlled { get; private set; }
-    private float originalGravityScale;
-    private Vector2 originalColliderOffset;
-    private Vector2 originalColliderSize;
-    private Vector2 originalHeroBoxColliderOffset;
-    private Vector2 originalHeroBoxColliderSize;
 }

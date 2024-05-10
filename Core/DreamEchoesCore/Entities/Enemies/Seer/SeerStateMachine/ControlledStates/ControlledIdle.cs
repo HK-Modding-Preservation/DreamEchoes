@@ -13,14 +13,8 @@ internal class ControlledIdle : State<SeerStateMachine>
     }
     public override Transition Update()
     {
-        var inputActions = StateMachine.InputActions;
-        if (inputActions.left.IsPressed || inputActions.right.IsPressed)
+        if (StateMachine.InputManager.Direction != 0)
         {
-            var direction = inputActions.left.IsPressed ? -1 : 1;
-            if (StateMachine.Direction() != direction)
-            {
-                StateMachine.Turn();
-            }
             return new ToState { State = typeof(ControlledRun) };
         }
         return new CurrentState();

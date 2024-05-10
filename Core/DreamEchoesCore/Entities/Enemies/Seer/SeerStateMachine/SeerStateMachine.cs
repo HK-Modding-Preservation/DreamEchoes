@@ -1,8 +1,4 @@
-﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
-using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
-using HKMirror.Reflection;
-using Modding.Utils;
-using RingLib;
+﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -25,9 +21,8 @@ internal class SeerStateMachine : StateMachine
         }
     }
     public RingLib.Animator Animator { get; private set; }
-    public HeroActions InputActions;
-    public SeerStateMachine() : base(typeof(Idle), new Dictionary<string, Type> {
-        { "Control", typeof(ControlledIdle) } })
+    public RingLib.InputManager InputManager;
+    public SeerStateMachine() : base(typeof(Idle), [])
     {
         Config = new();
     }
@@ -38,15 +33,7 @@ internal class SeerStateMachine : StateMachine
         rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
         Animator = animation.GetComponent<RingLib.Animator>();
-        InputActions = HeroController.instance.Reflect().inputHandler.inputActions;
-    }
-    protected override void StateMachineUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            Target().GetOrAddComponent<Control>().InstallControlled(gameObject);
-            ReceiveMessage("Control");
-        }
+        InputManager = gameObject.AddComponent<RingLib.InputManager>();
     }
     public GameObject Target()
     {

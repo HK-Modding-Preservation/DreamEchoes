@@ -6,7 +6,7 @@ internal class StateMachine : MonoBehaviour
 {
     private static List<StateMachine> instances = new();
     private Dictionary<string, StateBase> states;
-    private string startState;
+    public Type StartState;
     public string CurrentState { get; private set; }
     private Dictionary<string, string> globalTransitions = new();
     private CoroutineManager coroutineManager = new();
@@ -18,7 +18,7 @@ internal class StateMachine : MonoBehaviour
         {
             state.StateMachine = this;
         }
-        this.startState = startState.Name;
+        StartState = startState;
         foreach (var globalTransition in globalTransitions)
         {
             this.globalTransitions.Add(globalTransition.Key, globalTransition.Value.Name);
@@ -78,7 +78,7 @@ internal class StateMachine : MonoBehaviour
     {
         if (CurrentState == null)
         {
-            SetState(startState, false);
+            SetState(StartState.Name, false);
         }
         StateMachineUpdate();
         void Transit(Transition transition)
@@ -96,25 +96,30 @@ internal class StateMachine : MonoBehaviour
         Transit(states[CurrentState].Update());
         Transit(coroutineManager.UpdateCoroutines());
     }
-    public void ReceiveMessage(string message)
+    public void ReceiveEvent(string event_)
     {
-        if (!globalTransitions.ContainsKey(message))
+        if (!globalTransitions.ContainsKey(event_))
         {
-            Log.LogInfo(GetType().Name, $"No global transition for {message}");
+            Log.LogInfo(GetType().Name, $"No global transition for {event_}");
             return;
         }
-        SetState(globalTransitions[message], true);
+        if (CurrentState == null)
+        {
+            Log.LogInfo(GetType().Name, $"StateMachine has not started yet");
+            return;
+        }
+        SetState(globalTransitions[event_], true);
     }
-    private List<StateMachine> GetInstances()
+    private static List<StateMachine> GetInstances()
     {
         instances.RemoveAll(instance => instance == null);
         return instances;
     }
-    public new void BroadcastMessage(string message)
+    public static void BroadcastEvent(string event_)
     {
         foreach (var instance in GetInstances())
         {
-            instance.ReceiveMessage(message);
+            instance.ReceiveEvent(event_);
         }
     }
     public void StartCoroutine(IEnumerator<Transition> coroutine)
