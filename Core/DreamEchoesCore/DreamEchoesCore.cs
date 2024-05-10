@@ -29,9 +29,9 @@ public class DreamEchoesCore : Mod
     public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
     {
         Preloader.Initialize(preloadedObjects);
+        Hooks.Initialize();
         On.HeroController.Update += HeroControllerUpdate;
     }
-
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)
     {
         if (Input.GetKeyDown(KeyCode.F5))
