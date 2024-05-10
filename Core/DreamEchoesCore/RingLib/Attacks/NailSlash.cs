@@ -8,7 +8,9 @@ internal class NailSlash : Attack
     public int DamageEnemy;
     private GameObject damageHero;
     private GameObject damageEnemy;
+    private GameObject damageEnemyTinker;
     private PolygonCollider2D originalCollider2D;
+
     private void Start()
     {
         var damageHeroPrefab = Preloader.Get("GG_Sly/Battle Scene/Sly Boss/S1");
@@ -18,6 +20,7 @@ internal class NailSlash : Attack
         Destroy(damageHero.GetComponent<PolygonCollider2D>());
         damageHero.GetComponent<DamageHero>().damageDealt = DamageHero;
         damageHero.SetActive(true);
+
         damageEnemy = new GameObject("DamageEnemy");
         damageEnemy.layer = LayerMask.NameToLayer("Attack");
         damageEnemy.transform.parent = transform;
@@ -34,29 +37,45 @@ internal class NailSlash : Attack
         damageEnemies.moveDirection = damageEnemiesSlash.FsmVariables.GetFsmBool("moveDirection").Value;
         damageEnemies.specialType = (SpecialTypes)damageEnemiesSlash.FsmVariables.GetFsmInt("Special Type").Value;
         damageEnemy.SetActive(false);
+
+        damageEnemyTinker = new GameObject("DamageEnemyTinker");
+        damageEnemyTinker.layer = LayerMask.NameToLayer("Tinker");
+        damageEnemyTinker.transform.parent = transform;
+        damageEnemyTinker.transform.localPosition = Vector3.zero;
+        damageEnemyTinker.transform.localScale = Vector3.one;
+        damageEnemyTinker.SetActive(false);
+
         originalCollider2D = GetComponent<PolygonCollider2D>();
     }
+
     private void Update()
     {
         if (damageHero.GetComponent<PolygonCollider2D>() == null)
         {
-            var parryableNailSlashCollider = damageHero.AddComponent<PolygonCollider2D>();
-            ComponentPatcher<PolygonCollider2D>.Patch(parryableNailSlashCollider, originalCollider2D, ["isTrigger", "points"]);
+            var collider2D = damageHero.AddComponent<PolygonCollider2D>();
+            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
         }
         if (damageEnemy.GetComponent<PolygonCollider2D>() == null)
         {
-            var parryableNailSlashCollider = damageEnemy.AddComponent<PolygonCollider2D>();
-            ComponentPatcher<PolygonCollider2D>.Patch(parryableNailSlashCollider, originalCollider2D, ["isTrigger", "points"]);
+            var collider2D = damageEnemy.AddComponent<PolygonCollider2D>();
+            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
+        }
+        if (damageEnemyTinker.GetComponent<PolygonCollider2D>() == null)
+        {
+            var collider2D = damageEnemyTinker.AddComponent<PolygonCollider2D>();
+            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
         }
         if (Hero)
         {
             damageHero.SetActive(false);
             damageEnemy.SetActive(true);
+            damageEnemyTinker.SetActive(true);
         }
         else
         {
             damageHero.SetActive(true);
             damageEnemy.SetActive(false);
+            damageEnemyTinker.SetActive(false);
         }
     }
 }
