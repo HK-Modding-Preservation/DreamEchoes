@@ -21,6 +21,8 @@ internal class NailSlash : Attack
         damageEnemy = new GameObject("DamageEnemy");
         damageEnemy.layer = LayerMask.NameToLayer("Attack");
         damageEnemy.transform.parent = transform;
+        damageEnemy.transform.localPosition = Vector3.zero;
+        damageEnemy.transform.localScale = Vector3.one;
         var damageEnemies = damageEnemy.AddComponent<DamageEnemies>();
         var damageEnemiesSlash = HeroController.instance.transform.Find("Attacks").Find("Slash").gameObject.LocateMyFSM("damages_enemy");
         damageEnemies.attackType = (AttackTypes)damageEnemiesSlash.FsmVariables.GetFsmInt("attackType").Value;

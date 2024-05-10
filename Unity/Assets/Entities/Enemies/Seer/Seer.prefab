@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 3161486071124587232}
   - component: {fileID: 3161486071124587233}
   - component: {fileID: 3161486071124587246}
+  - component: {fileID: 3161486071353194377}
   m_Layer: 11
   m_Name: Seer
   m_TagString: Untagged
@@ -688,6 +689,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1761944919, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3161486071353194377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071124587234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -616420850, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3161486071140616317

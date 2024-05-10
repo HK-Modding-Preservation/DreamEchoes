@@ -30,6 +30,9 @@
 		<Reference Include="UnityEngine.ImageConversionModule">
 			<HintPath>$(GamePath)/UnityEngine.ImageConversionModule.dll</HintPath>
 		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>$(GamePath)/UnityEngine.IMGUIModule.dll</HintPath>
+		</Reference>
 		<Reference Include="UnityEngine.InputLegacyModule">
 			<HintPath>$(GamePath)/UnityEngine.InputLegacyModule.dll</HintPath>
 		</Reference>
