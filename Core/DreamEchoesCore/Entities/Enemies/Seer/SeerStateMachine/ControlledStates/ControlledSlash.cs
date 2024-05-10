@@ -45,4 +45,11 @@ internal class ControlledSlash : State<SeerStateMachine>
         StateMachine.InputManager.AttackPressed = false;
         yield return new ToState { State = typeof(ControlledIdle) };
     }
+    public override void Exit(bool interrupted)
+    {
+        if (interrupted)
+        {
+            StateMachine.ResetAttacks();
+        }
+    }
 }

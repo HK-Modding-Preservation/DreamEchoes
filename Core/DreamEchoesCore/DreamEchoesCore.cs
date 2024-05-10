@@ -3,6 +3,7 @@ using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using Modding;
 using Modding.Utils;
 using RingLib;
+using RingLib.Attacks;
 using UnityEngine;
 using WeaverCore.Utilities;
 
@@ -43,6 +44,10 @@ public class DreamEchoesCore : Mod
                     var seerPrefab = WeaverAssets.LoadAssetFromBundle<GameObject, DreamEchoes.DreamEchoes>("Seer");
                     var seer = GameObject.Instantiate(seerPrefab, self.transform.position, Quaternion.identity);
                     seer.GetComponent<SeerStateMachine>().StartState = typeof(ControlledIdle);
+                    foreach (var attack in seer.GetComponentsInChildren<Attack>(true))
+                    {
+                        attack.Hero = true;
+                    }
                     control.InstallControlled(seer);
                 }
                 else

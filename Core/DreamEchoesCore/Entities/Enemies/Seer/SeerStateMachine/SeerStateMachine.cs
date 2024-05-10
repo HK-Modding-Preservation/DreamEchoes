@@ -1,5 +1,6 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+using RingLib.Attacks;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -85,5 +86,12 @@ internal class SeerStateMachine : StateMachine
             }
         }
         return false;
+    }
+    public void ResetAttacks()
+    {
+        foreach (var attack in gameObject.GetComponentsInChildren<Attack>())
+        {
+            attack.gameObject.SetActive(false);
+        }
     }
 }
