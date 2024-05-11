@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: 3161486070624962389}
   - component: {fileID: 3161486070624962387}
   - component: {fileID: 301536763547394540}
+  - component: {fileID: 1802180125914947518}
   m_Layer: 11
   m_Name: Animation
   m_TagString: Untagged
@@ -553,7 +554,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bf3ad14f53b2a0b4ab6de33141a01490, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -695,6 +696,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1802180125914947518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486070624962391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0aa017e1a562394bae8a1d35dc616b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashIntensity: 0
+  CustomFlasherMaterial: {fileID: 0}
 --- !u!1 &3161486071124587234
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +726,7 @@ GameObject:
   - component: {fileID: 3161486071353194377}
   - component: {fileID: 3161486071353194378}
   - component: {fileID: 3860010025637030196}
+  - component: {fileID: 7864095076795069169}
   m_Layer: 11
   m_Name: Seer
   m_TagString: Untagged
@@ -845,6 +862,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doFlashEffects: 1
   damageSound: {fileID: 8300000, guid: 4dd03c7f900f45e4cb9580542d0dff52, type: 3}
+--- !u!114 &7864095076795069169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071124587234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c494c7212486a7846a3c291aae802778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  convoAmount: 8
+  convoTitle: GENERIC
+  startSuppressed: 0
+  noSoul: 0
+  dreamImpactPrefab: {fileID: 0}
+  allowUseChildColliders: 0
 --- !u!1 &3161486071140616317
 GameObject:
   m_ObjectHideFlags: 0
