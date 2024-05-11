@@ -1,4 +1,5 @@
 ﻿// Credit to https://github.com/TheMulhima/HollowKnight.DebugMod
+
 using GlobalEnums;
 using System.Reflection;
 using UnityEngine;
