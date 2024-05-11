@@ -7,11 +7,10 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
 internal class Run : State<SeerStateMachine>
 {
-    private RandomSelector<Type> randomSelector = new(new List<(Type, float, int)>
-    {
-        (typeof(Dash), 1, 2),
-        (typeof(Slash), 1, 2)
-    });
+    private RandomSelector<Type> randomSelector = new([
+        new(typeof(Dash), 1, 2),
+        new(typeof(Slash), 1, 2)
+    ]);
     public override Transition Enter()
     {
         StartCoroutine(Routine());
@@ -46,6 +45,6 @@ internal class Run : State<SeerStateMachine>
             timer += Time.deltaTime;
             yield return new CurrentState();
         }
-        yield return new ToState { State = randomSelector.Get() };
+        yield return new ToState { State = typeof(Attack) };
     }
 }

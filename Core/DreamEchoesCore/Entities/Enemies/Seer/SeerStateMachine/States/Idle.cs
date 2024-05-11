@@ -1,4 +1,5 @@
 ﻿
+using RingLib;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
 internal class Idle : State<SeerStateMachine>
 {
+    private RandomSelector<Type> randomSelector = new([
+        new(typeof(Run), 1, 2)
+    ]);
     public override Transition Enter()
     {
         StartCoroutine(Routine());
@@ -20,6 +24,6 @@ internal class Idle : State<SeerStateMachine>
         StateMachine.Velocity = Vector2.zero;
         StateMachine.Animator.PlayAnimation("Idle");
         yield return new WaitFor { Seconds = StateMachine.Config.IdleDuration };
-        yield return new ToState { State = typeof(Run) };
+        yield return new ToState { State = randomSelector.Get() };
     }
 }

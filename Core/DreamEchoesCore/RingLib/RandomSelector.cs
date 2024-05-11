@@ -1,30 +1,30 @@
 ﻿namespace RingLib;
 
+internal class RandomSelectorItem<T>
+{
+    public T Value { get; }
+    public float Weight { get; }
+    public int MaxCount { get; }
+    public int CurrentCount = 0;
+    public RandomSelectorItem(T value, float weight, int maxCount)
+    {
+        Value = value;
+        if (weight < 0)
+        {
+            Log.LogError(GetType().Name, "Weight must be non-negative");
+        }
+        Weight = weight;
+        MaxCount = maxCount;
+    }
+}
+
 internal class RandomSelector<T>
 {
     private List<RandomSelectorItem<T>> items;
 
-    private class RandomSelectorItem<T>
+    public RandomSelector(List<RandomSelectorItem<T>> items)
     {
-        public T Value { get; }
-        public float Weight { get; }
-        public int MaxCount { get; }
-        public int CurrentCount = 0;
-        public RandomSelectorItem(T value, float weight, int maxCount)
-        {
-            Value = value;
-            if (weight < 0)
-            {
-                Log.LogError(GetType().Name, "Weight must be non-negative");
-            }
-            Weight = weight;
-            MaxCount = maxCount;
-        }
-    }
-
-    public RandomSelector(List<(T, float, int)> items)
-    {
-        this.items = items.Select(item => new RandomSelectorItem<T>(item.Item1, item.Item2, item.Item3)).ToList();
+        this.items = items;
     }
 
     private int GetRandomIndex(List<int> candidates)

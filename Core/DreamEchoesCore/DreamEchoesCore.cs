@@ -3,7 +3,7 @@ using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using Modding;
 using Modding.Utils;
 using RingLib;
-using RingLib.Attacks;
+using RingLib.Attack;
 using UnityEngine;
 using WeaverCore.Utilities;
 

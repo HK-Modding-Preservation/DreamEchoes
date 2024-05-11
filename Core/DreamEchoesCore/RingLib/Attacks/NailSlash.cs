@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RingLib.Attacks;
+namespace RingLib.Attack;
 
 internal class NailSlash : Attack
 {

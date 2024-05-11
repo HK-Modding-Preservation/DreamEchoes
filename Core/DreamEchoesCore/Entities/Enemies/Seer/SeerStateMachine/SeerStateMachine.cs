@@ -1,6 +1,5 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
-using RingLib.Attacks;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -96,7 +95,7 @@ internal class SeerStateMachine : StateMachine
         BoxCollider2D.offset = OriginalBoxCollider2DOffset;
         BoxCollider2D.size = OriginalBoxCollider2DSize;
         Rigidbody2D.gravityScale = Config.GravityScale;
-        foreach (var attack in gameObject.GetComponentsInChildren<Attack>())
+        foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attack.Attack>())
         {
             attack.gameObject.SetActive(false);
         }
