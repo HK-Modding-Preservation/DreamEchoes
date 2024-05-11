@@ -40,6 +40,6 @@ internal class Run : State<SeerStateMachine>
             timer += Time.deltaTime;
             yield return new CurrentState();
         }
-        yield return new ToState { State = typeof(Idle) };
+        yield return new ToState { State = typeof(Slash) };
     }
 }

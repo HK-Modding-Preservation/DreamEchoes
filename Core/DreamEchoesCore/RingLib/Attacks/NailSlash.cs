@@ -14,9 +14,11 @@ internal class NailSlash : Attack
     private void Start()
     {
         var damageHeroPrefab = Preloader.Get("GG_Sly/Battle Scene/Sly Boss/S1");
-        damageHero = Instantiate(damageHeroPrefab, Vector3.zero, Quaternion.identity, transform);
-        damageHero.transform.localScale = Vector3.one;
+        damageHero = Instantiate(damageHeroPrefab);
         damageHero.name = "DamageHero";
+        damageHero.transform.parent = transform;
+        damageHero.transform.localPosition = Vector3.zero;
+        damageHero.transform.localScale = Vector3.one;
         Destroy(damageHero.GetComponent<PolygonCollider2D>());
         damageHero.GetComponent<DamageHero>().damageDealt = DamageHero;
         damageHero.SetActive(true);
