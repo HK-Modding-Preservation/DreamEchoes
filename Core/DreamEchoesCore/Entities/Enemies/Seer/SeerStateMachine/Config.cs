@@ -8,7 +8,7 @@ internal class Config
     public float IdleDuration = 0.25f;
 
     public float RunVelocityX = 10;
-    public float RunDuration = 0.5f;
+    public float RunDuration = 0.45f;
 
     public float SlashVelocityX = 7.5f;
 }

@@ -708,6 +708,8 @@ GameObject:
   - component: {fileID: 3161486071124587233}
   - component: {fileID: 3161486071124587246}
   - component: {fileID: 3161486071353194377}
+  - component: {fileID: 3161486071353194378}
+  - component: {fileID: 3860010025637030196}
   m_Layer: 11
   m_Name: Seer
   m_TagString: Untagged
@@ -806,6 +808,43 @@ MonoBehaviour:
   hazardType: 1
   shadowDashHazard: 0
   resetOnEnable: 0
+--- !u!114 &3161486071353194378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071124587234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042bb1662729b5441bc0eda3f9bb3240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  Invincible: 0
+  DeflectBlows: 0
+  EvasionTime: 0.2
+  GainSoul: 1
+  DoEffectsOnHit: 1
+  EffectsOffset: {x: 0, y: 0, z: 0}
+  receiveExtraDamage: 1
+  SmallGeo: 0
+  MediumGeo: 0
+  LargeGeo: 0
+--- !u!114 &3860010025637030196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071124587234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea2f0447f54e7a418dedfb7223c11c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doFlashEffects: 1
+  damageSound: {fileID: 8300000, guid: 4dd03c7f900f45e4cb9580542d0dff52, type: 3}
 --- !u!1 &3161486071140616317
 GameObject:
   m_ObjectHideFlags: 0
