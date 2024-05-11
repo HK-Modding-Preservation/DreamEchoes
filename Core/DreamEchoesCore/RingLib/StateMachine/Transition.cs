@@ -11,5 +11,5 @@ internal class ToState : Transition
 
 internal class WaitFor : Transition
 {
-    public float Time;
+    public float Seconds;
 }

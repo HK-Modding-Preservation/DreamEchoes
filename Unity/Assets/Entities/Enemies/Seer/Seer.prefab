@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 3161486070624962388}
   - component: {fileID: 3161486070624962389}
   - component: {fileID: 3161486070624962387}
-  - component: {fileID: 3161486071353194377}
+  - component: {fileID: 301536763547394540}
   m_Layer: 11
   m_Name: Animation
   m_TagString: Untagged
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Slash1Sound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}
   Slash2Sound: {fileID: 8300000, guid: a09ff5f6202ce244d8913d821969be8b, type: 3}
---- !u!82 &3161486071353194377
+--- !u!82 &301536763547394540
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 3161486071124587232}
   - component: {fileID: 3161486071124587233}
   - component: {fileID: 3161486071124587246}
+  - component: {fileID: 3161486071353194377}
   m_Layer: 11
   m_Name: Seer
   m_TagString: Untagged
@@ -789,6 +790,22 @@ MonoBehaviour:
   m_Script: {fileID: -1761944919, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3161486071353194377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071124587234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd11a7a3b9c16940bc7acd10ca21a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageDealt: 1
+  hazardType: 1
+  shadowDashHazard: 0
+  resetOnEnable: 0
 --- !u!1 &3161486071140616317
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3161486071140616316}
   - component: {fileID: 3161486071140616315}
-  - component: {fileID: 3161486071140616314}
+  - component: {fileID: 3583587862934360674}
   m_Layer: 11
   m_Name: Reference
   m_TagString: Untagged
@@ -872,7 +889,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3161486071140616314
+--- !u!114 &3583587862934360674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -881,6 +898,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3161486071140616317}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2080691976, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: -334052434, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

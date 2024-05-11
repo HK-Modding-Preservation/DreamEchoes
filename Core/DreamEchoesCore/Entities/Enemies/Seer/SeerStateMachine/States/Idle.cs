@@ -19,7 +19,7 @@ internal class Idle : State<SeerStateMachine>
         }
         StateMachine.Velocity = Vector2.zero;
         StateMachine.Animator.PlayAnimation("Idle");
-        yield return new WaitFor { Time = StateMachine.Config.IdleDuration };
+        yield return new WaitFor { Seconds = StateMachine.Config.IdleDuration };
         yield return new ToState { State = typeof(Run) };
     }
 }

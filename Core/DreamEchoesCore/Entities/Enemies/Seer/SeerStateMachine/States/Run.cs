@@ -30,7 +30,7 @@ internal class Run : State<SeerStateMachine>
         }
         StateMachine.Velocity = new Vector2(velocityX, 0);
         StateMachine.Animator.PlayAnimation("Run");
-        yield return new WaitFor { Time = StateMachine.Config.RunDuration };
+        yield return new WaitFor { Seconds = StateMachine.Config.RunDuration };
         var endDuration = StateMachine.Animator.PlayAnimation("RunEnd");
         timer = 0f;
         while (timer < endDuration)

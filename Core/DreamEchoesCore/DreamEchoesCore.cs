@@ -45,6 +45,7 @@ public class DreamEchoesCore : Mod
                     var seerPrefab = WeaverAssets.LoadAssetFromBundle<GameObject, DreamEchoes.DreamEchoes>("Seer");
                     var seer = GameObject.Instantiate(seerPrefab, self.transform.position, Quaternion.identity);
                     seer.GetComponent<SeerStateMachine>().StartState = typeof(ControlledIdle);
+                    GameObject.Destroy(seer.GetComponent<WeaverCore.Components.PlayerDamager>());
                     foreach (var attack in seer.GetComponentsInChildren<Attack>(true))
                     {
                         attack.Hero = true;

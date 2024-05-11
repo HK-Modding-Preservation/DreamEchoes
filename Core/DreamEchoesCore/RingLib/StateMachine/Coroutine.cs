@@ -29,7 +29,7 @@ internal class Coroutine
             }
             else if (transition is WaitFor waitFor)
             {
-                time = waitFor.Time;
+                time = waitFor.Seconds;
                 return new CurrentState();
             }
             else

@@ -87,7 +87,7 @@ internal class SeerStateMachine : StateMachine
         }
         return false;
     }
-    public void ResetAttacks()
+    public void Reset()
     {
         foreach (var attack in gameObject.GetComponentsInChildren<Attack>())
         {

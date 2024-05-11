@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace RingLib;
+namespace RingLib.EntityManagement;
 
 internal class DeactivateOnStart : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         gameObject.SetActive(false);
     }

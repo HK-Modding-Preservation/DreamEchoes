@@ -45,7 +45,7 @@ internal class Slash : State<SeerStateMachine>
     {
         if (interrupted)
         {
-            StateMachine.ResetAttacks();
+            StateMachine.Reset();
         }
     }
 }
