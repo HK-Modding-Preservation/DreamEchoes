@@ -9,7 +9,7 @@ internal class NailSlash : Attack
     private GameObject damageHero;
     private GameObject damageEnemy;
     private GameObject damageEnemyTinker;
-    private PolygonCollider2D originalCollider2D;
+    private Collider2D originalCollider;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ internal class NailSlash : Attack
         damageHero.transform.parent = transform;
         damageHero.transform.localPosition = Vector3.zero;
         damageHero.transform.localScale = Vector3.one;
-        Destroy(damageHero.GetComponent<PolygonCollider2D>());
+        Destroy(damageHero.GetComponent<Collider2D>());
         damageHero.GetComponent<DamageHero>().damageDealt = DamageHero;
         damageHero.SetActive(true);
 
@@ -47,26 +47,41 @@ internal class NailSlash : Attack
         damageEnemyTinker.transform.localScale = Vector3.one;
         damageEnemyTinker.SetActive(false);
 
-        originalCollider2D = GetComponent<PolygonCollider2D>();
+        originalCollider = GetComponent<Collider2D>();
     }
-
+    private void CopyCollider(BoxCollider2D original, BoxCollider2D copy)
+    {
+        ComponentPatcher<BoxCollider2D>.Patch(copy, original, ["isTrigger", "offset", "size"]);
+    }
+    private void CopyCollider(PolygonCollider2D original, PolygonCollider2D copy)
+    {
+        ComponentPatcher<PolygonCollider2D>.Patch(copy, original, ["isTrigger", "points"]);
+    }
+    private void InstallCollider(GameObject gameObject)
+    {
+        var originalColliderType = originalCollider.GetType();
+        if (gameObject.GetComponent(originalColliderType) == null)
+        {
+            var collider = gameObject.AddComponent(originalColliderType);
+            if (collider is BoxCollider2D boxCollider2D)
+            {
+                CopyCollider(originalCollider as BoxCollider2D, boxCollider2D);
+            }
+            else if (collider is PolygonCollider2D polygonCollider2D)
+            {
+                CopyCollider(originalCollider as PolygonCollider2D, polygonCollider2D);
+            }
+            else
+            {
+                Log.LogError(GetType().Name, "Unknown collider type");
+            }
+        }
+    }
     private void Update()
     {
-        if (damageHero.GetComponent<PolygonCollider2D>() == null)
-        {
-            var collider2D = damageHero.AddComponent<PolygonCollider2D>();
-            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
-        }
-        if (damageEnemy.GetComponent<PolygonCollider2D>() == null)
-        {
-            var collider2D = damageEnemy.AddComponent<PolygonCollider2D>();
-            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
-        }
-        if (damageEnemyTinker.GetComponent<PolygonCollider2D>() == null)
-        {
-            var collider2D = damageEnemyTinker.AddComponent<PolygonCollider2D>();
-            ComponentPatcher<PolygonCollider2D>.Patch(collider2D, originalCollider2D, ["isTrigger", "points"]);
-        }
+        InstallCollider(damageHero);
+        InstallCollider(damageEnemy);
+        InstallCollider(damageEnemyTinker);
         if (Hero)
         {
             damageHero.SetActive(false);

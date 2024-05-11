@@ -1,4 +1,5 @@
 ﻿
+using RingLib;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -6,6 +7,11 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
 internal class Run : State<SeerStateMachine>
 {
+    private RandomSelector<Type> randomSelector = new(new List<(Type, float, int)>
+    {
+        (typeof(Dash), 1, 2),
+        (typeof(Slash), 1, 2)
+    });
     public override Transition Enter()
     {
         StartCoroutine(Routine());
@@ -40,6 +46,6 @@ internal class Run : State<SeerStateMachine>
             timer += Time.deltaTime;
             yield return new CurrentState();
         }
-        yield return new ToState { State = typeof(Slash) };
+        yield return new ToState { State = randomSelector.Get() };
     }
 }

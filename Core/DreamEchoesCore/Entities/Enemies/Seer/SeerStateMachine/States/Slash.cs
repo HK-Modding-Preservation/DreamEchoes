@@ -16,11 +16,22 @@ internal class Slash : State<SeerStateMachine>
         {
             StateMachine.Turn();
         }
-        var direction = StateMachine.Direction();
-        var velocityX = StateMachine.Config.SlashVelocityX * direction;
+        var velocityX = (StateMachine.Target().transform.position.x - StateMachine.transform.position.x);
+        velocityX *= StateMachine.Config.SlashVelocityXScale;
+        var minVelocityX = StateMachine.Config.ControlledSlashVelocityX;
+        if (velocityX > -minVelocityX && velocityX < minVelocityX)
+        {
+            velocityX = Mathf.Sign(velocityX) * StateMachine.Config.ControlledSlashVelocityX;
+        }
         StateMachine.Velocity = Vector2.zero;
         IEnumerable<Transition> Slash(string slash)
         {
+            if (!StateMachine.FacingTarget())
+            {
+                velocityX *= -1;
+                StateMachine.Velocity *= -1;
+                StateMachine.Turn();
+            }
             var previousVelocityX = StateMachine.Velocity.x;
             var duration = StateMachine.Animator.PlayAnimation(slash);
             var timer = 0f;

@@ -9,17 +9,19 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 internal class SeerStateMachine : StateMachine
 {
     public Config Config { get; }
-    private BoxCollider2D boxCollider2D;
-    private Rigidbody2D rigidbody2D;
+    public BoxCollider2D BoxCollider2D;
+    public Vector2 OriginalBoxCollider2DOffset;
+    public Vector2 OriginalBoxCollider2DSize;
+    public Rigidbody2D Rigidbody2D;
     public Vector2 Velocity
     {
         get
         {
-            return rigidbody2D.velocity;
+            return Rigidbody2D.velocity;
         }
         set
         {
-            rigidbody2D.velocity = value;
+            Rigidbody2D.velocity = value;
         }
     }
     public RingLib.Animator Animator { get; private set; }
@@ -30,9 +32,11 @@ internal class SeerStateMachine : StateMachine
     }
     protected override void StateMachineStart()
     {
-        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
-        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.gravityScale = Config.GravityScale;
+        BoxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        OriginalBoxCollider2DOffset = BoxCollider2D.offset;
+        OriginalBoxCollider2DSize = BoxCollider2D.size;
+        Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        Rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
         Animator = animation.GetComponent<RingLib.Animator>();
         InputManager = gameObject.AddComponent<RingLib.InputManager>();
@@ -67,15 +71,15 @@ internal class SeerStateMachine : StateMachine
     }
     public bool Landed()
     {
-        if (rigidbody2D.velocity.y > 0)
+        if (Rigidbody2D.velocity.y > 0)
         {
             return false;
         }
         var bottomRays = new List<Vector2>
         {
-            boxCollider2D.bounds.min,
-            new Vector2(boxCollider2D.bounds.center.x, boxCollider2D.bounds.min.y),
-            new Vector2(boxCollider2D.bounds.max.x, boxCollider2D.bounds.min.y)
+            BoxCollider2D.bounds.min,
+            new Vector2(BoxCollider2D.bounds.center.x, BoxCollider2D.bounds.min.y),
+            new Vector2(BoxCollider2D.bounds.max.x, BoxCollider2D.bounds.min.y)
         };
         for (var k = 0; k < 3; k++)
         {
@@ -89,6 +93,9 @@ internal class SeerStateMachine : StateMachine
     }
     public void Reset()
     {
+        BoxCollider2D.offset = OriginalBoxCollider2DOffset;
+        BoxCollider2D.size = OriginalBoxCollider2DSize;
+        Rigidbody2D.gravityScale = Config.GravityScale;
         foreach (var attack in gameObject.GetComponentsInChildren<Attack>())
         {
             attack.gameObject.SetActive(false);

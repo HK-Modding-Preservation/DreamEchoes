@@ -13,7 +13,7 @@ internal class ControlledSlash : State<SeerStateMachine>
     private IEnumerator<Transition> Routine()
     {
         var direction = StateMachine.Direction();
-        var velocityX = StateMachine.Config.SlashVelocityX * direction;
+        var velocityX = StateMachine.Config.ControlledSlashVelocityX * direction;
         StateMachine.Velocity = Vector2.zero;
         IEnumerable<Transition> Slash(string slash)
         {
