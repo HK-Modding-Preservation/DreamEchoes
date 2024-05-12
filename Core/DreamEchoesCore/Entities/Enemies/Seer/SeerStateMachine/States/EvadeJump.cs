@@ -50,7 +50,8 @@ internal class EvadeJump : State<SeerStateMachine>
 
         // JumpEnd
         StateMachine.Velocity = Vector2.zero;
-        yield return new WaitFor { Seconds = StateMachine.Animator.PlayAnimation("JumpEnd") };
+        StateMachine.Animator.PlayAnimation("JumpEnd");
+        yield return new WaitTill { Condition = () => StateMachine.Animator.Finished };
         yield return new ToState { State = typeof(Attack) };
     }
 }
