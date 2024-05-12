@@ -1,3 +1,6 @@
 [submodule "Unity/Assets/Dependencies/WeaverCore"]
 	path = Unity/Assets/Dependencies/WeaverCore
 	url = git@github.com:danirainy/WeaverCore.git
+[submodule "Core/DreamEchoesCore/RingLib"]
+	path = Core/DreamEchoesCore/RingLib
+	url = git@github.com:danirainy/RingLib.git

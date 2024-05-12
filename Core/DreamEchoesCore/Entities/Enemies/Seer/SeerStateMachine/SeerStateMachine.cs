@@ -11,13 +11,15 @@ internal class SeerStateMachine : EntityStateMachine
     public Vector2 OriginalBoxCollider2DOffset;
     public Vector2 OriginalBoxCollider2DSize;
     public RingLib.Animator Animator { get; private set; }
-    public RingLib.InputManager InputManager;
+    public RingLib.InputManager InputManager { get; private set; }
     private List<GameObject> attacks = [];
+
     public SeerStateMachine() : base(typeof(Idle), [])
     {
         SpriteFacingLeft = true;
         Config = new();
     }
+
     protected override void EnemyStateMachineStart()
     {
         OriginalBoxCollider2DOffset = BoxCollider2D.offset;
@@ -32,6 +34,7 @@ internal class SeerStateMachine : EntityStateMachine
             RingLib.Log.LogInfo(GetType().Name, $"Attack {attack.name} discovered");
         }
     }
+
     protected override void EnemyStateMachineUpdate()
     {
         var attackPressed = InputManager.AttackPressed;
@@ -41,14 +44,17 @@ internal class SeerStateMachine : EntityStateMachine
             SetState(typeof(ControlledSlash));
         }
     }
+
     public GameObject Target()
     {
         return HeroController.instance.gameObject;
     }
+
     public bool FacingTarget()
     {
         return Mathf.Sign(Target().transform.position.x - transform.position.x) == Direction();
     }
+
     public void Reset()
     {
         BoxCollider2D.offset = OriginalBoxCollider2DOffset;
