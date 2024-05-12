@@ -2,7 +2,7 @@
 
 namespace RingLib.EntityManagement;
 
-internal class DeactivateAfter : MonoBehaviour
+internal class DestroyAfter : MonoBehaviour
 {
     public float Seconds;
     private void Update()
@@ -10,7 +10,7 @@ internal class DeactivateAfter : MonoBehaviour
         Seconds -= Time.deltaTime;
         if (Seconds <= 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

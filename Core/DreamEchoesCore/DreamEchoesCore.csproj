@@ -63,7 +63,7 @@
 		<Reference Include="WeaverCore">
 			<HintPath>$(GamePath)/Mods/WeaverCore/WeaverCore.dll</HintPath>
 		</Reference>
-		<Reference Include="WeaverCore">
+		<Reference Include="DreamEchoes">
 			<HintPath>$(GamePath)/Mods/DreamEchoes/DreamEchoes.dll</HintPath>
 		</Reference>
 	</ItemGroup>
