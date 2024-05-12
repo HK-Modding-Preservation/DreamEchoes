@@ -13,3 +13,8 @@ internal class WaitFor : Transition
 {
     public float Seconds;
 }
+
+internal class WaitTill : Transition
+{
+    public Func<bool> Condition;
+}

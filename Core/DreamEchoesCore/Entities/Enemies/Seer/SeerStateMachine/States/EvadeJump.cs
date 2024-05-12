@@ -30,7 +30,8 @@ internal class EvadeJump : State<SeerStateMachine>
         {
             StateMachine.Turn();
         }
-        yield return new WaitFor { Seconds = StateMachine.Animator.PlayAnimation("JumpStart") };
+        StateMachine.Animator.PlayAnimation("JumpStart");
+        yield return new WaitTill { Condition = () => StateMachine.Animator.Finished };
 
         // JumpAscend
         StateMachine.Velocity = new Vector2(velocityX, StateMachine.Config.EvadeJumpVelocityY);
