@@ -10,6 +10,7 @@ internal class Attack : State<SeerStateMachine>
         new(typeof(Dash), 1, 2),
         new(typeof(Slash), 1, 2)
     ]);
+
     public override Transition Enter()
     {
         return new ToState { State = randomSelector.Get() };

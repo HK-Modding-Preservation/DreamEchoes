@@ -57,7 +57,7 @@ internal class NailSlash : Attack
     {
         ComponentPatcher<PolygonCollider2D>.Patch(copy, original, ["isTrigger", "points"]);
     }
-    private void InstallCollider(GameObject gameObject)
+    private void InstallColliderIfNotExist(GameObject gameObject)
     {
         var originalColliderType = originalCollider.GetType();
         if (gameObject.GetComponent(originalColliderType) == null)
@@ -79,9 +79,9 @@ internal class NailSlash : Attack
     }
     private void Update()
     {
-        InstallCollider(damageHero);
-        InstallCollider(damageEnemy);
-        InstallCollider(damageEnemyTinker);
+        InstallColliderIfNotExist(damageHero);
+        InstallColliderIfNotExist(damageEnemy);
+        InstallColliderIfNotExist(damageEnemyTinker);
         if (Hero)
         {
             damageHero.SetActive(false);

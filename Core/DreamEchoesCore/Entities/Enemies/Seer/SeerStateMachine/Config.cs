@@ -5,7 +5,6 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 internal class Config
 {
     public float GravityScale = 2;
-    public bool SpriteFacingLeft = true;
 
     public float IdleDuration = 0.25f;
 

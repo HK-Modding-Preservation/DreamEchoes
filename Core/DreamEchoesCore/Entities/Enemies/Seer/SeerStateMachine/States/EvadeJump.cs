@@ -10,14 +10,17 @@ internal class EvadeJump : State<SeerStateMachine>
         StartCoroutine(Routine());
         return new CurrentState();
     }
+
     private IEnumerator<Transition> Routine()
     {
         // JumpStart
-        var jumpRadius = UnityEngine.Random.Range(StateMachine.Config.EvadeJumpRadiusMin, StateMachine.Config.EvadeJumpRadiusMax);
-        var targetXLeft = StateMachine.Target().transform.position.x - jumpRadius;
-        var targetXRight = StateMachine.Target().transform.position.x + jumpRadius;
+        var jumpRadiusMin = StateMachine.Config.EvadeJumpRadiusMin;
+        var jumpRadiusMax = StateMachine.Config.EvadeJumpRadiusMax;
+        var jumpRadius = UnityEngine.Random.Range(jumpRadiusMin, jumpRadiusMax);
+        var targetXLeft = StateMachine.Target().Position().x - jumpRadius;
+        var targetXRight = StateMachine.Target().Position().x + jumpRadius;
         float targetX;
-        if (Mathf.Abs(StateMachine.transform.position.x - targetXLeft) < Mathf.Abs(StateMachine.transform.position.x - targetXRight))
+        if (Mathf.Abs(StateMachine.Position.x - targetXLeft) < Mathf.Abs(StateMachine.Position.x - targetXRight))
         {
             targetX = targetXRight;
         }
@@ -25,7 +28,7 @@ internal class EvadeJump : State<SeerStateMachine>
         {
             targetX = targetXLeft;
         }
-        var velocityX = (targetX - StateMachine.transform.position.x) * StateMachine.Config.EvadeJumpVelocityXScale;
+        var velocityX = (targetX - StateMachine.Position.x) * StateMachine.Config.EvadeJumpVelocityXScale;
         if (Mathf.Sign(velocityX) != StateMachine.Direction())
         {
             StateMachine.Turn();
@@ -36,17 +39,11 @@ internal class EvadeJump : State<SeerStateMachine>
         // JumpAscend
         StateMachine.Velocity = new Vector2(velocityX, StateMachine.Config.EvadeJumpVelocityY);
         StateMachine.Animator.PlayAnimation("JumpAscend");
-        while (StateMachine.Velocity.y > 0)
-        {
-            yield return new CurrentState();
-        }
+        yield return new WaitTill { Condition = () => StateMachine.Velocity.y <= 0 };
 
         // JumpDescend
         StateMachine.Animator.PlayAnimation("JumpDescend");
-        while (!StateMachine.Landed())
-        {
-            yield return new CurrentState();
-        }
+        yield return new WaitTill { Condition = () => StateMachine.Landed() };
 
         // JumpEnd
         StateMachine.Velocity = Vector2.zero;

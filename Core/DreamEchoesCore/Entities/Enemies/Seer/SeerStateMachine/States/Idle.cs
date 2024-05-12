@@ -11,11 +11,13 @@ internal class Idle : State<SeerStateMachine>
         new(typeof(Run), 1, 2),
         new(typeof(EvadeJump), 1, 2)
     ]);
+
     public override Transition Enter()
     {
         StartCoroutine(Routine());
         return new CurrentState();
     }
+
     private IEnumerator<Transition> Routine()
     {
         if (!StateMachine.FacingTarget())

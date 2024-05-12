@@ -10,13 +10,14 @@ internal class Slash : State<SeerStateMachine>
         StartCoroutine(Routine());
         return new CurrentState();
     }
+
     private IEnumerator<Transition> Routine()
     {
         if (!StateMachine.FacingTarget())
         {
             StateMachine.Turn();
         }
-        var velocityX = (StateMachine.Target().transform.position.x - StateMachine.transform.position.x);
+        var velocityX = (StateMachine.Target().Position().x - StateMachine.Position.x);
         velocityX *= StateMachine.Config.SlashVelocityXScale;
         var minVelocityX = StateMachine.Config.ControlledSlashVelocityX;
         if (velocityX > -minVelocityX && velocityX < minVelocityX)
@@ -52,6 +53,7 @@ internal class Slash : State<SeerStateMachine>
         }
         yield return new ToState { State = typeof(Idle) };
     }
+
     public override void Exit(bool interrupted)
     {
         if (interrupted)

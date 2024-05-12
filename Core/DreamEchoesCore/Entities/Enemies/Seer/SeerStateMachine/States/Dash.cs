@@ -10,6 +10,7 @@ internal class Dash : State<SeerStateMachine>
         StartCoroutine(Routine());
         return new CurrentState();
     }
+
     private IEnumerator<Transition> Routine()
     {
         if (!StateMachine.FacingTarget())

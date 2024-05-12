@@ -11,11 +11,13 @@ internal class Run : State<SeerStateMachine>
         new(typeof(Dash), 1, 2),
         new(typeof(Slash), 1, 2)
     ]);
+
     public override Transition Enter()
     {
         StartCoroutine(Routine());
         return new CurrentState();
     }
+
     private IEnumerator<Transition> Routine()
     {
         if (!StateMachine.FacingTarget())

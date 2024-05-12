@@ -29,7 +29,7 @@ internal class RandomSelector<T>
 
     private int GetRandomIndex(List<int> candidates)
     {
-        List<float> newWeights = new();
+        List<float> newWeights = [];
         float totalWeight = 0;
         foreach (var i in candidates)
         {
@@ -63,7 +63,7 @@ internal class RandomSelector<T>
 
     public T Get()
     {
-        List<int> candidates = new();
+        List<int> candidates = [];
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i].CurrentCount < items[i].MaxCount)

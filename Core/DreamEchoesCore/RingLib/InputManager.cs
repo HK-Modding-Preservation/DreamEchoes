@@ -6,13 +6,13 @@ namespace RingLib;
 internal class InputManager : MonoBehaviour
 {
     public bool LeftPressed;
+    private bool leftPressed;
     public bool RightPressed;
+    private bool rightPressed;
     public float Direction => LeftPressed ? -1 : RightPressed ? 1 : 0;
     public bool AttackPressed;
-    private HeroActions heroActions;
-    private bool leftPressed;
-    private bool rightPressed;
     private bool attackPressed;
+    private HeroActions heroActions;
     public InputManager()
     {
         heroActions = HeroController.instance.Reflect().inputHandler.inputActions;
