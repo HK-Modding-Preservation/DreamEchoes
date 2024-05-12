@@ -4,7 +4,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class Config
 {
-    public float GravityScale = 1;
+    public float GravityScale = 2;
     public bool SpriteFacingLeft = true;
 
     public float IdleDuration = 0.25f;
@@ -13,7 +13,9 @@ internal class Config
     public float RunDuration = 0.45f;
 
     public float EvadeJumpRadiusMin = 5;
-    public float EvadeJumpRadiusMax = 10;
+    public float EvadeJumpRadiusMax = 7.5f;
+    public float EvadeJumpVelocityXScale = 2;
+    public float EvadeJumpVelocityY = 40;
 
     public Vector2 DashStartColliderOffset = new Vector2(0, -0.7f);
     public Vector2 DashStartColliderSize = new Vector2(1.2f, 2.6f);

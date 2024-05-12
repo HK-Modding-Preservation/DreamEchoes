@@ -8,7 +8,8 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 internal class Idle : State<SeerStateMachine>
 {
     private RandomSelector<Type> randomSelector = new([
-        new(typeof(Run), 1, 2)
+        new(typeof(Run), 1, 2),
+        new(typeof(EvadeJump), 1, 2)
     ]);
     public override Transition Enter()
     {
