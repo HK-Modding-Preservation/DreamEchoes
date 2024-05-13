@@ -1,5 +1,6 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+using RingLib.Components;
 using RingLib.StateMachine;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ internal class SeerStateMachine : EntityStateMachine
     public Config Config { get; }
     public Vector2 OriginalBoxCollider2DOffset;
     public Vector2 OriginalBoxCollider2DSize;
-    public RingLib.Animator Animator { get; private set; }
-    public RingLib.InputManager InputManager { get; private set; }
+    public RingLib.Components.Animator Animator { get; private set; }
+    public InputManager InputManager { get; private set; }
     private List<GameObject> attacks = [];
 
     public SeerStateMachine() : base(typeof(Idle), [])
@@ -26,9 +27,9 @@ internal class SeerStateMachine : EntityStateMachine
         OriginalBoxCollider2DSize = BoxCollider2D.size;
         Rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
-        Animator = animation.GetComponent<RingLib.Animator>();
-        InputManager = gameObject.AddComponent<RingLib.InputManager>();
-        foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attack.Attack>(true))
+        Animator = animation.GetComponent<RingLib.Components.Animator>();
+        InputManager = gameObject.AddComponent<InputManager>();
+        foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
         {
             attacks.Add(attack.gameObject);
             RingLib.Log.LogInfo(GetType().Name, $"Attack {attack.name} discovered");

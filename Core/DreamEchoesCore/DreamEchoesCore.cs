@@ -1,38 +1,28 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
-using Modding;
 using Modding.Utils;
 using RingLib;
-using RingLib.Attack;
+using RingLib.Attacks;
+using RingLib.Components;
+using RingLib.Utils;
 using UnityEngine;
 using WeaverCore.Utilities;
 
 namespace DreamEchoesCore;
 
-public class DreamEchoesCore : Mod
+internal class DreamEchoesCore : Mod
 {
-    public static DreamEchoesCore Instance { get; private set; }
     private bool renederColliders = false;
-    public DreamEchoesCore() : base("DreamEchoesCore")
+
+    public DreamEchoesCore() : base(
+        "DreamEchoesCore", "1.0.0.0", [("RestingGrounds_07", "Dream Moth")])
+    { }
+
+    public override void ModStart()
     {
-        Instance = this;
-#if DEBUG
-        RingLib.Log.LoggerInfo = Log;
-#endif
-        RingLib.Log.LoggerError = LogError;
-    }
-    public override string GetVersion() => "1.0.0.0";
-    public override List<(string, string)> GetPreloadNames()
-    {
-        Preloader.PreloadNames.Add(("RestingGrounds_07", "Dream Moth"));
-        return Preloader.GetPreloadNames();
-    }
-    public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
-    {
-        Preloader.Initialize(preloadedObjects);
-        Hooks.Initialize();
         On.HeroController.Update += HeroControllerUpdate;
     }
+
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)
     {
         if (Input.GetKeyDown(KeyCode.F5))

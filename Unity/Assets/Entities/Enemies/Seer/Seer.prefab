@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 285541920}
   - component: {fileID: 285541921}
-  - component: {fileID: 3161486071353194383}
+  - component: {fileID: 8148294286089963660}
   m_Layer: 22
   m_Name: Slash32
   m_TagString: Untagged
@@ -64,7 +64,7 @@ PolygonCollider2D:
       - {x: 0.93616754, y: 2.2971292}
       - {x: -1.042941, y: 2.1418216}
       - {x: -2.1356757, y: 1.06614}
---- !u!114 &3161486071353194383
+--- !u!114 &8148294286089963660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 285541919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 677321574}
   - component: {fileID: 677321575}
-  - component: {fileID: 3161486071353194386}
+  - component: {fileID: 80562659696848673}
   m_Layer: 22
   m_Name: Slash21
   m_TagString: Untagged
@@ -246,7 +246,7 @@ PolygonCollider2D:
       - {x: -0.95664, y: -0.9837377}
       - {x: 0.35482448, y: -1.6729138}
       - {x: 1.2907912, y: -1.8749917}
---- !u!114 &3161486071353194386
+--- !u!114 &80562659696848673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 677321573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1746966170}
   - component: {fileID: 1746966171}
-  - component: {fileID: 3161486071353194385}
+  - component: {fileID: 692808021895714459}
   m_Layer: 22
   m_Name: Slash22
   m_TagString: Untagged
@@ -400,7 +400,7 @@ PolygonCollider2D:
       - {x: 3.914289, y: 0.0227357}
       - {x: 2.884171, y: 0.73324305}
       - {x: 1.6596458, y: 1.2020339}
---- !u!114 &3161486071353194385
+--- !u!114 &692808021895714459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746966169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -424,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1845685853}
   - component: {fileID: 1845685854}
-  - component: {fileID: 3161486071353194387}
+  - component: {fileID: 2202192899839253075}
   m_Layer: 22
   m_Name: Slash12
   m_TagString: Untagged
@@ -481,7 +481,7 @@ PolygonCollider2D:
       - {x: 0.52001554, y: 0.5604141}
       - {x: -0.50637436, y: -0.30157888}
       - {x: -0.70879006, y: -1.428483}
---- !u!114 &3161486071353194387
+--- !u!114 &2202192899839253075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1845685852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -505,7 +505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1981819836}
   - component: {fileID: 1981819837}
-  - component: {fileID: 3161486071353194384}
+  - component: {fileID: 6554541548403644823}
   m_Layer: 22
   m_Name: Slash31
   m_TagString: Untagged
@@ -558,7 +558,7 @@ PolygonCollider2D:
       - {x: 1.7029972, y: 0.13253343}
       - {x: 2.4126453, y: -0.3722154}
       - {x: 2.2226348, y: 1.4252882}
---- !u!114 &3161486071353194384
+--- !u!114 &6554541548403644823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1981819835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2112303246}
   - component: {fileID: 2112303247}
-  - component: {fileID: 3161486071353194388}
+  - component: {fileID: 2827970032070603463}
   m_Layer: 22
   m_Name: Slash11
   m_TagString: Untagged
@@ -635,7 +635,7 @@ PolygonCollider2D:
       - {x: -0.28687713, y: -1.6437936}
       - {x: 0.59749204, y: -1.3040589}
       - {x: 0.9704701, y: 0.2701905}
---- !u!114 &3161486071353194388
+--- !u!114 &2827970032070603463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2112303245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7434175590670864200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1589714122, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 929555716, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DamageHero: 1

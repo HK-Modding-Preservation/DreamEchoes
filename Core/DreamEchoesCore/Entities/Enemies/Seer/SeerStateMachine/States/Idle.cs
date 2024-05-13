@@ -1,5 +1,4 @@
-﻿
-using RingLib;
+﻿using RingLib.Utils;
 using RingLib.StateMachine;
 using UnityEngine;
 

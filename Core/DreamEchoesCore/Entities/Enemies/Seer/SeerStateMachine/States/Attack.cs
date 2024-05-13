@@ -1,6 +1,5 @@
-﻿
-using RingLib;
-using RingLib.StateMachine;
+﻿using RingLib.StateMachine;
+using RingLib.Utils;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 

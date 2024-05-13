@@ -2,7 +2,7 @@
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class SeerAnimator : RingLib.Animator
+internal class SeerAnimator : RingLib.Components.Animator
 {
     public GameObject JumpEffectPrefab;
     public AudioClip DashSound;
