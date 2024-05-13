@@ -16,12 +16,12 @@ internal class Config
     public float EvadeJumpVelocityXScale = 2;
     public float EvadeJumpVelocityY = 40;
 
-    public Vector2 DashStartColliderOffset = new Vector2(0, -0.7f);
-    public Vector2 DashStartColliderSize = new Vector2(1.2f, 2.6f);
+    public Vector2 DashStartColliderOffset = new(0, -0.7f);
+    public Vector2 DashStartColliderSize = new(1.2f, 2.6f);
     public Vector2 DashColliderOffset = Vector2.zero;
-    public Vector2 DashColliderSize = new Vector2(4, 1.2f);
-    public Vector2 DashEndColliderOffset = new Vector2(0, -0.7f);
-    public Vector2 DashEndColliderSize = new Vector2(1.2f, 2.6f);
+    public Vector2 DashColliderSize = new(4, 1.2f);
+    public Vector2 DashEndColliderOffset = new(0, -0.7f);
+    public Vector2 DashEndColliderSize = new(1.2f, 2.6f);
     public float DashVelocityX = 50;
     public float DashDuration = 0.1f;
 

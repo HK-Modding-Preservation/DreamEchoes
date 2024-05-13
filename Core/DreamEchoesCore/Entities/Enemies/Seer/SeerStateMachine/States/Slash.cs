@@ -53,12 +53,4 @@ internal class Slash : State<SeerStateMachine>
         }
         yield return new ToState { State = typeof(Idle) };
     }
-
-    public override void Exit(bool interrupted)
-    {
-        if (interrupted)
-        {
-            StateMachine.Reset();
-        }
-    }
 }
