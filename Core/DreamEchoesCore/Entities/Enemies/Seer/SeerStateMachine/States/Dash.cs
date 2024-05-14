@@ -21,7 +21,8 @@ internal class Dash : State<SeerStateMachine>
         var velocityX = StateMachine.Config.DashVelocityX * direction;
         StateMachine.BoxCollider2D.offset = StateMachine.Config.DashStartColliderOffset;
         StateMachine.BoxCollider2D.size = StateMachine.Config.DashStartColliderSize;
-        var startDuration = StateMachine.Animator.PlayAnimation("DashStart");
+        StateMachine.Animator.PlayAnimation("DashStart");
+        var startDuration = StateMachine.Animator.ClipLength("DashStart");
         var timer = 0f;
         while (timer < startDuration)
         {
@@ -39,7 +40,8 @@ internal class Dash : State<SeerStateMachine>
         StateMachine.BoxCollider2D.offset = StateMachine.Config.DashEndColliderOffset;
         StateMachine.BoxCollider2D.size = StateMachine.Config.DashEndColliderSize;
         StateMachine.Rigidbody2D.gravityScale = StateMachine.Config.GravityScale;
-        var endDuration = StateMachine.Animator.PlayAnimation("DashEnd");
+        StateMachine.Animator.PlayAnimation("DashEnd");
+        var endDuration = StateMachine.Animator.ClipLength("DashEnd");
         timer = 0f;
         while (timer < endDuration)
         {

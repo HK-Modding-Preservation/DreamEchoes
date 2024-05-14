@@ -33,8 +33,8 @@ internal class EvadeJump : State<SeerStateMachine>
         {
             yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
-        StateMachine.Animator.PlayAnimation("JumpStart");
-        yield return new WaitTill { Condition = () => StateMachine.Animator.Finished };
+
+        yield return new CoroutineTransition { Routine = StateMachine.Animator.PlayAnimation("JumpStart") };
 
         // JumpAscend
         StateMachine.Velocity = new Vector2(velocityX, StateMachine.Config.EvadeJumpVelocityY);
@@ -47,8 +47,7 @@ internal class EvadeJump : State<SeerStateMachine>
 
         // JumpEnd
         StateMachine.Velocity = Vector2.zero;
-        StateMachine.Animator.PlayAnimation("JumpEnd");
-        yield return new WaitTill { Condition = () => StateMachine.Animator.Finished };
+        yield return new CoroutineTransition { Routine = StateMachine.Animator.PlayAnimation("JumpEnd") };
         yield return new ToState { State = typeof(Attack) };
     }
 }

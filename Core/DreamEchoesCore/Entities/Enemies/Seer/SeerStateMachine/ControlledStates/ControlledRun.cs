@@ -22,7 +22,8 @@ internal class ControlledRun : State<SeerStateMachine>
         {
             yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
-        var startDuration = StateMachine.Animator.PlayAnimation("RunStart");
+        StateMachine.Animator.PlayAnimation("RunStart");
+        var startDuration = StateMachine.Animator.ClipLength("RunStart");
         var timer = 0f;
         while (timer < startDuration)
         {
@@ -51,7 +52,8 @@ internal class ControlledRun : State<SeerStateMachine>
             }
             yield return new CurrentState();
         }
-        var endDuration = StateMachine.Animator.PlayAnimation("RunEnd");
+        StateMachine.Animator.PlayAnimation("RunEnd");
+        var endDuration = StateMachine.Animator.ClipLength("RunEnd");
         timer = 0f;
         while (timer < endDuration)
         {

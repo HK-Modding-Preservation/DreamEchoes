@@ -17,6 +17,7 @@ internal class Slash : State<SeerStateMachine>
         {
             yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
+
         var velocityX = (StateMachine.Target().Position().x - StateMachine.Position.x);
         velocityX *= StateMachine.Config.SlashVelocityXScale;
         var minVelocityX = StateMachine.Config.ControlledSlashVelocityX;
@@ -25,7 +26,8 @@ internal class Slash : State<SeerStateMachine>
             velocityX = Mathf.Sign(velocityX) * StateMachine.Config.ControlledSlashVelocityX;
         }
         StateMachine.Velocity = Vector2.zero;
-        IEnumerable<Transition> Slash(string slash)
+
+        IEnumerator<Transition> Slash(string slash)
         {
             if (!StateMachine.FacingTarget())
             {
@@ -34,7 +36,8 @@ internal class Slash : State<SeerStateMachine>
                 yield return new CoroutineTransition { Routine = StateMachine.Turn() };
             }
             var previousVelocityX = StateMachine.Velocity.x;
-            var duration = StateMachine.Animator.PlayAnimation(slash);
+            StateMachine.Animator.PlayAnimation(slash);
+            var duration = StateMachine.Animator.ClipLength(slash);
             var timer = 0f;
             while (timer < duration)
             {
@@ -46,11 +49,9 @@ internal class Slash : State<SeerStateMachine>
         }
         foreach (var slash in new string[] { "Slash1", "Slash2", "Slash3" })
         {
-            foreach (var transition in Slash(slash))
-            {
-                yield return transition;
-            }
+            yield return new CoroutineTransition { Routine = Slash(slash) };
         }
+
         yield return new ToState { State = typeof(Idle) };
     }
 }

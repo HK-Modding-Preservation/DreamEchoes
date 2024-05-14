@@ -20,7 +20,8 @@ internal class ControlledSlash : State<SeerStateMachine>
             var previousVelocityX = StateMachine.Velocity.x;
             StateMachine.InputManager.AttackPressed = false;
             var nextSlash = false;
-            var duration = StateMachine.Animator.PlayAnimation(slash);
+            StateMachine.Animator.PlayAnimation(slash);
+            var duration = StateMachine.Animator.ClipLength(slash);
             var timer = 0f;
             while (timer < duration)
             {
