@@ -33,7 +33,6 @@ internal class EvadeJump : State<SeerStateMachine>
         {
             yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
-
         yield return new CoroutineTransition { Routine = StateMachine.Animator.PlayAnimation("JumpStart") };
 
         // JumpAscend
