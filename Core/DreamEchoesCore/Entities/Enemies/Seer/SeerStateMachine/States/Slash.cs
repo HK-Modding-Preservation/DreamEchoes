@@ -43,10 +43,11 @@ internal class Slash : State<SeerStateMachine>
                 };
             }
             var previousVelocityX = StateMachine.Velocity.x;
-            void updater(float normalizedTime)
+            Transition updater(float normalizedTime)
             {
                 var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
                 StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+                return new NoTransition();
             }
             yield return new CoroutineTransition
             {

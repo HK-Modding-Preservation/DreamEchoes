@@ -24,10 +24,11 @@ internal class Dash : State<SeerStateMachine>
         StateMachine.BoxCollider2D.offset = StateMachine.Config.DashStartColliderOffset;
         StateMachine.BoxCollider2D.size = StateMachine.Config.DashStartColliderSize;
         StateMachine.Animator.PlayAnimation("DashStart");
-        void startUpdater(float normalizedTime)
+        Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            return new NoTransition();
         }
         yield return new CoroutineTransition
         {
@@ -44,10 +45,11 @@ internal class Dash : State<SeerStateMachine>
         StateMachine.BoxCollider2D.offset = StateMachine.Config.DashEndColliderOffset;
         StateMachine.BoxCollider2D.size = StateMachine.Config.DashEndColliderSize;
         StateMachine.Rigidbody2D.gravityScale = StateMachine.Config.GravityScale;
-        void endUpdater(float normalizedTime)
+        Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            return new NoTransition();
         }
         yield return new CoroutineTransition
         {

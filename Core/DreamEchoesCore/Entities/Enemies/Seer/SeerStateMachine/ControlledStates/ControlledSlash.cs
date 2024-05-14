@@ -21,11 +21,12 @@ internal class ControlledSlash : State<SeerStateMachine>
             var previousVelocityX = StateMachine.Velocity.x;
             StateMachine.InputManager.AttackPressed = false;
             var nextSlash = false;
-            void updater(float normalizedTime)
+            Transition updater(float normalizedTime)
             {
                 var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
                 StateMachine.Velocity = new Vector2(currentVelocityX, 0);
                 nextSlash |= StateMachine.InputManager.AttackPressed;
+                return new NoTransition();
             }
             yield return new CoroutineTransition
             {

@@ -29,10 +29,11 @@ internal class Run : State<SeerStateMachine>
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.RunVelocityX * direction;
 
-        void startUpdater(float normalizedTime)
+        Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            return new NoTransition();
         }
         yield return new CoroutineTransition
         {
@@ -43,10 +44,11 @@ internal class Run : State<SeerStateMachine>
         StateMachine.Animator.PlayAnimation("Run");
         yield return new WaitFor { Seconds = StateMachine.Config.RunDuration };
 
-        void endUpdater(float normalizedTime)
+        Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            return new NoTransition();
         }
         yield return new CoroutineTransition
         {
