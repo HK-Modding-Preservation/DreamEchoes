@@ -15,7 +15,7 @@ internal class Slash : State<SeerStateMachine>
     {
         if (!StateMachine.FacingTarget())
         {
-            StateMachine.Turn();
+            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
         var velocityX = (StateMachine.Target().Position().x - StateMachine.Position.x);
         velocityX *= StateMachine.Config.SlashVelocityXScale;
@@ -31,7 +31,7 @@ internal class Slash : State<SeerStateMachine>
             {
                 velocityX *= -1;
                 StateMachine.Velocity *= -1;
-                StateMachine.Turn();
+                yield return new CoroutineTransition { Routine = StateMachine.Turn() };
             }
             var previousVelocityX = StateMachine.Velocity.x;
             var duration = StateMachine.Animator.PlayAnimation(slash);

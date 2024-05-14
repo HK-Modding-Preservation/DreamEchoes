@@ -15,7 +15,7 @@ internal class Dash : State<SeerStateMachine>
     {
         if (!StateMachine.FacingTarget())
         {
-            StateMachine.Turn();
+            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.DashVelocityX * direction;

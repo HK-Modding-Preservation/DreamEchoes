@@ -20,7 +20,7 @@ internal class ControlledRun : State<SeerStateMachine>
         var velocityX = StateMachine.Config.RunVelocityX * direction;
         if (direction != StateMachine.Direction())
         {
-            StateMachine.Turn();
+            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
         var startDuration = StateMachine.Animator.PlayAnimation("RunStart");
         var timer = 0f;

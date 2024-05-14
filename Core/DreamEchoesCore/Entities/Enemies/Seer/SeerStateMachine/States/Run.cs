@@ -1,5 +1,5 @@
-﻿using RingLib.Utils;
-using RingLib.StateMachine;
+﻿using RingLib.StateMachine;
+using RingLib.Utils;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
@@ -21,7 +21,7 @@ internal class Run : State<SeerStateMachine>
     {
         if (!StateMachine.FacingTarget())
         {
-            StateMachine.Turn();
+            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.RunVelocityX * direction;

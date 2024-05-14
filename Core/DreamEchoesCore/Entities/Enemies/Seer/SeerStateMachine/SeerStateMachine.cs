@@ -15,9 +15,8 @@ internal class SeerStateMachine : EntityStateMachine
     public InputManager InputManager { get; private set; }
     private List<GameObject> attacks = [];
 
-    public SeerStateMachine() : base(typeof(Idle), [])
+    public SeerStateMachine() : base(typeof(Idle), [], /*SpriteFacingLeft =*/true)
     {
-        SpriteFacingLeft = true;
         Config = new();
     }
 
@@ -54,6 +53,14 @@ internal class SeerStateMachine : EntityStateMachine
     public bool FacingTarget()
     {
         return Mathf.Sign(Target().transform.position.x - transform.position.x) == Direction();
+    }
+
+    public IEnumerator<Transition> Turn()
+    {
+        var localScale = gameObject.transform.localScale;
+        localScale.x *= -1;
+        gameObject.transform.localScale = localScale;
+        yield return new CurrentState();
     }
 
     public void Reset()

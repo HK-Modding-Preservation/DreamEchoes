@@ -31,7 +31,7 @@ internal class EvadeJump : State<SeerStateMachine>
         var velocityX = (targetX - StateMachine.Position.x) * StateMachine.Config.EvadeJumpVelocityXScale;
         if (Mathf.Sign(velocityX) != StateMachine.Direction())
         {
-            StateMachine.Turn();
+            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
         }
         StateMachine.Animator.PlayAnimation("JumpStart");
         yield return new WaitTill { Condition = () => StateMachine.Animator.Finished };
