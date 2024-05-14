@@ -16,7 +16,7 @@ internal class Run : State<SeerStateMachine>
     public override Transition Enter()
     {
         StartCoroutine(Routine());
-        return new CurrentState();
+        return new NoTransition();
     }
 
     private IEnumerator<Transition> Routine()

@@ -9,7 +9,7 @@ internal class ControlledIdle : State<SeerStateMachine>
     {
         StateMachine.Velocity = Vector2.zero;
         StateMachine.Animator.PlayAnimation("Idle");
-        return new CurrentState();
+        return new NoTransition();
     }
     public override Transition Update()
     {
@@ -17,6 +17,6 @@ internal class ControlledIdle : State<SeerStateMachine>
         {
             return new ToState { State = typeof(ControlledRun) };
         }
-        return new CurrentState();
+        return new NoTransition();
     }
 }

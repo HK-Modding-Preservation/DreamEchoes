@@ -22,7 +22,7 @@ internal class SeerStateMachine : EntityStateMachine
         Config = new();
     }
 
-    protected override void EnemyStateMachineStart()
+    protected override void EntityStateMachineStart()
     {
         OriginalBoxCollider2DOffset = BoxCollider2D.offset;
         OriginalBoxCollider2DSize = BoxCollider2D.size;
@@ -38,7 +38,7 @@ internal class SeerStateMachine : EntityStateMachine
         }
     }
 
-    protected override void EnemyStateMachineUpdate()
+    protected override void EntityStateMachineUpdate()
     {
         var attackPressed = InputManager.AttackPressed;
         var controlldFree = CurrentState == typeof(ControlledIdle).Name || CurrentState == typeof(ControlledRun).Name;
@@ -63,7 +63,7 @@ internal class SeerStateMachine : EntityStateMachine
         var localScale = gameObject.transform.localScale;
         localScale.x *= -1;
         gameObject.transform.localScale = localScale;
-        yield return new CurrentState();
+        yield return new NoTransition();
     }
 
     public void Reset()

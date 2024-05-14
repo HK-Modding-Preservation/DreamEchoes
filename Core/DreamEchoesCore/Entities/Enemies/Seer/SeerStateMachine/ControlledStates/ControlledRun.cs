@@ -9,7 +9,7 @@ internal class ControlledRun : State<SeerStateMachine>
     public override Transition Enter()
     {
         StartCoroutine(Routine());
-        return new CurrentState();
+        return new NoTransition();
     }
     private IEnumerator<Transition> Routine()
     {
@@ -36,7 +36,7 @@ internal class ControlledRun : State<SeerStateMachine>
             var currentVelocityX = Mathf.Lerp(0, velocityX, timer / startDuration);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
-            yield return new CurrentState();
+            yield return new NoTransition();
         }
     Run: StateMachine.Velocity = new Vector2(velocityX, 0);
         StateMachine.Animator.PlayAnimation("Run");
@@ -51,7 +51,7 @@ internal class ControlledRun : State<SeerStateMachine>
             {
                 goto RunStart;
             }
-            yield return new CurrentState();
+            yield return new NoTransition();
         }
         StateMachine.Animator.PlayAnimation("RunEnd");
         var endDuration = StateMachine.Animator.ClipLength("RunEnd");
@@ -73,7 +73,7 @@ internal class ControlledRun : State<SeerStateMachine>
             var currentVelocityX = Mathf.Lerp(velocityX, 0, timer / endDuration);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
-            yield return new CurrentState();
+            yield return new NoTransition();
         }
         yield return new ToState { State = typeof(ControlledIdle) };
     }
