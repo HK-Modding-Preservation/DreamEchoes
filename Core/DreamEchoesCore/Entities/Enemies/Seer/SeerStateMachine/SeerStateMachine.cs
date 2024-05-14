@@ -1,5 +1,6 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+using HKMirror.Reflection;
 using RingLib.Components;
 using RingLib.StateMachine;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ internal class SeerStateMachine : EntityStateMachine
         var animation = gameObject.transform.Find("Animation");
         Animator = animation.GetComponent<RingLib.Components.Animator>();
         InputManager = gameObject.AddComponent<InputManager>();
+        InputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
         {
             attacks.Add(attack.gameObject);
