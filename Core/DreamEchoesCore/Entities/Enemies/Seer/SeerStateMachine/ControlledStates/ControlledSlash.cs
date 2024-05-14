@@ -15,22 +15,21 @@ internal class ControlledSlash : State<SeerStateMachine>
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.ControlledSlashVelocityX * direction;
         StateMachine.Velocity = Vector2.zero;
-        IEnumerable<Transition> Slash(string slash)
+        IEnumerator<Transition> Slash(string slash)
         {
             var previousVelocityX = StateMachine.Velocity.x;
             StateMachine.InputManager.AttackPressed = false;
             var nextSlash = false;
-            StateMachine.Animator.PlayAnimation(slash);
-            var duration = StateMachine.Animator.ClipLength(slash);
-            var timer = 0f;
-            while (timer < duration)
+            void updater(float normalizedTime)
             {
-                var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, timer / duration);
+                var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
                 StateMachine.Velocity = new Vector2(currentVelocityX, 0);
                 nextSlash |= StateMachine.InputManager.AttackPressed;
-                timer += Time.deltaTime;
-                yield return new CurrentState();
             }
+            yield return new CoroutineTransition
+            {
+                Routine = StateMachine.Animator.PlayAnimation(slash, updater)
+            };
             if (!nextSlash)
             {
                 yield return new ToState { State = typeof(ControlledIdle) };
@@ -38,10 +37,10 @@ internal class ControlledSlash : State<SeerStateMachine>
         }
         foreach (var slash in new string[] { "Slash1", "Slash2", "Slash3" })
         {
-            foreach (var transition in Slash(slash))
+            yield return new CoroutineTransition
             {
-                yield return transition;
-            }
+                Routine = Slash(slash)
+            };
         }
         StateMachine.InputManager.AttackPressed = false;
         yield return new ToState { State = typeof(ControlledIdle) };

@@ -27,31 +27,29 @@ internal class Run : State<SeerStateMachine>
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.RunVelocityX * direction;
 
-        StateMachine.Animator.PlayAnimation("RunStart");
-        var startDuration = StateMachine.Animator.ClipLength("RunStart");
-        var timer = 0f;
-        while (timer < startDuration)
+        void startUpdater(float normalizedTime)
         {
-            var currentVelocityX = Mathf.Lerp(0, velocityX, timer / startDuration);
+            var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
-            timer += Time.deltaTime;
-            yield return new CurrentState();
         }
+        yield return new CoroutineTransition
+        {
+            Routine = StateMachine.Animator.PlayAnimation("RunStart", startUpdater)
+        };
 
         StateMachine.Velocity = new Vector2(velocityX, 0);
         StateMachine.Animator.PlayAnimation("Run");
         yield return new WaitFor { Seconds = StateMachine.Config.RunDuration };
 
-        StateMachine.Animator.PlayAnimation("RunEnd");
-        var endDuration = StateMachine.Animator.ClipLength("RunEnd");
-        timer = 0f;
-        while (timer < endDuration)
+        void endUpdater(float normalizedTime)
         {
-            var currentVelocityX = Mathf.Lerp(velocityX, 0, timer / endDuration);
+            var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
             StateMachine.Velocity = new Vector2(currentVelocityX, 0);
-            timer += Time.deltaTime;
-            yield return new CurrentState();
         }
+        yield return new CoroutineTransition
+        {
+            Routine = StateMachine.Animator.PlayAnimation("RunEnd", endUpdater)
+        };
 
         yield return new ToState { State = typeof(Attack) };
     }
