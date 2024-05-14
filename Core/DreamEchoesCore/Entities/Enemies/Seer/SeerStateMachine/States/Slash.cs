@@ -23,7 +23,7 @@ internal class Slash : State<SeerStateMachine>
         var minVelocityX = StateMachine.Config.ControlledSlashVelocityX;
         if (velocityX > -minVelocityX && velocityX < minVelocityX)
         {
-            velocityX = Mathf.Sign(velocityX) * StateMachine.Config.ControlledSlashVelocityX;
+            velocityX = Mathf.Sign(velocityX) * minVelocityX;
         }
         StateMachine.Velocity = Vector2.zero;
 
