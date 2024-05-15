@@ -23,7 +23,6 @@ internal class Dash : State<SeerStateMachine>
         var velocityX = StateMachine.Config.DashVelocityX * direction;
         StateMachine.BoxCollider2D.offset = StateMachine.Config.DashStartColliderOffset;
         StateMachine.BoxCollider2D.size = StateMachine.Config.DashStartColliderSize;
-        StateMachine.Animator.PlayAnimation("DashStart");
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
