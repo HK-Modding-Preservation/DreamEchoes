@@ -22,7 +22,7 @@ internal class Hug : State<SeerStateMachine>
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.HugVelocityX * -direction;
         var velocityY = StateMachine.Config.HugVelocityY;
-        Transition startUpdater(float normalizedTime)
+        Transition updater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
             var currentVelocityY = Mathf.Lerp(0, velocityY, normalizedTime);
@@ -31,14 +31,14 @@ internal class Hug : State<SeerStateMachine>
         }
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("HugStart", startUpdater)
+            Routine = StateMachine.Animator.PlayAnimation("HugStart", updater)
         };
 
         StateMachine.Rigidbody2D.gravityScale = 0;
         StateMachine.Velocity = Vector2.zero;
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("Hug", startUpdater)
+            Routine = StateMachine.Animator.PlayAnimation("Hug", updater)
         };
 
         StateMachine.Rigidbody2D.gravityScale = StateMachine.Config.GravityScale;

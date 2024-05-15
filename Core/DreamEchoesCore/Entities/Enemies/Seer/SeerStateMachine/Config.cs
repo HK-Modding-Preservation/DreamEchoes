@@ -28,6 +28,6 @@ internal class Config
     public float SlashVelocityXScale = 2;
     public float ControlledSlashVelocityX = 7.5f;
 
-    public float HugVelocityX = 10;
+    public float HugVelocityX = 7.5f;
     public float HugVelocityY = 5;
 }
