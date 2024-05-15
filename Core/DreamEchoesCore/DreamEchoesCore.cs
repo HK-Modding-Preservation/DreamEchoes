@@ -20,7 +20,9 @@ internal class DreamEchoesCore : Mod
 
     public override void ModStart()
     {
+#if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
+#endif
     }
 
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)

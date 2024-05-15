@@ -3,6 +3,7 @@ using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 using HKMirror.Reflection;
 using RingLib.Components;
 using RingLib.StateMachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,13 @@ internal class SeerStateMachine : EntityStateMachine
     public InputManager InputManager { get; private set; }
     private List<GameObject> attacks = [];
 
-    public SeerStateMachine() : base(typeof(Idle), [], /*SpriteFacingLeft =*/true)
+    public SeerStateMachine() : base(
+        typeof(Idle),
+        new Dictionary<string, Type>
+        {
+            { "Stun", typeof(Stun) }
+        },
+        /*SpriteFacingLeft =*/true)
     {
         Config = new();
     }
@@ -36,6 +43,9 @@ internal class SeerStateMachine : EntityStateMachine
             attacks.Add(attack.gameObject);
             RingLib.Log.LogInfo(GetType().Name, $"Attack {attack.name} discovered");
         }
+        var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
+        entityHealth.OnHealthChangeEvent += OnHit;
+        entityHealth.OnDeathEvent += OnDeath;
     }
 
     protected override void EntityStateMachineUpdate()
@@ -64,6 +74,15 @@ internal class SeerStateMachine : EntityStateMachine
         localScale.x *= -1;
         gameObject.transform.localScale = localScale;
         yield return new NoTransition();
+    }
+
+    public void OnHit(int previousHealth, int newHealth)
+    {
+        ReceiveEvent("Stun");
+    }
+
+    public void OnDeath(WeaverCore.HitInfo hitInfo)
+    {
     }
 
     public void Reset()
