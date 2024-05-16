@@ -1,5 +1,4 @@
 ﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
-using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
 using Modding.Utils;
 using RingLib;
 using RingLib.Attacks;
@@ -38,7 +37,7 @@ internal class DreamEchoesCore : Mod
                 {
                     var seerPrefab = WeaverAssets.LoadAssetFromBundle<GameObject, DreamEchoes.DreamEchoes>("Seer");
                     var seer = GameObject.Instantiate(seerPrefab, self.transform.position, Quaternion.identity);
-                    seer.GetComponent<SeerStateMachine>().StartState = typeof(ControlledIdle);
+                    seer.GetComponent<SeerStateMachine>().StartState = nameof(SeerStateMachine.ControlledIdle);
                     GameObject.Destroy(seer.GetComponent<WeaverCore.Components.PlayerDamager>());
                     foreach (var attack in seer.GetComponentsInChildren<Attack>(true))
                     {

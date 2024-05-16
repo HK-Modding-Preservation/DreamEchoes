@@ -1,15 +1,12 @@
-﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
-using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
-using HKMirror.Reflection;
+﻿using HKMirror.Reflection;
 using RingLib.Components;
 using RingLib.StateMachine;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class SeerStateMachine : EntityStateMachine
+internal partial class SeerStateMachine : EntityStateMachine
 {
     public Config Config { get; }
     public Vector2 OriginalBoxCollider2DOffset;
@@ -19,10 +16,10 @@ internal class SeerStateMachine : EntityStateMachine
     private List<GameObject> attacks = [];
 
     public SeerStateMachine() : base(
-        typeof(Idle),
-        new Dictionary<string, Type>
+        nameof(Idle),
+        new Dictionary<string, string>
         {
-            { "Stun", typeof(Stun) }
+            { "Stun", nameof(Stun) }
         },
         /*SpriteFacingLeft =*/true)
     {
@@ -51,10 +48,10 @@ internal class SeerStateMachine : EntityStateMachine
     protected override void EntityStateMachineUpdate()
     {
         var attackPressed = InputManager.AttackPressed;
-        var controlldFree = CurrentState == typeof(ControlledIdle).Name || CurrentState == typeof(ControlledRun).Name;
+        var controlldFree = CurrentState == nameof(ControlledIdle) || CurrentState == nameof(ControlledRun);
         if (attackPressed && controlldFree)
         {
-            SetState(typeof(ControlledSlash));
+            SetState(nameof(ControlledSlash));
         }
     }
 

@@ -2,42 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class ControlledRun : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> ControlledRun()
     {
-    RunStart: var direction = StateMachine.InputManager.Direction;
+    RunStart: var direction = InputManager.Direction;
         if (direction == 0)
         {
-            yield return new ToState { State = typeof(ControlledIdle) };
+            yield return new ToState { State = nameof(ControlledIdle) };
         }
-        var velocityX = StateMachine.Config.RunVelocityX * direction;
-        if (direction != StateMachine.Direction())
+        var velocityX = Config.RunVelocityX * direction;
+        if (direction != Direction())
         {
-            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
+            yield return new CoroutineTransition { Routine = Turn() };
         }
-        StateMachine.Animator.PlayAnimation("RunStart");
-        var startDuration = StateMachine.Animator.ClipLength("RunStart");
+        Animator.PlayAnimation("RunStart");
+        var startDuration = Animator.ClipLength("RunStart");
         var timer = 0f;
         while (timer < startDuration)
         {
-            var newDirection = StateMachine.InputManager.Direction;
+            var newDirection = InputManager.Direction;
             if (newDirection != direction)
             {
-                yield return new ToState { State = typeof(ControlledIdle) };
+                yield return new ToState { State = nameof(ControlledIdle) };
             }
             var currentVelocityX = Mathf.Lerp(0, velocityX, timer / startDuration);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
             yield return new NoTransition();
         }
-    Run: StateMachine.Velocity = new Vector2(velocityX, 0);
-        StateMachine.Animator.PlayAnimation("Run");
+    Run: Velocity = new Vector2(velocityX, 0);
+        Animator.PlayAnimation("Run");
         while (true)
         {
-            var newDirection = StateMachine.InputManager.Direction;
+            var newDirection = InputManager.Direction;
             if (newDirection == 0)
             {
                 break;
@@ -48,12 +49,12 @@ internal class ControlledRun : State<SeerStateMachine>
             }
             yield return new NoTransition();
         }
-        StateMachine.Animator.PlayAnimation("RunEnd");
-        var endDuration = StateMachine.Animator.ClipLength("RunEnd");
+        Animator.PlayAnimation("RunEnd");
+        var endDuration = Animator.ClipLength("RunEnd");
         timer = 0f;
         while (timer < endDuration)
         {
-            var newDirection = StateMachine.InputManager.Direction;
+            var newDirection = InputManager.Direction;
             if (newDirection != 0)
             {
                 if (newDirection == direction)
@@ -66,10 +67,10 @@ internal class ControlledRun : State<SeerStateMachine>
                 }
             }
             var currentVelocityX = Mathf.Lerp(velocityX, 0, timer / endDuration);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             timer += Time.deltaTime;
             yield return new NoTransition();
         }
-        yield return new ToState { State = typeof(ControlledIdle) };
+        yield return new ToState { State = nameof(ControlledIdle) };
     }
 }

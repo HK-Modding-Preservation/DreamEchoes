@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class ControlledIdle : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    public IEnumerator<Transition> ControlledIdle()
     {
-        StateMachine.Velocity = Vector2.zero;
-        StateMachine.Animator.PlayAnimation("Idle");
+        Velocity = Vector2.zero;
+        Animator.PlayAnimation("Idle");
         while (true)
         {
-            if (StateMachine.InputManager.Direction != 0)
+            if (InputManager.Direction != 0)
             {
-                yield return new ToState { State = typeof(ControlledRun) };
+                yield return new ToState { State = nameof(ControlledRun) };
             }
             yield return new NoTransition();
         }

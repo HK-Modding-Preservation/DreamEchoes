@@ -2,34 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledStates;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class ControlledSlash : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> ControlledSlash()
     {
-        var direction = StateMachine.Direction();
-        var velocityX = StateMachine.Config.ControlledSlashVelocityX * direction;
-        StateMachine.Velocity = Vector2.zero;
+        var direction = Direction();
+        var velocityX = Config.ControlledSlashVelocityX * direction;
+        Velocity = Vector2.zero;
         IEnumerator<Transition> Slash(string slash)
         {
-            var previousVelocityX = StateMachine.Velocity.x;
-            StateMachine.InputManager.AttackPressed = false;
+            var previousVelocityX = Velocity.x;
+            InputManager.AttackPressed = false;
             var nextSlash = false;
             Transition updater(float normalizedTime)
             {
                 var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
-                StateMachine.Velocity = new Vector2(currentVelocityX, 0);
-                nextSlash |= StateMachine.InputManager.AttackPressed;
+                Velocity = new Vector2(currentVelocityX, 0);
+                nextSlash |= InputManager.AttackPressed;
                 return new NoTransition();
             }
             yield return new CoroutineTransition
             {
-                Routine = StateMachine.Animator.PlayAnimation(slash, updater)
+                Routine = Animator.PlayAnimation(slash, updater)
             };
             if (!nextSlash)
             {
-                yield return new ToState { State = typeof(ControlledIdle) };
+                yield return new ToState { State = nameof(ControlledIdle) };
             }
         }
         foreach (var slash in new string[] { "Slash1", "Slash2", "Slash3" })
@@ -39,7 +40,7 @@ internal class ControlledSlash : State<SeerStateMachine>
                 Routine = Slash(slash)
             };
         }
-        StateMachine.InputManager.AttackPressed = false;
-        yield return new ToState { State = typeof(ControlledIdle) };
+        InputManager.AttackPressed = false;
+        yield return new ToState { State = nameof(ControlledIdle) };
     }
 }

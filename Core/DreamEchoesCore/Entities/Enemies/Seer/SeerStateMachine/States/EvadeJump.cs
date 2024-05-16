@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class EvadeJump : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> EvadeJump()
     {
         // JumpStart
-        var jumpRadiusMin = StateMachine.Config.EvadeJumpRadiusMin;
-        var jumpRadiusMax = StateMachine.Config.EvadeJumpRadiusMax;
+        var jumpRadiusMin = Config.EvadeJumpRadiusMin;
+        var jumpRadiusMax = Config.EvadeJumpRadiusMax;
         var jumpRadius = UnityEngine.Random.Range(jumpRadiusMin, jumpRadiusMax);
-        var targetXLeft = StateMachine.Target().Position().x - jumpRadius;
-        var targetXRight = StateMachine.Target().Position().x + jumpRadius;
+        var targetXLeft = Target().Position().x - jumpRadius;
+        var targetXRight = Target().Position().x + jumpRadius;
         float targetX;
-        if (Mathf.Abs(StateMachine.Position.x - targetXLeft) < Mathf.Abs(StateMachine.Position.x - targetXRight))
+        if (Mathf.Abs(Position.x - targetXLeft) < Mathf.Abs(Position.x - targetXRight))
         {
             targetX = targetXRight;
         }
@@ -23,25 +24,25 @@ internal class EvadeJump : State<SeerStateMachine>
         {
             targetX = targetXLeft;
         }
-        var velocityX = (targetX - StateMachine.Position.x) * StateMachine.Config.EvadeJumpVelocityXScale;
-        if (Mathf.Sign(velocityX) != StateMachine.Direction())
+        var velocityX = (targetX - Position.x) * Config.EvadeJumpVelocityXScale;
+        if (Mathf.Sign(velocityX) != Direction())
         {
-            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
+            yield return new CoroutineTransition { Routine = Turn() };
         }
-        yield return new CoroutineTransition { Routine = StateMachine.Animator.PlayAnimation("JumpStart") };
+        yield return new CoroutineTransition { Routine = Animator.PlayAnimation("JumpStart") };
 
         // JumpAscend
-        StateMachine.Velocity = new Vector2(velocityX, StateMachine.Config.EvadeJumpVelocityY);
-        StateMachine.Animator.PlayAnimation("JumpAscend");
-        yield return new WaitTill { Condition = () => StateMachine.Velocity.y <= 0 };
+        Velocity = new Vector2(velocityX, Config.EvadeJumpVelocityY);
+        Animator.PlayAnimation("JumpAscend");
+        yield return new WaitTill { Condition = () => Velocity.y <= 0 };
 
         // JumpDescend
-        StateMachine.Animator.PlayAnimation("JumpDescend");
-        yield return new WaitTill { Condition = () => StateMachine.Landed() };
+        Animator.PlayAnimation("JumpDescend");
+        yield return new WaitTill { Condition = () => Landed() };
 
         // JumpEnd
-        StateMachine.Velocity = Vector2.zero;
-        yield return new CoroutineTransition { Routine = StateMachine.Animator.PlayAnimation("JumpEnd") };
-        yield return new ToState { State = typeof(Attack) };
+        Velocity = Vector2.zero;
+        yield return new CoroutineTransition { Routine = Animator.PlayAnimation("JumpEnd") };
+        yield return new ToState { State = nameof(Attack) };
     }
 }

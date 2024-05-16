@@ -2,50 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class Slash : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> Slash()
     {
-        if (!StateMachine.FacingTarget())
+        if (!FacingTarget())
         {
             yield return new CoroutineTransition
             {
-                Routine = StateMachine.Turn()
+                Routine = Turn()
             };
         }
 
-        var velocityX = (StateMachine.Target().Position().x - StateMachine.Position.x);
-        velocityX *= StateMachine.Config.SlashVelocityXScale;
-        var minVelocityX = StateMachine.Config.ControlledSlashVelocityX;
+        var velocityX = (Target().Position().x - Position.x);
+        velocityX *= Config.SlashVelocityXScale;
+        var minVelocityX = Config.ControlledSlashVelocityX;
         if (velocityX > -minVelocityX && velocityX < minVelocityX)
         {
             velocityX = Mathf.Sign(velocityX) * minVelocityX;
         }
-        StateMachine.Velocity = Vector2.zero;
+        Velocity = Vector2.zero;
 
         IEnumerator<Transition> Slash(string slash)
         {
-            if (!StateMachine.FacingTarget())
+            if (!FacingTarget())
             {
                 velocityX *= -1;
-                StateMachine.Velocity *= -1;
+                Velocity *= -1;
                 yield return new CoroutineTransition
                 {
-                    Routine = StateMachine.Turn()
+                    Routine = Turn()
                 };
             }
-            var previousVelocityX = StateMachine.Velocity.x;
+            var previousVelocityX = Velocity.x;
             Transition updater(float normalizedTime)
             {
                 var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
-                StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+                Velocity = new Vector2(currentVelocityX, 0);
                 return new NoTransition();
             }
             yield return new CoroutineTransition
             {
-                Routine = StateMachine.Animator.PlayAnimation(slash, updater)
+                Routine = Animator.PlayAnimation(slash, updater)
             };
         }
         foreach (var slash in new string[] { "Slash1", "Slash2", "Slash3" })
@@ -56,6 +57,6 @@ internal class Slash : State<SeerStateMachine>
             };
         }
 
-        yield return new ToState { State = typeof(Idle) };
+        yield return new ToState { State = nameof(Idle) };
     }
 }

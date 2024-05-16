@@ -1,20 +1,20 @@
 ﻿using RingLib.StateMachine;
 using RingLib.Utils;
-using System;
 using System.Collections.Generic;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class Attack : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    private RandomSelector<Type> randomSelector = new([
-        // new(typeof(Dash), 1, 2),
-        // new(typeof(Slash), 1, 2),
-        new(typeof(Hug), 1, 9999)
+    private RandomSelector<string> attackRandomSelector = new([
+        new(nameof(Dash), 1, 2),
+        new(nameof(Slash), 1, 2),
+        new(nameof(Hug), 1, 9999)
     ]);
 
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> Attack()
     {
-        yield return new ToState { State = randomSelector.Get() };
+        yield return new ToState { State = attackRandomSelector.Get() };
     }
 }

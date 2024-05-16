@@ -1,54 +1,48 @@
 ﻿using RingLib.StateMachine;
-using RingLib.Utils;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class Run : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    private RandomSelector<Type> randomSelector = new([
-        new(typeof(Dash), 1, 2),
-        new(typeof(Slash), 1, 2)
-    ]);
-
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> Run()
     {
-        if (!StateMachine.FacingTarget())
+        if (!FacingTarget())
         {
-            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
+            yield return new CoroutineTransition { Routine = Turn() };
         }
 
-        var direction = StateMachine.Direction();
-        var velocityX = StateMachine.Config.RunVelocityX * direction;
+        var direction = Direction();
+        var velocityX = Config.RunVelocityX * direction;
 
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             return new NoTransition();
         }
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("RunStart", startUpdater)
+            Routine = Animator.PlayAnimation("RunStart", startUpdater)
         };
 
-        StateMachine.Velocity = new Vector2(velocityX, 0);
-        StateMachine.Animator.PlayAnimation("Run");
-        yield return new WaitFor { Seconds = StateMachine.Config.RunDuration };
+        Velocity = new Vector2(velocityX, 0);
+        Animator.PlayAnimation("Run");
+        yield return new WaitFor { Seconds = Config.RunDuration };
 
         Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             return new NoTransition();
         }
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("RunEnd", endUpdater)
+            Routine = Animator.PlayAnimation("RunEnd", endUpdater)
         };
 
-        yield return new ToState { State = typeof(Attack) };
+        yield return new ToState { State = nameof(Attack) };
     }
 }

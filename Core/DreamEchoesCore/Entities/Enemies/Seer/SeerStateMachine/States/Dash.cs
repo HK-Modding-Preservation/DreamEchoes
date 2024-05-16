@@ -2,54 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class Dash : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> Dash()
     {
-        if (!StateMachine.FacingTarget())
+        if (!FacingTarget())
         {
-            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
+            yield return new CoroutineTransition { Routine = Turn() };
         }
 
-        var direction = StateMachine.Direction();
-        var velocityX = StateMachine.Config.DashVelocityX * direction;
-        StateMachine.BoxCollider2D.offset = StateMachine.Config.DashStartColliderOffset;
-        StateMachine.BoxCollider2D.size = StateMachine.Config.DashStartColliderSize;
+        var direction = Direction();
+        var velocityX = Config.DashVelocityX * direction;
+        BoxCollider2D.offset = Config.DashStartColliderOffset;
+        BoxCollider2D.size = Config.DashStartColliderSize;
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             return new NoTransition();
         }
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("DashStart", startUpdater)
+            Routine = Animator.PlayAnimation("DashStart", startUpdater)
         };
 
-        StateMachine.BoxCollider2D.offset = StateMachine.Config.DashColliderOffset;
-        StateMachine.BoxCollider2D.size = StateMachine.Config.DashColliderSize;
-        StateMachine.Rigidbody2D.gravityScale = 0;
-        StateMachine.Velocity = new Vector2(velocityX, 0);
-        StateMachine.Animator.PlayAnimation("Dash");
-        yield return new WaitFor { Seconds = StateMachine.Config.DashDuration };
+        BoxCollider2D.offset = Config.DashColliderOffset;
+        BoxCollider2D.size = Config.DashColliderSize;
+        Rigidbody2D.gravityScale = 0;
+        Velocity = new Vector2(velocityX, 0);
+        Animator.PlayAnimation("Dash");
+        yield return new WaitFor { Seconds = Config.DashDuration };
 
-        StateMachine.BoxCollider2D.offset = StateMachine.Config.DashEndColliderOffset;
-        StateMachine.BoxCollider2D.size = StateMachine.Config.DashEndColliderSize;
-        StateMachine.Rigidbody2D.gravityScale = StateMachine.Config.GravityScale;
+        BoxCollider2D.offset = Config.DashEndColliderOffset;
+        BoxCollider2D.size = Config.DashEndColliderSize;
+        Rigidbody2D.gravityScale = Config.GravityScale;
         Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
-            StateMachine.Velocity = new Vector2(currentVelocityX, 0);
+            Velocity = new Vector2(currentVelocityX, 0);
             return new NoTransition();
         }
         yield return new CoroutineTransition
         {
-            Routine = StateMachine.Animator.PlayAnimation("DashEnd", endUpdater)
+            Routine = Animator.PlayAnimation("DashEnd", endUpdater)
         };
-        StateMachine.BoxCollider2D.offset = StateMachine.OriginalBoxCollider2DOffset;
-        StateMachine.BoxCollider2D.size = StateMachine.OriginalBoxCollider2DSize;
-        yield return new ToState { State = typeof(Idle) };
+        BoxCollider2D.offset = OriginalBoxCollider2DOffset;
+        BoxCollider2D.size = OriginalBoxCollider2DSize;
+        yield return new ToState { State = nameof(Idle) };
     }
 }

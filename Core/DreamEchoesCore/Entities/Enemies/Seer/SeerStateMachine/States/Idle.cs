@@ -1,27 +1,27 @@
 ﻿using RingLib.StateMachine;
 using RingLib.Utils;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
+namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class Idle : State<SeerStateMachine>
+internal partial class SeerStateMachine : EntityStateMachine
 {
-    private RandomSelector<Type> randomSelector = new([
-        new(typeof(Run), 1, 2),
-        new(typeof(EvadeJump), 1, 2)
+    private RandomSelector<string> idleRandomSelector = new([
+        new(nameof(Run), 1, 2),
+        new(nameof(EvadeJump), 1, 2)
     ]);
 
-    public override IEnumerator<Transition> Routine()
+    [State]
+    private IEnumerator<Transition> Idle()
     {
-        if (!StateMachine.FacingTarget())
+        if (!FacingTarget())
         {
-            yield return new CoroutineTransition { Routine = StateMachine.Turn() };
+            yield return new CoroutineTransition { Routine = Turn() };
         }
-        StateMachine.Velocity = Vector2.zero;
-        StateMachine.Animator.PlayAnimation("Idle");
-        yield return new WaitFor { Seconds = StateMachine.Config.IdleDuration };
-        yield return new ToState { State = randomSelector.Get() };
+        Velocity = Vector2.zero;
+        Animator.PlayAnimation("Idle");
+        yield return new WaitFor { Seconds = Config.IdleDuration };
+        yield return new ToState { State = idleRandomSelector.Get() };
     }
 }
