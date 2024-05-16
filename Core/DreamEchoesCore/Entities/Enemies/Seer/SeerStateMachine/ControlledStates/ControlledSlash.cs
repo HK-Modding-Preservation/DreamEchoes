@@ -6,12 +6,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledState
 
 internal class ControlledSlash : State<SeerStateMachine>
 {
-    public override Transition Enter()
-    {
-        StartCoroutine(Routine());
-        return new NoTransition();
-    }
-    private IEnumerator<Transition> Routine()
+    public override IEnumerator<Transition> Routine()
     {
         var direction = StateMachine.Direction();
         var velocityX = StateMachine.Config.ControlledSlashVelocityX * direction;
@@ -46,12 +41,5 @@ internal class ControlledSlash : State<SeerStateMachine>
         }
         StateMachine.InputManager.AttackPressed = false;
         yield return new ToState { State = typeof(ControlledIdle) };
-    }
-    public override void Exit(bool interrupted)
-    {
-        if (interrupted)
-        {
-            StateMachine.Reset();
-        }
     }
 }

@@ -6,12 +6,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.ControlledState
 
 internal class ControlledRun : State<SeerStateMachine>
 {
-    public override Transition Enter()
-    {
-        StartCoroutine(Routine());
-        return new NoTransition();
-    }
-    private IEnumerator<Transition> Routine()
+    public override IEnumerator<Transition> Routine()
     {
     RunStart: var direction = StateMachine.InputManager.Direction;
         if (direction == 0)

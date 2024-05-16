@@ -6,13 +6,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
 internal class Dash : State<SeerStateMachine>
 {
-    public override Transition Enter()
-    {
-        StartCoroutine(Routine());
-        return new NoTransition();
-    }
-
-    private IEnumerator<Transition> Routine()
+    public override IEnumerator<Transition> Routine()
     {
         if (!StateMachine.FacingTarget())
         {

@@ -15,7 +15,9 @@ internal class DreamEchoesCore : Mod
     private bool renederColliders = false;
 
     public DreamEchoesCore() : base(
-        "DreamEchoesCore", "1.0.0.0", [("RestingGrounds_07", "Dream Moth")])
+        "DreamEchoesCore", "1.0.0.0",
+        [("RestingGrounds_07", "Dream Moth")],
+        ["HKMirrorMod", "WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
     { }
 
     public override void ModStart()

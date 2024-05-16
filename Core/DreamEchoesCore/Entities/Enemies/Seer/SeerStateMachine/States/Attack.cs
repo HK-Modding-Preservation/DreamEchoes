@@ -1,6 +1,7 @@
 ﻿using RingLib.StateMachine;
 using RingLib.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine.States;
 
@@ -12,8 +13,8 @@ internal class Attack : State<SeerStateMachine>
         new(typeof(Hug), 1, 9999)
     ]);
 
-    public override Transition Enter()
+    public override IEnumerator<Transition> Routine()
     {
-        return new ToState { State = randomSelector.Get() };
+        yield return new ToState { State = randomSelector.Get() };
     }
 }
