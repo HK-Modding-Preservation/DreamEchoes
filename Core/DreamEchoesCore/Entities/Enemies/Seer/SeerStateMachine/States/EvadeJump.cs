@@ -10,8 +10,8 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> EvadeJump()
     {
         // JumpStart
-        var jumpRadiusMin = Config.EvadeJumpRadiusMin;
-        var jumpRadiusMax = Config.EvadeJumpRadiusMax;
+        var jumpRadiusMin = config.EvadeJumpRadiusMin;
+        var jumpRadiusMax = config.EvadeJumpRadiusMax;
         var jumpRadius = UnityEngine.Random.Range(jumpRadiusMin, jumpRadiusMax);
         var targetXLeft = Target().Position().x - jumpRadius;
         var targetXRight = Target().Position().x + jumpRadius;
@@ -24,25 +24,25 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             targetX = targetXLeft;
         }
-        var velocityX = (targetX - Position.x) * Config.EvadeJumpVelocityXScale;
+        var velocityX = (targetX - Position.x) * config.EvadeJumpVelocityXScale;
         if (Mathf.Sign(velocityX) != Direction())
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
-        yield return new CoroutineTransition { Routine = Animator.PlayAnimation("JumpStart") };
+        yield return new CoroutineTransition { Routine = animator.PlayAnimation("JumpStart") };
 
         // JumpAscend
-        Velocity = new Vector2(velocityX, Config.EvadeJumpVelocityY);
-        Animator.PlayAnimation("JumpAscend");
+        Velocity = new Vector2(velocityX, config.EvadeJumpVelocityY);
+        animator.PlayAnimation("JumpAscend");
         yield return new WaitTill { Condition = () => Velocity.y <= 0 };
 
         // JumpDescend
-        Animator.PlayAnimation("JumpDescend");
+        animator.PlayAnimation("JumpDescend");
         yield return new WaitTill { Condition = () => Landed() };
 
         // JumpEnd
         Velocity = Vector2.zero;
-        yield return new CoroutineTransition { Routine = Animator.PlayAnimation("JumpEnd") };
+        yield return new CoroutineTransition { Routine = animator.PlayAnimation("JumpEnd") };
         yield return new ToState { State = nameof(Attack) };
     }
 }

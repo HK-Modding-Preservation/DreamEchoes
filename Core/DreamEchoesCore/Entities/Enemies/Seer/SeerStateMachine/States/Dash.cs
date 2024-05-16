@@ -15,9 +15,9 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
 
         var direction = Direction();
-        var velocityX = Config.DashVelocityX * direction;
-        BoxCollider2D.offset = Config.DashStartColliderOffset;
-        BoxCollider2D.size = Config.DashStartColliderSize;
+        var velocityX = config.DashVelocityX * direction;
+        BoxCollider2D.offset = config.DashStartColliderOffset;
+        BoxCollider2D.size = config.DashStartColliderSize;
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
@@ -26,19 +26,19 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("DashStart", startUpdater)
+            Routine = animator.PlayAnimation("DashStart", startUpdater)
         };
 
-        BoxCollider2D.offset = Config.DashColliderOffset;
-        BoxCollider2D.size = Config.DashColliderSize;
+        BoxCollider2D.offset = config.DashColliderOffset;
+        BoxCollider2D.size = config.DashColliderSize;
         Rigidbody2D.gravityScale = 0;
         Velocity = new Vector2(velocityX, 0);
-        Animator.PlayAnimation("Dash");
-        yield return new WaitFor { Seconds = Config.DashDuration };
+        animator.PlayAnimation("Dash");
+        yield return new WaitFor { Seconds = config.DashDuration };
 
-        BoxCollider2D.offset = Config.DashEndColliderOffset;
-        BoxCollider2D.size = Config.DashEndColliderSize;
-        Rigidbody2D.gravityScale = Config.GravityScale;
+        BoxCollider2D.offset = config.DashEndColliderOffset;
+        BoxCollider2D.size = config.DashEndColliderSize;
+        Rigidbody2D.gravityScale = config.GravityScale;
         Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
@@ -47,10 +47,10 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("DashEnd", endUpdater)
+            Routine = animator.PlayAnimation("DashEnd", endUpdater)
         };
-        BoxCollider2D.offset = OriginalBoxCollider2DOffset;
-        BoxCollider2D.size = OriginalBoxCollider2DSize;
+        BoxCollider2D.offset = originalBoxCollider2DOffset;
+        BoxCollider2D.size = originalBoxCollider2DSize;
         yield return new ToState { State = nameof(Idle) };
     }
 }

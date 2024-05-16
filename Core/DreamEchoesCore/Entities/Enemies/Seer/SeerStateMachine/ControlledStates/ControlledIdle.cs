@@ -10,10 +10,10 @@ internal partial class SeerStateMachine : EntityStateMachine
     public IEnumerator<Transition> ControlledIdle()
     {
         Velocity = Vector2.zero;
-        Animator.PlayAnimation("Idle");
+        animator.PlayAnimation("Idle");
         while (true)
         {
-            if (InputManager.Direction != 0)
+            if (inputManager.Direction != 0)
             {
                 yield return new ToState { State = nameof(ControlledRun) };
             }

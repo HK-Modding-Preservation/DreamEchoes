@@ -20,8 +20,8 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new CoroutineTransition { Routine = Turn() };
         }
         Velocity = Vector2.zero;
-        Animator.PlayAnimation("Idle");
-        yield return new WaitFor { Seconds = Config.IdleDuration };
+        animator.PlayAnimation("Idle");
+        yield return new WaitFor { Seconds = config.IdleDuration };
         yield return new ToState { State = idleRandomSelector.Get() };
     }
 }

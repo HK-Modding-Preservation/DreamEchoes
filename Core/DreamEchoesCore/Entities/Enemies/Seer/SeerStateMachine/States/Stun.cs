@@ -17,8 +17,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         // pls also consider air stun and test it!
 
         var direction = Direction();
-        var velocityX = Config.HugVelocityX * -direction;
-        var velocityY = Config.HugVelocityY;
+        var velocityX = config.HugVelocityX * -direction;
+        var velocityY = config.HugVelocityY;
         Transition updater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
@@ -28,21 +28,21 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("HugStart", updater)
+            Routine = animator.PlayAnimation("HugStart", updater)
         };
 
         Rigidbody2D.gravityScale = 0;
         Velocity = Vector2.zero;
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("Hug", updater)
+            Routine = animator.PlayAnimation("Hug", updater)
         };
 
-        Rigidbody2D.gravityScale = Config.GravityScale;
-        Animator.PlayAnimation("JumpDescend");
+        Rigidbody2D.gravityScale = config.GravityScale;
+        animator.PlayAnimation("JumpDescend");
         yield return new WaitTill { Condition = () => Landed() };
         Velocity = Vector2.zero;
-        yield return new CoroutineTransition { Routine = Animator.PlayAnimation("JumpEnd") };
+        yield return new CoroutineTransition { Routine = animator.PlayAnimation("JumpEnd") };
         yield return new ToState { State = nameof(Idle) };
     }
 }

@@ -8,11 +8,11 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
-    public Config Config { get; }
-    public Vector2 OriginalBoxCollider2DOffset;
-    public Vector2 OriginalBoxCollider2DSize;
-    public RingLib.Components.Animator Animator { get; private set; }
-    public InputManager InputManager { get; private set; }
+    private Config config = new();
+    private Vector2 originalBoxCollider2DOffset;
+    private Vector2 originalBoxCollider2DSize;
+    private RingLib.Components.Animator animator;
+    private InputManager inputManager;
     private List<GameObject> attacks = [];
 
     public SeerStateMachine() : base(
@@ -22,19 +22,17 @@ internal partial class SeerStateMachine : EntityStateMachine
             { "Stun", nameof(Stun) }
         },
         /*SpriteFacingLeft =*/true)
-    {
-        Config = new();
-    }
+    { }
 
     protected override void EntityStateMachineStart()
     {
-        OriginalBoxCollider2DOffset = BoxCollider2D.offset;
-        OriginalBoxCollider2DSize = BoxCollider2D.size;
-        Rigidbody2D.gravityScale = Config.GravityScale;
+        originalBoxCollider2DOffset = BoxCollider2D.offset;
+        originalBoxCollider2DSize = BoxCollider2D.size;
+        Rigidbody2D.gravityScale = config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
-        Animator = animation.GetComponent<RingLib.Components.Animator>();
-        InputManager = gameObject.AddComponent<InputManager>();
-        InputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
+        animator = animation.GetComponent<RingLib.Components.Animator>();
+        inputManager = gameObject.AddComponent<InputManager>();
+        inputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
         {
             attacks.Add(attack.gameObject);
@@ -47,7 +45,7 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     protected override void EntityStateMachineUpdate()
     {
-        var attackPressed = InputManager.AttackPressed;
+        var attackPressed = inputManager.AttackPressed;
         var controlldFree = CurrentState == nameof(ControlledIdle) || CurrentState == nameof(ControlledRun);
         if (attackPressed && controlldFree)
         {
@@ -55,17 +53,17 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
     }
 
-    public GameObject Target()
+    private GameObject Target()
     {
         return HeroController.instance.gameObject;
     }
 
-    public bool FacingTarget()
+    private bool FacingTarget()
     {
         return Mathf.Sign(Target().transform.position.x - transform.position.x) == Direction();
     }
 
-    public IEnumerator<Transition> Turn()
+    private IEnumerator<Transition> Turn()
     {
         var localScale = gameObject.transform.localScale;
         localScale.x *= -1;
@@ -73,20 +71,20 @@ internal partial class SeerStateMachine : EntityStateMachine
         yield return new NoTransition();
     }
 
-    public void OnHit(int previousHealth, int newHealth)
+    private void OnHit(int previousHealth, int newHealth)
     {
         ReceiveEvent("Stun");
     }
 
-    public void OnDeath(WeaverCore.HitInfo hitInfo)
+    private void OnDeath(WeaverCore.HitInfo hitInfo)
     {
     }
 
-    public void Reset()
+    private void Reset()
     {
-        BoxCollider2D.offset = OriginalBoxCollider2DOffset;
-        BoxCollider2D.size = OriginalBoxCollider2DSize;
-        Rigidbody2D.gravityScale = Config.GravityScale;
+        BoxCollider2D.offset = originalBoxCollider2DOffset;
+        BoxCollider2D.size = originalBoxCollider2DSize;
+        Rigidbody2D.gravityScale = config.GravityScale;
         foreach (var attack in attacks)
         {
             attack.SetActive(false);

@@ -9,22 +9,22 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> ControlledRun()
     {
-    RunStart: var direction = InputManager.Direction;
+    RunStart: var direction = inputManager.Direction;
         if (direction == 0)
         {
             yield return new ToState { State = nameof(ControlledIdle) };
         }
-        var velocityX = Config.RunVelocityX * direction;
+        var velocityX = config.RunVelocityX * direction;
         if (direction != Direction())
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
-        Animator.PlayAnimation("RunStart");
-        var startDuration = Animator.ClipLength("RunStart");
+        animator.PlayAnimation("RunStart");
+        var startDuration = animator.ClipLength("RunStart");
         var timer = 0f;
         while (timer < startDuration)
         {
-            var newDirection = InputManager.Direction;
+            var newDirection = inputManager.Direction;
             if (newDirection != direction)
             {
                 yield return new ToState { State = nameof(ControlledIdle) };
@@ -35,10 +35,10 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new NoTransition();
         }
     Run: Velocity = new Vector2(velocityX, 0);
-        Animator.PlayAnimation("Run");
+        animator.PlayAnimation("Run");
         while (true)
         {
-            var newDirection = InputManager.Direction;
+            var newDirection = inputManager.Direction;
             if (newDirection == 0)
             {
                 break;
@@ -49,12 +49,12 @@ internal partial class SeerStateMachine : EntityStateMachine
             }
             yield return new NoTransition();
         }
-        Animator.PlayAnimation("RunEnd");
-        var endDuration = Animator.ClipLength("RunEnd");
+        animator.PlayAnimation("RunEnd");
+        var endDuration = animator.ClipLength("RunEnd");
         timer = 0f;
         while (timer < endDuration)
         {
-            var newDirection = InputManager.Direction;
+            var newDirection = inputManager.Direction;
             if (newDirection != 0)
             {
                 if (newDirection == direction)

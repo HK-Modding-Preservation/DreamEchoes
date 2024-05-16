@@ -10,23 +10,23 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> ControlledSlash()
     {
         var direction = Direction();
-        var velocityX = Config.ControlledSlashVelocityX * direction;
+        var velocityX = config.ControlledSlashVelocityX * direction;
         Velocity = Vector2.zero;
         IEnumerator<Transition> Slash(string slash)
         {
             var previousVelocityX = Velocity.x;
-            InputManager.AttackPressed = false;
+            inputManager.AttackPressed = false;
             var nextSlash = false;
             Transition updater(float normalizedTime)
             {
                 var currentVelocityX = Mathf.Lerp(previousVelocityX, velocityX, normalizedTime);
                 Velocity = new Vector2(currentVelocityX, 0);
-                nextSlash |= InputManager.AttackPressed;
+                nextSlash |= inputManager.AttackPressed;
                 return new NoTransition();
             }
             yield return new CoroutineTransition
             {
-                Routine = Animator.PlayAnimation(slash, updater)
+                Routine = animator.PlayAnimation(slash, updater)
             };
             if (!nextSlash)
             {
@@ -40,7 +40,7 @@ internal partial class SeerStateMachine : EntityStateMachine
                 Routine = Slash(slash)
             };
         }
-        InputManager.AttackPressed = false;
+        inputManager.AttackPressed = false;
         yield return new ToState { State = nameof(ControlledIdle) };
     }
 }

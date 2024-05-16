@@ -15,7 +15,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
 
         var direction = Direction();
-        var velocityX = Config.RunVelocityX * direction;
+        var velocityX = config.RunVelocityX * direction;
 
         Transition startUpdater(float normalizedTime)
         {
@@ -25,12 +25,12 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("RunStart", startUpdater)
+            Routine = animator.PlayAnimation("RunStart", startUpdater)
         };
 
         Velocity = new Vector2(velocityX, 0);
-        Animator.PlayAnimation("Run");
-        yield return new WaitFor { Seconds = Config.RunDuration };
+        animator.PlayAnimation("Run");
+        yield return new WaitFor { Seconds = config.RunDuration };
 
         Transition endUpdater(float normalizedTime)
         {
@@ -40,7 +40,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition
         {
-            Routine = Animator.PlayAnimation("RunEnd", endUpdater)
+            Routine = animator.PlayAnimation("RunEnd", endUpdater)
         };
 
         yield return new ToState { State = nameof(Attack) };

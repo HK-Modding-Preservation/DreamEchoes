@@ -18,8 +18,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
 
         var velocityX = (Target().Position().x - Position.x);
-        velocityX *= Config.SlashVelocityXScale;
-        var minVelocityX = Config.ControlledSlashVelocityX;
+        velocityX *= config.SlashVelocityXScale;
+        var minVelocityX = config.ControlledSlashVelocityX;
         if (velocityX > -minVelocityX && velocityX < minVelocityX)
         {
             velocityX = Mathf.Sign(velocityX) * minVelocityX;
@@ -46,7 +46,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             }
             yield return new CoroutineTransition
             {
-                Routine = Animator.PlayAnimation(slash, updater)
+                Routine = animator.PlayAnimation(slash, updater)
             };
         }
         foreach (var slash in new string[] { "Slash1", "Slash2", "Slash3" })
