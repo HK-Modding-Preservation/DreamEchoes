@@ -63,6 +63,17 @@ internal class DreamEchoesCore : Mod
                 stateMachine.gameObject.GetOrAddComponent<ColliderRenderer>().Enabled = renederColliders;
             }
         }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            GameManager.instance.BeginSceneTransition(new GameManager.SceneLoadInfo
+            {
+                SceneName = "DreamEchoesSeer",
+                EntryGateName = "door_dreamEnter",
+                EntryDelay = 0,
+                PreventCameraFadeOut = true,
+                Visualization = GameManager.SceneLoadVisualizations.Dream,
+            });
+        }
         orig(self);
     }
 }
