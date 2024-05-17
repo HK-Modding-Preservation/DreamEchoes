@@ -25,6 +25,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             targetX = targetXLeft;
         }
         var velocityX = (targetX - Position.x) * config.EvadeJumpVelocityXScale;
+        var velocityY = config.EvadeJumpVelocityY;
         if (Mathf.Sign(velocityX) != Direction())
         {
             yield return new CoroutineTransition { Routine = Turn() };
@@ -32,7 +33,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("JumpStart") };
 
         // JumpAscend
-        Velocity = new Vector2(velocityX, config.EvadeJumpVelocityY);
+        Velocity = new Vector2(velocityX, velocityY);
         animator.PlayAnimation("JumpAscend");
         yield return new WaitTill { Condition = () => Velocity.y <= 0 };
 
