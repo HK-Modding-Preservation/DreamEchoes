@@ -79,7 +79,7 @@ internal class DreamEchoesCore : Mod
                 EntryGateName = "door_dreamEnter",
                 EntryDelay = 0,
                 PreventCameraFadeOut = true,
-                Visualization = GameManager.SceneLoadVisualizations.Dream,
+                Visualization = GameManager.SceneLoadVisualizations.GodsAndGlory,
             });
         }
         orig(self);

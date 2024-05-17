@@ -9,11 +9,11 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Hug()
     {
+        // HugStart
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
-
         var direction = Direction();
         var velocityX = config.HugVelocityX * -direction;
         var velocityY = config.HugVelocityY;
@@ -29,6 +29,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             Routine = animator.PlayAnimation("HugStart", updater)
         };
 
+        // Hug
         Rigidbody2D.gravityScale = 0;
         Velocity = Vector2.zero;
         yield return new CoroutineTransition
@@ -36,6 +37,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             Routine = animator.PlayAnimation("Hug", updater)
         };
 
+        // HugEnd
         Rigidbody2D.gravityScale = config.GravityScale;
         animator.PlayAnimation("JumpDescend");
         yield return new WaitTill { Condition = () => Landed() };

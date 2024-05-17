@@ -9,11 +9,11 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Dash()
     {
+        // DashStart
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
-
         var direction = Direction();
         var velocityX = config.DashVelocityX * direction;
         BoxCollider2D.offset = config.DashStartColliderOffset;
@@ -29,6 +29,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             Routine = animator.PlayAnimation("DashStart", startUpdater)
         };
 
+        // Dash
         BoxCollider2D.offset = config.DashColliderOffset;
         BoxCollider2D.size = config.DashColliderSize;
         Rigidbody2D.gravityScale = 0;
@@ -36,6 +37,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         animator.PlayAnimation("Dash");
         yield return new WaitFor { Seconds = config.DashDuration };
 
+        // DashEnd
         BoxCollider2D.offset = config.DashEndColliderOffset;
         BoxCollider2D.size = config.DashEndColliderSize;
         Rigidbody2D.gravityScale = config.GravityScale;

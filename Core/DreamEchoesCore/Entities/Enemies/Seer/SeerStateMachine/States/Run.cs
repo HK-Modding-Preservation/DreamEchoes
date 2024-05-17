@@ -9,14 +9,13 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Run()
     {
+        // RunStart
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
-
         var direction = Direction();
         var velocityX = config.RunVelocityX * direction;
-
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
@@ -28,10 +27,12 @@ internal partial class SeerStateMachine : EntityStateMachine
             Routine = animator.PlayAnimation("RunStart", startUpdater)
         };
 
+        // Run
         Velocity = new Vector2(velocityX, 0);
         animator.PlayAnimation("Run");
         yield return new WaitFor { Seconds = config.RunDuration };
 
+        // RunEnd
         Transition endUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(velocityX, 0, normalizedTime);
@@ -42,7 +43,6 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             Routine = animator.PlayAnimation("RunEnd", endUpdater)
         };
-
         yield return new ToState { State = nameof(Attack) };
     }
 }
