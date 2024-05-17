@@ -10,6 +10,8 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> Stun()
     {
         // StunStart
+        Reset();
+        PlayStunEffect();
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };

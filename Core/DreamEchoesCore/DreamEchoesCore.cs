@@ -4,6 +4,7 @@ using RingLib;
 using RingLib.Attacks;
 using RingLib.Components;
 using RingLib.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 using WeaverCore.Utilities;
 
@@ -15,7 +16,14 @@ internal class DreamEchoesCore : Mod
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
-        [("RestingGrounds_07", "Dream Moth")],
+        [
+            ("RestingGrounds_07", "Dream Moth"),
+        ],
+        new Dictionary<string, string>
+        {
+            {"SEER_NAME", "先知" },
+            {"SEER_DESC", "温良的守护神" }
+        },
         ["HKMirrorMod", "WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
     { }
 

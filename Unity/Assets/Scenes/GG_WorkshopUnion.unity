@@ -40153,9 +40153,9 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: f07e035e4200cbf4abf42999beec8916, type: 2}
   normalStatueStateField: SeerCompletion
   dreamStatueStateField: 
-  bossNameKey: NAME_MAGE_KNIGHT
+  bossNameKey: SEER_NAME
   bossNameSheet: Journal
-  bossDescKey: GG_S_MAGEKNIGHT
+  bossDescKey: SEER_DESC
   bossDescSheet: CP3
   dreamBossNameKey: 
   dreamBossNameSheet: 
