@@ -30,12 +30,27 @@ internal partial class SeerStateMachine : EntityStateMachine
         // StunLand
         Velocity = Vector2.zero;
         animator.PlayAnimation("StunLand");
-        yield return new WaitFor { Seconds = config.StunDuration };
+        IEnumerator<Transition> checkHit()
+        {
+            var currentCount = stunCount;
+            while (currentCount == stunCount)
+            {
+                yield return new NoTransition();
+            }
+        }
+        yield return new CoroutineTransition
+        {
+            Routines = [
+                checkHit(),
+                new WaitFor { Seconds = config.StunDuration },
+            ]
+        };
 
         // StunEnd
         BoxCollider2D.offset = originalBoxCollider2DOffset;
         BoxCollider2D.size = originalBoxCollider2DSize;
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("StunEnd") };
+        stunCount = 0;
         yield return new ToState { State = nameof(Idle) };
     }
 }

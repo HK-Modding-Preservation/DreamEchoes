@@ -11,6 +11,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private Config config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
+    private int stunCount;
     private RingLib.Components.Animator animator;
     private InputManager inputManager;
     private List<GameObject> attacks = [];
@@ -73,7 +74,12 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     private void OnHit(int previousHealth, int newHealth)
     {
-        ReceiveEvent("Stun");
+        ++stunCount;
+        if (stunCount >= config.StunThreshold)
+        {
+            stunCount = int.MinValue;
+            ReceiveEvent("Stun");
+        }
     }
 
     private void OnDeath(WeaverCore.HitInfo hitInfo)

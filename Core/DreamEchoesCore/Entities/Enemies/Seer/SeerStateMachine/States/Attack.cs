@@ -9,7 +9,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private RandomSelector<string> attackRandomSelector = new([
         new(nameof(Dash), 1, 2),
         new(nameof(Slash), 1, 2),
-        new(nameof(Hug), 1, 9999)
+        new(nameof(Hug), 1, 2)
     ]);
 
     [State]
