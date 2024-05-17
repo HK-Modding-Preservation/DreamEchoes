@@ -51,6 +51,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         };
         BoxCollider2D.offset = originalBoxCollider2DOffset;
         BoxCollider2D.size = originalBoxCollider2DSize;
+        Velocity = Vector2.zero;
         yield return new ToState { State = nameof(Idle) };
     }
 }
