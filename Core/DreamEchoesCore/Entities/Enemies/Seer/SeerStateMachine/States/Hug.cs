@@ -8,6 +8,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class HugRadiantNail : MonoBehaviour
 {
+    private static GameObject hugRadiantNailPrefab;
     private PlayMakerFSM fsm;
     public float Speed;
 
@@ -30,13 +31,35 @@ internal class HugRadiantNail : MonoBehaviour
         {
             fsm.SendEvent("FAN ATTACK CW");
         }
-        var bottomRay = new Vector2(transform.position.x, transform.position.y);
-        var raycastHit2D = Physics2D.Raycast(bottomRay, -Vector2.up, 0.4f, 1 << 8);
-        if (raycastHit2D.collider != null)
+    }
+
+    public static void SpawnHugRadiantNail(GameObject animation)
+    {
+        if (hugRadiantNailPrefab == null)
         {
-            var state = fsm.GetState("Fire CW");
-            var action = state.GetAction<SetVelocityAsAngle>(0);
-            action.speed.Value = 0;
+            var absoluteRadiance = DreamEchoesCore.GetPreloaded("GG_Radiance", "Boss Control/Absolute Radiance");
+            var fsm = absoluteRadiance.LocateMyFSM("Attack Commands");
+            var state = fsm.GetState("CW Spawn");
+            var action = state.GetAction<SpawnObjectFromGlobalPool>(0);
+            hugRadiantNailPrefab = action.gameObject.Value;
+        }
+        var seer = animation.transform.parent.gameObject;
+        var seerStateMachine = seer.GetComponent<SeerStateMachine>();
+        var radiantNailPlaceholders = animation.transform.Find("RadiantNails");
+        for (int i = 0; i < radiantNailPlaceholders.childCount; i++)
+        {
+            var radiantNailPlaceholder = radiantNailPlaceholders.GetChild(i);
+            var currentPosition = radiantNailPlaceholder.position;
+            var currentRotation = radiantNailPlaceholder.rotation;
+            currentRotation *= Quaternion.Euler(0, 0, 90);
+            var currentScale = radiantNailPlaceholder.lossyScale;
+            if (currentScale.x < 0)
+            {
+                currentRotation *= Quaternion.Euler(0, 0, 180);
+            }
+            var radiantNail = Instantiate(hugRadiantNailPrefab, currentPosition, currentRotation);
+            radiantNail.AddComponent<HugRadiantNail>().Speed = seerStateMachine.Config.HugRadiantNailSpeed;
+            radiantNail.SetActive(true);
         }
     }
 }

@@ -32,7 +32,6 @@ internal partial class SeerStateMachine : EntityStateMachine
         Rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
         animator = animation.GetComponent<SeerAnimator>();
-        animator.SeerStateMachine = this;
         inputManager = gameObject.AddComponent<InputManager>();
         inputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
@@ -92,6 +91,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         BoxCollider2D.offset = originalBoxCollider2DOffset;
         BoxCollider2D.size = originalBoxCollider2DSize;
         Rigidbody2D.gravityScale = Config.GravityScale;
+        Velocity = Vector2.zero;
         foreach (var attack in attacks)
         {
             attack.SetActive(false);
