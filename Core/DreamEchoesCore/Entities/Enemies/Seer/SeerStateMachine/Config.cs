@@ -28,7 +28,7 @@ internal class Config
     public float SlashVelocityXScale = 2;
     public float ControlledSlashVelocityX = 7.5f;
 
-    public float HugVelocityX = 7.5f;
+    public float HugVelocityX = 2.5f;
     public float HugVelocityY = 5;
     public float HugRadiantNailSpeed = 20;
 

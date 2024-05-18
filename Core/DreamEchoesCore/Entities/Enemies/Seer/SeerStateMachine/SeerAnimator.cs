@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class SeerAnimator : RingLib.Components.Animator
 {
     public GameObject JumpEffectPrefab;
+
     public AudioClip DashSound;
+
     public AudioClip Slash1Sound;
     public AudioClip Slash2Sound;
+
+    public List<AudioClip> HugRadiantNailSounds;
 
     public void SpawnJumpEffect()
     {
@@ -37,5 +42,15 @@ internal class SeerAnimator : RingLib.Components.Animator
     public void SpawnRadiantNails()
     {
         HugRadiantNail.SpawnHugRadiantNail(gameObject);
+        if (HugRadiantNailSounds == null || HugRadiantNailSounds.Count == 0)
+        {
+            RingLib.Log.LogError(GetType().Name, "No hug radiant nail sounds found");
+            return;
+        }
+        if (HugRadiantNailSounds.Count > 0)
+        {
+            var sound = HugRadiantNailSounds[Random.Range(0, HugRadiantNailSounds.Count)];
+            PlaySound(sound);
+        }
     }
 }

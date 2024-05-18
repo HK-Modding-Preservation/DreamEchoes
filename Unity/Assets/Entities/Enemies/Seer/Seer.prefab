@@ -500,14 +500,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 854440381}
-  - component: {fileID: 854440382}
   m_Layer: 22
   m_Name: RadiantNails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &854440381
 Transform:
   m_ObjectHideFlags: 0
@@ -516,8 +515,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854440380}
   m_LocalRotation: {x: -0, y: -0, z: -0.07312398, w: 0.9973229}
-  m_LocalPosition: {x: 0.56, y: -0.11, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.76, y: 0.16, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1391753038}
   - {fileID: 524061883}
@@ -529,18 +528,6 @@ Transform:
   m_Father: {fileID: 3161486070624962390}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.387}
---- !u!114 &854440382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854440380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -334052434, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &941890767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1513,8 @@ MonoBehaviour:
   DashSound: {fileID: 8300000, guid: 787dfa1ce6181904ca2b40aff23faeea, type: 3}
   Slash1Sound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}
   Slash2Sound: {fileID: 8300000, guid: a09ff5f6202ce244d8913d821969be8b, type: 3}
+  HugRadiantNailSounds:
+  - {fileID: 8300000, guid: 9c9b2051b5402174ea44a0be1c32f64a, type: 3}
 --- !u!82 &301536763547394540
 AudioSource:
   m_ObjectHideFlags: 0
