@@ -26,25 +26,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         var velocityY = Config.StunVelocityY;
         Velocity = new Vector2(velocityX, velocityY);
         animator.PlayAnimation("StunAir");
-        IEnumerator<Transition> updateSpeed()
-        {
-            RingLib.Log.LogInfo("aaa", "initial speed: " + Velocity);
-            velocityXMax -= Config.StunVelocityXDeceleration * Time.deltaTime;
-            velocityXMax = Mathf.Max(velocityXMax, 0);
-            var velocityX = velocityXMax * -Direction();
-            var currentVelocity = Velocity;
-            currentVelocity.x = velocityX;
-            Velocity = currentVelocity;
-            RingLib.Log.LogInfo("aaa", "current speed: " + Velocity);
-            yield return new NoTransition();
-        }
-        yield return new CoroutineTransition
-        {
-            Routines = [
-                updateSpeed(),
-                new WaitTill { Condition = Landed },
-            ]
-        };
+        yield return new WaitTill { Condition = Landed };
 
         // StunLand
         Velocity = Vector2.zero;

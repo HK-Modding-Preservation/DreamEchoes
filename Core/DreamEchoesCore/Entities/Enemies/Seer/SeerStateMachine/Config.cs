@@ -36,7 +36,6 @@ internal class Config
     public Vector2 StunColliderOffset = new(0, -0.75f);
     public Vector2 StunColliderSize = new(1.2f, 2.5f);
     public float StunVelocityX = 20;
-    public float StunVelocityXDeceleration = 10;
     public float StunVelocityY = 20;
     public float StunDuration = 2;
 }
