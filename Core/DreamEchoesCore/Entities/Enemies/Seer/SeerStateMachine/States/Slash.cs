@@ -56,6 +56,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             };
         }
 
+        Velocity = Vector2.zero;
         yield return new ToState { State = nameof(Idle) };
     }
 }

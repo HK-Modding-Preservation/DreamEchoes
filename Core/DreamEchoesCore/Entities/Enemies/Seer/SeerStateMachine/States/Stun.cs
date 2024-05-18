@@ -16,6 +16,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             yield return new CoroutineTransition { Routine = Turn() };
         }
+        Velocity = Vector2.zero;
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("StunStart") };
 
         // StunAir

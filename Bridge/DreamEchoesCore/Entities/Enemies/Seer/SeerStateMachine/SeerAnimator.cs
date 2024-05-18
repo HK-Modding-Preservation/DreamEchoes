@@ -14,6 +14,8 @@ internal class SeerAnimator : MonoBehaviour
 
     public List<AudioClip> HugRadiantNailSounds;
 
+    public AudioClip ParryCounterSound;
+
     public void SpawnJumpEffect() { }
 
     public void PlayDashSound() { }
@@ -23,4 +25,6 @@ internal class SeerAnimator : MonoBehaviour
     public void PlaySlash2Sound() { }
 
     public void SpawnRadiantNails() { }
+
+    public void PlayParryCounterSound() { }
 }

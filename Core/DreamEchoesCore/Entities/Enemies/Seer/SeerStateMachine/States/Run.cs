@@ -43,6 +43,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             Routine = animator.PlayAnimation("RunEnd", endUpdater)
         };
+        Velocity = Vector2.zero;
         yield return new ToState { State = nameof(Attack) };
     }
 }

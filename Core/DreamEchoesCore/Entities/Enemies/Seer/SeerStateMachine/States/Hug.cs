@@ -6,66 +6,66 @@ using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
-internal class HugRadiantNail : MonoBehaviour
-{
-    private static GameObject hugRadiantNailPrefab;
-    private PlayMakerFSM fsm;
-    public float Speed;
-
-    private void Start()
-    {
-        fsm = gameObject.LocateMyFSM("Control");
-        var state = fsm.GetState("Fire CW");
-        state.RemoveAction<FloatAdd>(2);
-        state.RemoveAction<FaceAngle>(1);
-        state.GetAction<SetVelocityAsAngle>(0).speed.Value = Speed;
-    }
-
-    private void Update()
-    {
-        if (fsm.ActiveStateName == "Appear")
-        {
-            fsm.SendEvent("FAN ANTIC");
-        }
-        else if (fsm.ActiveStateName == "Fan Ready")
-        {
-            fsm.SendEvent("FAN ATTACK CW");
-        }
-    }
-
-    public static void SpawnHugRadiantNail(GameObject animation)
-    {
-        if (hugRadiantNailPrefab == null)
-        {
-            var absoluteRadiance = DreamEchoesCore.GetPreloaded("GG_Radiance", "Boss Control/Absolute Radiance");
-            var fsm = absoluteRadiance.LocateMyFSM("Attack Commands");
-            var state = fsm.GetState("CW Spawn");
-            var action = state.GetAction<SpawnObjectFromGlobalPool>(0);
-            hugRadiantNailPrefab = action.gameObject.Value;
-        }
-        var seer = animation.transform.parent.gameObject;
-        var seerStateMachine = seer.GetComponent<SeerStateMachine>();
-        var radiantNailPlaceholders = animation.transform.Find("RadiantNails");
-        for (int i = 0; i < radiantNailPlaceholders.childCount; i++)
-        {
-            var radiantNailPlaceholder = radiantNailPlaceholders.GetChild(i);
-            var currentPosition = radiantNailPlaceholder.position;
-            var currentRotation = radiantNailPlaceholder.rotation;
-            currentRotation *= Quaternion.Euler(0, 0, 90);
-            var currentScale = radiantNailPlaceholder.lossyScale;
-            if (currentScale.x < 0)
-            {
-                currentRotation *= Quaternion.Euler(0, 0, 180);
-            }
-            var radiantNail = Instantiate(hugRadiantNailPrefab, currentPosition, currentRotation);
-            radiantNail.AddComponent<HugRadiantNail>().Speed = seerStateMachine.Config.HugRadiantNailSpeed;
-            radiantNail.SetActive(true);
-        }
-    }
-}
-
 internal partial class SeerStateMachine : EntityStateMachine
 {
+    internal class HugRadiantNail : MonoBehaviour
+    {
+        private static GameObject hugRadiantNailPrefab;
+        private PlayMakerFSM fsm;
+        public float Speed;
+
+        private void Start()
+        {
+            fsm = gameObject.LocateMyFSM("Control");
+            var state = fsm.GetState("Fire CW");
+            state.RemoveAction<FloatAdd>(2);
+            state.RemoveAction<FaceAngle>(1);
+            state.GetAction<SetVelocityAsAngle>(0).speed.Value = Speed;
+        }
+
+        private void Update()
+        {
+            if (fsm.ActiveStateName == "Appear")
+            {
+                fsm.SendEvent("FAN ANTIC");
+            }
+            else if (fsm.ActiveStateName == "Fan Ready")
+            {
+                fsm.SendEvent("FAN ATTACK CW");
+            }
+        }
+
+        public static void SpawnHugRadiantNail(GameObject animation)
+        {
+            if (hugRadiantNailPrefab == null)
+            {
+                var absoluteRadiance = DreamEchoesCore.GetPreloaded("GG_Radiance", "Boss Control/Absolute Radiance");
+                var fsm = absoluteRadiance.LocateMyFSM("Attack Commands");
+                var state = fsm.GetState("CW Spawn");
+                var action = state.GetAction<SpawnObjectFromGlobalPool>(0);
+                hugRadiantNailPrefab = action.gameObject.Value;
+            }
+            var seer = animation.transform.parent.gameObject;
+            var seerStateMachine = seer.GetComponent<SeerStateMachine>();
+            var radiantNailPlaceholders = animation.transform.Find("RadiantNails");
+            for (int i = 0; i < radiantNailPlaceholders.childCount; i++)
+            {
+                var radiantNailPlaceholder = radiantNailPlaceholders.GetChild(i);
+                var currentPosition = radiantNailPlaceholder.position;
+                var currentRotation = radiantNailPlaceholder.rotation;
+                currentRotation *= Quaternion.Euler(0, 0, 90);
+                var currentScale = radiantNailPlaceholder.lossyScale;
+                if (currentScale.x < 0)
+                {
+                    currentRotation *= Quaternion.Euler(0, 0, 180);
+                }
+                var radiantNail = Instantiate(hugRadiantNailPrefab, currentPosition, currentRotation);
+                radiantNail.AddComponent<HugRadiantNail>().Speed = seerStateMachine.Config.HugRadiantNailSpeed;
+                radiantNail.SetActive(true);
+            }
+        }
+    }
+
     [State]
     private IEnumerator<Transition> Hug()
     {

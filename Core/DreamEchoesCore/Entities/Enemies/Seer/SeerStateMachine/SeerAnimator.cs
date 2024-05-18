@@ -14,6 +14,8 @@ internal class SeerAnimator : RingLib.Components.Animator
 
     public List<AudioClip> HugRadiantNailSounds;
 
+    public AudioClip ParryCounterSound;
+
     public void SpawnJumpEffect()
     {
         var currentPosition = JumpEffectPrefab.transform.position;
@@ -41,7 +43,7 @@ internal class SeerAnimator : RingLib.Components.Animator
 
     public void SpawnRadiantNails()
     {
-        HugRadiantNail.SpawnHugRadiantNail(gameObject);
+        SeerStateMachine.HugRadiantNail.SpawnHugRadiantNail(gameObject);
         if (HugRadiantNailSounds == null || HugRadiantNailSounds.Count == 0)
         {
             RingLib.Log.LogError(GetType().Name, "No hug radiant nail sounds found");
@@ -52,5 +54,10 @@ internal class SeerAnimator : RingLib.Components.Animator
             var sound = HugRadiantNailSounds[Random.Range(0, HugRadiantNailSounds.Count)];
             PlaySound(sound);
         }
+    }
+
+    public void PlayParryCounterSound()
+    {
+        PlaySound(ParryCounterSound);
     }
 }

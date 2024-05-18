@@ -11,10 +11,12 @@ internal partial class SeerStateMachine : EntityStateMachine
     public Config Config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
-    private int stunCount;
     private SeerAnimator animator;
     private InputManager inputManager;
     private List<GameObject> attacks = [];
+
+    private int stunCount;
+    private bool parryed;
 
     public SeerStateMachine() : base(
         nameof(Idle),
@@ -42,6 +44,9 @@ internal partial class SeerStateMachine : EntityStateMachine
         var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
+        var parryHold = animation.transform.Find("ParryHold");
+        var nailSlash = parryHold.GetComponent<RingLib.Attacks.NailSlash>();
+        nailSlash.OnParry += () => parryed = true;
     }
 
     protected override void EntityStateMachineUpdate()
