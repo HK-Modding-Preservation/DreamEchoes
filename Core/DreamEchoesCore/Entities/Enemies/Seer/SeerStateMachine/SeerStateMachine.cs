@@ -8,11 +8,11 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
-    private Config config = new();
+    public Config Config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
     private int stunCount;
-    private RingLib.Components.Animator animator;
+    private SeerAnimator animator;
     private InputManager inputManager;
     private List<GameObject> attacks = [];
 
@@ -29,9 +29,10 @@ internal partial class SeerStateMachine : EntityStateMachine
     {
         originalBoxCollider2DOffset = BoxCollider2D.offset;
         originalBoxCollider2DSize = BoxCollider2D.size;
-        Rigidbody2D.gravityScale = config.GravityScale;
+        Rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
-        animator = animation.GetComponent<RingLib.Components.Animator>();
+        animator = animation.GetComponent<SeerAnimator>();
+        animator.SeerStateMachine = this;
         inputManager = gameObject.AddComponent<InputManager>();
         inputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
@@ -75,7 +76,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private void OnHit(int previousHealth, int newHealth)
     {
         ++stunCount;
-        if (stunCount >= config.StunThreshold)
+        if (stunCount >= Config.StunThreshold)
         {
             stunCount = int.MinValue;
             ReceiveEvent("Stun");
@@ -90,7 +91,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     {
         BoxCollider2D.offset = originalBoxCollider2DOffset;
         BoxCollider2D.size = originalBoxCollider2DSize;
-        Rigidbody2D.gravityScale = config.GravityScale;
+        Rigidbody2D.gravityScale = Config.GravityScale;
         foreach (var attack in attacks)
         {
             attack.SetActive(false);

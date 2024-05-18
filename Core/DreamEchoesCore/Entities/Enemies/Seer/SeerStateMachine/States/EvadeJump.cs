@@ -10,8 +10,8 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> EvadeJump()
     {
         // JumpStart
-        var jumpRadiusMin = config.EvadeJumpRadiusMin;
-        var jumpRadiusMax = config.EvadeJumpRadiusMax;
+        var jumpRadiusMin = Config.EvadeJumpRadiusMin;
+        var jumpRadiusMax = Config.EvadeJumpRadiusMax;
         var jumpRadius = Random.Range(jumpRadiusMin, jumpRadiusMax);
         var targetXLeft = Target().Position().x - jumpRadius;
         var targetXRight = Target().Position().x + jumpRadius;
@@ -24,8 +24,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             targetX = targetXLeft;
         }
-        var velocityX = (targetX - Position.x) * config.EvadeJumpVelocityXScale;
-        var velocityY = config.EvadeJumpVelocityY;
+        var velocityX = (targetX - Position.x) * Config.EvadeJumpVelocityXScale;
+        var velocityY = Config.EvadeJumpVelocityY;
         if (Mathf.Sign(velocityX) != Direction())
         {
             yield return new CoroutineTransition { Routine = Turn() };

@@ -21,7 +21,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         Velocity = Vector2.zero;
         animator.PlayAnimation("Idle");
-        yield return new WaitFor { Seconds = config.IdleDuration };
+        yield return new WaitFor { Seconds = Config.IdleDuration };
         yield return new ToState { State = idleRandomSelector.Get() };
     }
 }

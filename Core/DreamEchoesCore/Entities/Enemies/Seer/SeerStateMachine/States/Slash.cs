@@ -17,8 +17,8 @@ internal partial class SeerStateMachine : EntityStateMachine
             };
         }
         var velocityX = (Target().Position().x - Position.x);
-        velocityX *= config.SlashVelocityXScale;
-        var minVelocityX = config.ControlledSlashVelocityX;
+        velocityX *= Config.SlashVelocityXScale;
+        var minVelocityX = Config.ControlledSlashVelocityX;
         if (Mathf.Abs(velocityX) < minVelocityX)
         {
             velocityX = Mathf.Sign(velocityX) * minVelocityX;

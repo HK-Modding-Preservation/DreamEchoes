@@ -10,7 +10,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> ControlledSlash()
     {
         var direction = Direction();
-        var velocityX = config.ControlledSlashVelocityX * direction;
+        var velocityX = Config.ControlledSlashVelocityX * direction;
         Velocity = Vector2.zero;
         IEnumerator<Transition> Slash(string slash)
         {

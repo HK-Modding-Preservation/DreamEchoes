@@ -19,10 +19,10 @@ internal partial class SeerStateMachine : EntityStateMachine
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("StunStart") };
 
         // StunAir
-        BoxCollider2D.offset = config.StunColliderOffset;
-        BoxCollider2D.size = config.StunColliderSize;
-        var velocityX = config.StunVelocityX * -Direction();
-        var velocityY = config.StunVelocityY;
+        BoxCollider2D.offset = Config.StunColliderOffset;
+        BoxCollider2D.size = Config.StunColliderSize;
+        var velocityX = Config.StunVelocityX * -Direction();
+        var velocityY = Config.StunVelocityY;
         Velocity = new Vector2(velocityX, velocityY);
         animator.PlayAnimation("StunAir");
         yield return new WaitTill { Condition = Landed };
@@ -42,7 +42,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             Routines = [
                 checkHit(),
-                new WaitFor { Seconds = config.StunDuration },
+                new WaitFor { Seconds = Config.StunDuration },
             ]
         };
 

@@ -15,7 +15,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new CoroutineTransition { Routine = Turn() };
         }
         var direction = Direction();
-        var velocityX = config.RunVelocityX * direction;
+        var velocityX = Config.RunVelocityX * direction;
         Transition startUpdater(float normalizedTime)
         {
             var currentVelocityX = Mathf.Lerp(0, velocityX, normalizedTime);
@@ -30,7 +30,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         // Run
         Velocity = new Vector2(velocityX, 0);
         animator.PlayAnimation("Run");
-        yield return new WaitFor { Seconds = config.RunDuration };
+        yield return new WaitFor { Seconds = Config.RunDuration };
 
         // RunEnd
         Transition endUpdater(float normalizedTime)

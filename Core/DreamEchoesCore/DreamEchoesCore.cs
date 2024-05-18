@@ -18,6 +18,7 @@ internal class DreamEchoesCore : Mod
         "DreamEchoesCore", "1.0.0.0",
         [
             ("RestingGrounds_07", "Dream Moth"),
+            ("GG_Radiance", "Boss Control/Absolute Radiance")
         ],
         new Dictionary<string, string>
         {

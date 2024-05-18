@@ -14,7 +14,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         {
             yield return new ToState { State = nameof(ControlledIdle) };
         }
-        var velocityX = config.RunVelocityX * direction;
+        var velocityX = Config.RunVelocityX * direction;
         if (direction != Direction())
         {
             yield return new CoroutineTransition { Routine = Turn() };
