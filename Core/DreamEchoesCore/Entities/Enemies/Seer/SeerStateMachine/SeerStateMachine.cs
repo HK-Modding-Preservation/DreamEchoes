@@ -17,11 +17,11 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     private int stunCount;
 
-    static private GlobalEvent stunEvent = new();
+    static private RingLib.StateMachine.Event stunEvent = new();
 
     public SeerStateMachine() : base(
         nameof(Idle),
-        new Dictionary<GlobalEvent, string>
+        new Dictionary<RingLib.StateMachine.Event, string>
         {
             { stunEvent, nameof(Stun) }
         },
