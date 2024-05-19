@@ -28,7 +28,10 @@ internal class DreamEchoesSeer
             foreach (var spriteRender in instance.GetComponentsInChildren<SpriteRenderer>(true))
             {
                 var color = spriteRender.color;
-                color.r = Mathf.Min(color.r + 0.2f, 1);
+                color += new Color(0.1f, -0.1f, 0.1f, 0);
+                color.r = Mathf.Clamp01(color.r);
+                color.g = Mathf.Clamp01(color.g);
+                color.b = Mathf.Clamp01(color.b);
                 spriteRender.color = color;
             }
             if (value.StartsWith("CameraLockArea"))
