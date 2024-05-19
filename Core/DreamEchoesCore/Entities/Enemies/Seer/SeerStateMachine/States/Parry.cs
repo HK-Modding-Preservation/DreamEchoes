@@ -19,11 +19,22 @@ internal partial class SeerStateMachine : EntityStateMachine
 
         // ParryHold
         animator.PlayAnimation("ParryHold");
-        parryed = false;
+        var parryed = false;
         yield return new CoroutineTransition
         {
             Routines = [
-                new WaitTill { Condition = () => parryed },
+                new WaitTill
+                {
+                    Condition = () =>
+                    {
+                        if (CheckInStateEvent(RingLib.Attacks.NailSlash.OnParryEvent))
+                        {
+                            parryed = true;
+                            return true;
+                        }
+                        return false;
+                    }
+                },
                 new WaitFor { Seconds = Config.ParryDuration },
             ]
         };

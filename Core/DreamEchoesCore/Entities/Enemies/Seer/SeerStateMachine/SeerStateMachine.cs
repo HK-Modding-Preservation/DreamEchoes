@@ -16,13 +16,14 @@ internal partial class SeerStateMachine : EntityStateMachine
     private List<GameObject> attacks = [];
 
     private int stunCount;
-    private bool parryed;
+
+    static private GlobalEvent stunEvent = new();
 
     public SeerStateMachine() : base(
         nameof(Idle),
-        new Dictionary<string, string>
+        new Dictionary<GlobalEvent, string>
         {
-            { "Stun", nameof(Stun) }
+            { stunEvent, nameof(Stun) }
         },
         /*SpriteFacingLeft =*/true)
     { }
@@ -44,9 +45,6 @@ internal partial class SeerStateMachine : EntityStateMachine
         var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
-        var parryHold = animation.transform.Find("ParryHold");
-        var nailSlash = parryHold.GetComponent<RingLib.Attacks.NailSlash>();
-        nailSlash.OnParry += () => parryed = true;
     }
 
     protected override void EntityStateMachineUpdate()
@@ -83,7 +81,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         if (stunCount >= Config.StunThreshold)
         {
             stunCount = int.MinValue;
-            ReceiveEvent("Stun");
+            ReceiveEvent(stunEvent);
         }
     }
 
