@@ -1,6 +1,7 @@
 ﻿using HKMirror.Reflection;
 using RingLib.Components;
 using RingLib.StateMachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
+    internal class StunEvent : RingLib.StateMachine.Event { }
+
     public Config Config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
@@ -17,13 +20,11 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     private int stunCount;
 
-    static private RingLib.StateMachine.Event stunEvent = new();
-
     public SeerStateMachine() : base(
         nameof(Idle),
-        new Dictionary<RingLib.StateMachine.Event, string>
+        new Dictionary<Type, string>
         {
-            { stunEvent, nameof(Stun) }
+            { typeof(StunEvent), nameof(Stun) }
         },
         /*SpriteFacingLeft =*/true)
     { }
@@ -81,7 +82,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         if (stunCount >= Config.StunThreshold)
         {
             stunCount = int.MinValue;
-            ReceiveEvent(stunEvent);
+            ReceiveEvent(new StunEvent());
         }
     }
 

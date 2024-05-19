@@ -79,7 +79,7 @@ internal partial class SeerStateMachine : EntityStateMachine
                 {
                     Condition = () =>
                     {
-                        if (CheckInStateEvent(RingLib.Attacks.NailSlash.OnParryEvent))
+                        if (CheckInStateEvent(typeof(RingLib.Attacks.NailSlash.ParryEvent)).Count > 0)
                         {
                             parryed = true;
                             return true;
