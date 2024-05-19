@@ -25,7 +25,7 @@ internal class DreamEchoesCore : Mod
             {"SEER_NAME", "先知" },
             {"SEER_DESC", "温良的守护神" }
         },
-        ["HKMirrorMod", "WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
+        ["WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
     { }
 
     public override void ModStart()

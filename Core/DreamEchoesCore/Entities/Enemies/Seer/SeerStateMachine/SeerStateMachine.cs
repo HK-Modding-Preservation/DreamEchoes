@@ -1,5 +1,4 @@
-﻿using HKMirror.Reflection;
-using RingLib.Components;
+﻿using RingLib.Components;
 using RingLib.StateMachine;
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,6 @@ internal partial class SeerStateMachine : EntityStateMachine
         var animation = gameObject.transform.Find("Animation");
         animator = animation.GetComponent<SeerAnimator>();
         inputManager = gameObject.AddComponent<InputManager>();
-        inputManager.HeroActions = HeroController.instance.Reflect().inputHandler.inputActions;
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
         {
             attacks.Add(attack.gameObject);
