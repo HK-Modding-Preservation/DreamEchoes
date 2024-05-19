@@ -16,10 +16,7 @@ internal class DreamEchoesCore : Mod
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
-        [
-            ("RestingGrounds_07", "Dream Moth"),
-            ("GG_Radiance", "Boss Control/Absolute Radiance")
-        ],
+        Misc.Preload.Names,
         new Dictionary<string, string>
         {
             {"SEER_NAME", "先知" },
@@ -30,9 +27,15 @@ internal class DreamEchoesCore : Mod
 
     public override void ModStart()
     {
+        UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ActiveSceneChanged;
 #if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
 #endif
+    }
+
+    private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
+    {
+        Scenes.DreamEchoesSeer.Initialize(to.name);
     }
 
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)
