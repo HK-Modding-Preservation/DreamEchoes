@@ -14,7 +14,5 @@ internal class Ring : Conversation
         yield return PresentYesNoQuestion("左特问号表情包.jpg");
 
         yield return Speak("左特躺平表情包.jpg");
-
-        yield return Speak("粉猫点头表情包.gif");
     }
 }
