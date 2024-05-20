@@ -64,12 +64,12 @@ internal class DreamEchoesSeer
             {
                 var clouds = instance.transform.Find("wp_clouds");
                 var cloud = clouds.Find("wp_clouds_0002_1 (80)").gameObject;
-                GameObject.Destroy(cloud);
+                Object.Destroy(cloud);
             }
-            if (value.StartsWith("water_fog(Clone)"))
+            if (value == "water_fog")
             {
                 var spriteRender = instance.GetComponent<SpriteRenderer>();
-                spriteRender.color = new Color(0.6792f, 0.4118f, 1, 0.75f);
+                spriteRender.color = new Color(0.67f, 0.41f, 1, 0.55f);
             }
             if (value.StartsWith("dream_fog"))
             {
