@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DreamEchoesCore.Misc;
+namespace DreamEchoesCore.Utils;
 
 internal class Preload
 {

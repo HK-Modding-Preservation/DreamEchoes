@@ -3,7 +3,7 @@ using WeaverCore.Assets.Components;
 
 namespace DreamEchoesCore.Entities.NPCs;
 
-public class Yile : Conversation
+internal class Yile : Conversation
 {
     protected override IEnumerator DoConversation()
     {

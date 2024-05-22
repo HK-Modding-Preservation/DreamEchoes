@@ -18,6 +18,8 @@ MonoBehaviour:
   sceneUnions:
   - SceneToUniteWith: GG_Workshop
     UnionScene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
+  - SceneToUniteWith: RestingGrounds_07
+    UnionScene: {fileID: 102900000, guid: 167812ba048af2f418e4f9a874f967fa, type: 3}
   transitionRedirects: []
   sceneAdditionPaths:
   - Assets/Scenes/DreamEchoesSeer.unity
@@ -25,8 +27,10 @@ MonoBehaviour:
   sceneReplacementPaths: []
   sceneToUnionizePaths:
   - GG_Workshop
+  - RestingGrounds_07
   sceneUnionPaths:
   - Assets/Scenes/GG_WorkshopUnion.unity
+  - Assets/Scenes/RestingGrounds_07Union.unity
   transitionRedirects_containingScenes: []
   transitionRedirects_gatesToRedirect: []
   transitionRedirects_newDestinationScenes: []

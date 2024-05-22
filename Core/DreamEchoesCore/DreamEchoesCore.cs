@@ -16,7 +16,7 @@ internal class DreamEchoesCore : Mod
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
-        Misc.Preload.Names,
+        Utils.Preload.Names,
         new Dictionary<string, string>
         {
             {"SEER_NAME", "先知" },
