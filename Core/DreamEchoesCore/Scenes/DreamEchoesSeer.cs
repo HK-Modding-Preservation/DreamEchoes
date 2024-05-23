@@ -1,6 +1,8 @@
 ﻿using DreamEchoesCore.Utils;
 using RingLib;
 using UnityEngine;
+using WeaverCore;
+using WeaverCore.Utilities;
 
 namespace DreamEchoesCore.Scenes;
 
@@ -34,6 +36,24 @@ internal class DreamEchoesSeer
         {
             var playerData = PlayerData.instance;
             playerData.environmentType = 6;
+        }
+    }
+
+    private class Music : MonoBehaviour
+    {
+        private WeaverMusicCue musicCue;
+
+        private void Start()
+        {
+            musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
+        }
+
+        private void Update()
+        {
+            if (GameManager.instance.AudioManager.CurrentMusicCue != musicCue)
+            {
+                GameManager.instance.AudioManager.ApplyMusicCue(musicCue, 0, 0, false);
+            }
         }
     }
 
@@ -193,6 +213,9 @@ internal class DreamEchoesSeer
 
         instance = new GameObject("WetEnv");
         instance.AddComponent<WetEnv>();
+
+        instance = new GameObject("Music");
+        instance.AddComponent<Music>();
 
         Log.LogInfo(typeof(DreamEchoesSeer).Name, "Initialized DreamEchoesSeer");
     }
