@@ -25,7 +25,7 @@ internal class Preload
         ("Dream_Backer_Shrine", "dream_fog"),
         ("Dream_Backer_Shrine", "dream_grass_3 (6)"),
         ("Dream_Backer_Shrine", "_Enemies"),
-        ("Dream_Backer_Shrine", "Audio Player Actor"),
+        // ("Dream_Backer_Shrine", "Audio Player Actor"),
         ("Dream_Backer_Shrine", "_Managers"),
         ("Dream_Backer_Shrine", "dream_fog (1)"),
         ("Dream_Backer_Shrine", "_Camera Lock Zones"),
