@@ -28,6 +28,7 @@ internal class DreamEchoesCore : Mod
     public override void ModStart()
     {
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ActiveSceneChanged;
+        On.GrassCut.ShouldCut += GrassCutShouldCut;
 #if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
 #endif
@@ -36,6 +37,16 @@ internal class DreamEchoesCore : Mod
     private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
     {
         Scenes.DreamEchoesSeer.Initialize(to.name);
+    }
+
+    private bool GrassCutShouldCut(On.GrassCut.orig_ShouldCut orig, Collider2D collision)
+    {
+        var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if (currentScene.name == "DreamEchoesSeer")
+        {
+            return false;
+        }
+        return orig(collision);
     }
 
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)

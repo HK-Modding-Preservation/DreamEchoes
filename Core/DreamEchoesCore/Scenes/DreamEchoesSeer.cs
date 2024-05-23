@@ -100,6 +100,29 @@ internal class DreamEchoesSeer
         instance = new GameObject("ClearSceneBorders");
         instance.AddComponent<ClearSceneBorders>();
 
+        foreach (var (key, value) in Preload.Names)
+        {
+            if (key != "Ruins1_06")
+            {
+                continue;
+            }
+            prefab = DreamEchoesCore.GetPreloaded(key, value);
+            instance = Object.Instantiate(prefab);
+            instance.transform.Translate(24, 7, 0);
+            if (value == "tile_floor")
+            {
+                for (var i = 0; i < instance.transform.childCount; ++i)
+                {
+                    var child = instance.transform.GetChild(i);
+                    if (child.name != "ruind_horizontal_beam_02")
+                    {
+                        Object.Destroy(child.gameObject);
+                    }
+                }
+            }
+            instance.SetActive(true);
+        }
+
         Log.LogInfo(typeof(DreamEchoesSeer).Name, "Initialized DreamEchoesSeer");
     }
 }
