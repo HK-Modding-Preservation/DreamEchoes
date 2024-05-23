@@ -28,6 +28,15 @@ internal class DreamEchoesSeer
         }
     }
 
+    private class WetEnv : MonoBehaviour
+    {
+        private void Update()
+        {
+            var playerData = PlayerData.instance;
+            playerData.environmentType = 6;
+        }
+    }
+
     public static void Initialize(string sceneName)
     {
         if (sceneName != "DreamEchoesSeer")
@@ -122,6 +131,68 @@ internal class DreamEchoesSeer
             }
             instance.SetActive(true);
         }
+
+        prefab = DreamEchoesCore.GetPreloaded("Ruins1_27", "_Scenery");
+        instance = Object.Instantiate(prefab);
+        instance.transform.position = new Vector3(30, 20.05f, 0);
+        for (var i = 0; i < instance.transform.childCount; ++i)
+        {
+            var child = instance.transform.GetChild(i);
+            if (child.name != "ruins_rain" && !child.name.Contains("ruin_water_bounce "))
+            {
+                Object.Destroy(child.gameObject);
+            }
+            if (child.name == "ruins_rain")
+            {
+                foreach (var particleSystem in child.GetComponentsInChildren<ParticleSystem>())
+                {
+                    var color = particleSystem.startColor;
+                    Color.RGBToHSV(color, out float H, out float S, out float V);
+                    H = (H * 360 + 70) % 360 / 360;
+                    color = Color.HSVToRGB(H, S, V + 0.3f);
+                    particleSystem.startColor = color;
+                }
+            }
+            if (child.name.Contains("ruin_water_bounce "))
+            {
+                var index = child.name.Split(' ')[1];
+                index = index.Substring(1, index.Length - 2);
+                var indexInt = int.Parse(index);
+                if (indexInt < 3 || indexInt > 10)
+                {
+                    Object.Destroy(child.gameObject);
+                }
+
+            }
+        }
+        instance.SetActive(true);
+
+        prefab = DreamEchoesCore.GetPreloaded("Ruins1_27", "_Scenery");
+        instance = Object.Instantiate(prefab);
+        instance.transform.position = new Vector3(55.1f, 20.05f, 0);
+        for (var i = 0; i < instance.transform.childCount; ++i)
+        {
+            var child = instance.transform.GetChild(i);
+            if (!child.name.Contains("ruin_water_bounce "))
+            {
+                Object.Destroy(child.gameObject);
+            }
+            if (child.name.Contains("ruin_water_bounce "))
+            {
+                var index = child.name.Split(' ')[1];
+                index = index.Substring(1, index.Length - 2);
+                var indexInt = int.Parse(index);
+                if (indexInt < 3 || indexInt > 10)
+                {
+                    Object.Destroy(child.gameObject);
+                }
+
+            }
+        }
+        instance.SetActive(true);
+
+        instance = new GameObject("WetEnv");
+        instance.AddComponent<WetEnv>();
 
         Log.LogInfo(typeof(DreamEchoesSeer).Name, "Initialized DreamEchoesSeer");
     }

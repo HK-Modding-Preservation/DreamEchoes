@@ -912,7 +912,7 @@ MonoBehaviour:
   mapZone: 50
   isWindy: 0
   isTremorZone: 0
-  environmentType: 0
+  environmentType: 6
   darknessLevel: 0
   noLantern: 0
   saturation: 0.8

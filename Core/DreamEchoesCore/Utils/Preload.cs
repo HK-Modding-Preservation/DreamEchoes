@@ -258,5 +258,6 @@ internal class Preload
         ("Ruins1_06", "fungd_floor_10 (5)"),
         ("Ruins1_06", "fungd_floor_10 (2)"),
         ("Ruins1_06", "fungd_floor_39"),
+        ("Ruins1_27", "_Scenery")
     ];
 }
