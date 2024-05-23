@@ -69,7 +69,7 @@ internal class DreamEchoesSeer
             if (value == "water_fog")
             {
                 var spriteRender = instance.GetComponent<SpriteRenderer>();
-                spriteRender.color = new Color(0.67f, 0.41f, 1, 0.55f);
+                spriteRender.color = new Color(0.6f, 0.41f, 1, 0.55f);
             }
             if (value.StartsWith("dream_fog"))
             {
