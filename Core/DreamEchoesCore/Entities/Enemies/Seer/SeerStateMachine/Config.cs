@@ -22,6 +22,7 @@ internal class Config
     public Vector2 DashStartColliderSize = new(1.2f, 2.6f);
     public Vector2 DashColliderOffset = Vector2.zero;
     public Vector2 DashColliderSize = new(4, 1.2f);
+    public float DashAbortDistance = 3;
     public Vector2 DashEndColliderOffset = new(0, -0.7f);
     public Vector2 DashEndColliderSize = new(1.2f, 2.6f);
     public float DashVelocityX = 50;
@@ -41,7 +42,7 @@ internal class Config
     public float StunVelocityY = 20;
     public float StunDuration = 2;
 
-    public float ParryDistance = 10;
+    public float ParryTriggerDistance = 10;
     public float ParryDuration = 0.5f;
     public float ParryVelocityX = 40;
 }

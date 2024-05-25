@@ -62,7 +62,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> Parry()
     {
         // DistanceCheck
-        if (Mathf.Abs(Target().Position().x - Position.x) > Config.ParryDistance)
+        if (Mathf.Abs(Target().Position().x - Position.x) > Config.ParryTriggerDistance)
         {
             yield return new ToState { State = nameof(Idle) };
         }
@@ -78,17 +78,37 @@ internal partial class SeerStateMachine : EntityStateMachine
         // ParryHold
         animator.PlayAnimation("ParryHold");
         var parryed = false;
+        IEnumerator<Transition> turn()
+        {
+            while (true)
+            {
+                if (!FacingTarget())
+                {
+                    yield return new CoroutineTransition { Routine = Turn() };
+                }
+                yield return new NoTransition();
+            }
+        }
+        IEnumerator<Transition> checkHit()
+        {
+            var currentCount = stunCount;
+            while (currentCount == stunCount)
+            {
+                yield return new NoTransition();
+            }
+            parryed = true;
+            yield return new NoTransition();
+        }
         yield return new CoroutineTransition
         {
             Routines = [
+                new WaitFor { Seconds = Config.ParryDuration },
+                turn(),
+                checkHit(),
                 new WaitTill
                 {
                     Condition = () =>
                     {
-                        if (!FacingTarget())
-                        {
-                            return true;
-                        }
                         if (CheckInStateEvent<RingLib.Attacks.NailSlash.ParryEvent>().Count > 0)
                         {
                             parryed = true;
@@ -97,7 +117,6 @@ internal partial class SeerStateMachine : EntityStateMachine
                         return false;
                     }
                 },
-                new WaitFor { Seconds = Config.ParryDuration },
             ]
         };
 

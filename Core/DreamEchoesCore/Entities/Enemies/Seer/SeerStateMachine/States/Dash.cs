@@ -35,7 +35,20 @@ internal partial class SeerStateMachine : EntityStateMachine
         Rigidbody2D.gravityScale = 0;
         Velocity = new Vector2(velocityX, 0);
         animator.PlayAnimation("Dash");
-        yield return new WaitFor { Seconds = Config.DashDuration };
+        yield return new CoroutineTransition
+        {
+            Routines = [
+                new WaitTill
+                {
+                    Condition = () =>
+                    {
+                        var distance = Mathf.Abs(Target().Position().x - Position.x);
+                        return !FacingTarget() && distance > Config.DashAbortDistance;
+                    }
+                },
+                new WaitFor { Seconds = Config.DashDuration },
+            ]
+        };
 
         // DashEnd
         BoxCollider2D.offset = Config.DashEndColliderOffset;
