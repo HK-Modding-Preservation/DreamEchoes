@@ -20,12 +20,12 @@ internal partial class SeerStateMachine : EntityStateMachine
     private int stunCount;
 
     public SeerStateMachine() : base(
-        nameof(Idle),
-        new Dictionary<Type, string>
+        startState: nameof(Wake),
+        globalTransitions: new Dictionary<Type, string>
         {
             { typeof(StunEvent), nameof(Stun) }
         },
-        /*SpriteFacingLeft =*/true)
+        spriteFacingLeft: true)
     { }
 
     protected override void EntityStateMachineStart()

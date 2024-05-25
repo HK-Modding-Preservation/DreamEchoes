@@ -8,8 +8,9 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 internal partial class SeerStateMachine : EntityStateMachine
 {
     private RandomSelector<string> idleRandomSelector = new([
-        new(nameof(Run), 1, 2),
-        new(nameof(EvadeJump), 1, 2)
+        new(value: nameof(Run), weight: 2, maxCount: 2, maxMiss: 5),
+        new(value: nameof(EvadeJump), weight: 2, maxCount: 2, maxMiss: 5),
+        new(value: nameof(Parry), weight: 1, maxCount: 1, maxMiss: 5)
     ]);
 
     [State]

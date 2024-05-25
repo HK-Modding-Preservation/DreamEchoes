@@ -61,6 +61,12 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Parry()
     {
+        // DistanceCheck
+        if (Mathf.Abs(Target().Position().x - Position.x) > Config.ParryDistance)
+        {
+            yield return new ToState { State = nameof(Idle) };
+        }
+
         // ParryStart
         if (!FacingTarget())
         {
@@ -79,7 +85,11 @@ internal partial class SeerStateMachine : EntityStateMachine
                 {
                     Condition = () =>
                     {
-                        if (CheckInStateEvent(typeof(RingLib.Attacks.NailSlash.ParryEvent)).Count > 0)
+                        if (!FacingTarget())
+                        {
+                            return true;
+                        }
+                        if (CheckInStateEvent<RingLib.Attacks.NailSlash.ParryEvent>().Count > 0)
                         {
                             parryed = true;
                             return true;

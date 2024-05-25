@@ -16,7 +16,7 @@ MonoBehaviour:
   originalMusicTrackNumber: 0
   snapshot: {fileID: 0}
   channelInfos:
-  - clip: {fileID: 8300000, guid: d70ffbead4a9c1742b50c2d303de1884, type: 3}
+  - clip: {fileID: 8300000, guid: 304fd522f4f450f4fbab2c8c1685186a, type: 3}
     sync: 0
   - clip: {fileID: 0}
     sync: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
   useSnapshot: 1
   m_snapshot: 0
   channelInfos_clip:
-  - {fileID: 8300000, guid: d70ffbead4a9c1742b50c2d303de1884, type: 3}
+  - {fileID: 8300000, guid: 304fd522f4f450f4fbab2c8c1685186a, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

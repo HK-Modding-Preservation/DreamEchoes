@@ -6,15 +6,17 @@ internal class Config
 {
     public float GravityScale = 2;
 
-    public float IdleDuration = 0.25f;
+    public float WakeDistance = 5;
+
+    public float IdleDuration = 0.2f;
 
     public float RunVelocityX = 10;
-    public float RunDuration = 0.45f;
+    public float RunDuration = 0.35f;
 
     public float EvadeJumpRadiusMin = 5;
     public float EvadeJumpRadiusMax = 7.5f;
     public float EvadeJumpVelocityXScale = 2;
-    public float EvadeJumpVelocityY = 40;
+    public float EvadeJumpVelocityY = 35;
 
     public Vector2 DashStartColliderOffset = new(0, -0.7f);
     public Vector2 DashStartColliderSize = new(1.2f, 2.6f);
@@ -39,6 +41,7 @@ internal class Config
     public float StunVelocityY = 20;
     public float StunDuration = 2;
 
-    public float ParryDuration = 1;
+    public float ParryDistance = 10;
+    public float ParryDuration = 0.5f;
     public float ParryVelocityX = 40;
 }
