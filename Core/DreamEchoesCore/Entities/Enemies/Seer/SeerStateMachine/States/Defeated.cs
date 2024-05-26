@@ -11,7 +11,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     {
         // DefeatedStart
         var damageHero = GetComponent<DamageHero>();
-        damageHero.enabled = false;
+        damageHero.damageDealt = 0;
         Reset();
         PlayStunEffect();
         if (!FacingTarget())

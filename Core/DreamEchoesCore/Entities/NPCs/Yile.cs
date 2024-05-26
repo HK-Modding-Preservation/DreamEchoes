@@ -7,12 +7,8 @@ internal class Yile : Conversation
 {
     protected override IEnumerator DoConversation()
     {
-        DisplayTitle("伊乐");
+        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YILE_NAME));
 
-        yield return Speak(".▽.");
-
-        yield return Speak("◐—◑");
-
-        yield return Speak("(¦3[▓▓]");
+        yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YILE_WORDS));
     }
 }

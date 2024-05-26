@@ -4,24 +4,18 @@ using RingLib;
 using RingLib.Attacks;
 using RingLib.Components;
 using RingLib.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 using WeaverCore.Utilities;
 
 namespace DreamEchoesCore;
 
-internal class DreamEchoesCore : Mod
+internal partial class DreamEchoesCore : Mod
 {
     private bool renederColliders = false;
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
         Utils.Preload.Names,
-        new Dictionary<string, string>
-        {
-            {"SEER_NAME", "先知" },
-            {"SEER_DESC", "温良的守护神" }
-        },
         ["WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
     { }
 
