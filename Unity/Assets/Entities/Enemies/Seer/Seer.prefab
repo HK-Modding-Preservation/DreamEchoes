@@ -1829,8 +1829,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Roof: {fileID: 0}
-  WakeSound: {fileID: 0}
-  WakeSlashSound: {fileID: 0}
+  WakeSound: {fileID: 8300000, guid: 76bb84146cd647948b800907cf2e471b, type: 3}
+  WakeSlashSound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}
   JumpEffectPrefab: {fileID: 821954542}
   DashSound: {fileID: 8300000, guid: 787dfa1ce6181904ca2b40aff23faeea, type: 3}
   Slash1Sound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042bb1662729b5441bc0eda3f9bb3240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _health: 2500
   Invincible: 0
   DeflectBlows: 0
   EvasionTime: 0.2
