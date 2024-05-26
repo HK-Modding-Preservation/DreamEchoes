@@ -7,7 +7,6 @@ internal class Config
     public float GravityScale = 2;
 
     public float WakeDistance = 5;
-    public float WakeDelay = 0.5f;
 
     public float IdleDuration = 0.2f;
 
