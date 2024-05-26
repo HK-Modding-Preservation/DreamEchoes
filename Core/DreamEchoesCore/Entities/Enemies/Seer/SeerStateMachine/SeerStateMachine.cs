@@ -12,6 +12,8 @@ internal partial class SeerStateMachine : EntityStateMachine
 {
     internal class StunEvent : RingLib.StateMachine.Event { }
 
+    internal class DefeatedEvent : RingLib.StateMachine.Event { }
+
     public Config Config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
@@ -25,7 +27,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
         {
-            { typeof(StunEvent), nameof(Stun) }
+            { typeof(StunEvent), nameof(Stun) },
+            { typeof(DefeatedEvent), nameof(Defeated) }
         },
         spriteFacingLeft: true)
     { }
@@ -87,8 +90,9 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
     }
 
-    private void OnDeath(WeaverCore.HitInfo hitInfo)
+    private void OnDeath(HitInfo hitInfo)
     {
+        ReceiveEvent(new DefeatedEvent());
     }
 
     private void Reset()
