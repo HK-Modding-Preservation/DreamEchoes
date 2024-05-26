@@ -5,6 +5,8 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class SeerAnimator : MonoBehaviour
 {
+    public GameObject Roof;
+
     public AudioClip WakeSound;
     public AudioClip WakeSlashSound;
 

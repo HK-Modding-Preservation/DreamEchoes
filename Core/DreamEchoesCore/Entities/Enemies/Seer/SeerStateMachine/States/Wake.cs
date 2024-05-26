@@ -21,11 +21,15 @@ internal partial class SeerStateMachine : EntityStateMachine
         animator.PlayAnimation("WakeLook");
         float distance()
         {
-            return Mathf.Abs(Target().Position().x - Position.x);
+            var myPosition = Position;
+            var targetPosition = Target().Position();
+            var distance = Vector2.Distance(myPosition, targetPosition);
+            return distance;
         }
         yield return new WaitTill { Condition = () => distance() < Config.WakeDistance };
 
         // WakeIdle
+        animator.Roof.SetActive(true);
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };

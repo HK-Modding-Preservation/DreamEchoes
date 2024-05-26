@@ -1828,6 +1828,7 @@ MonoBehaviour:
   m_Script: {fileID: -1259710145, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Roof: {fileID: 0}
   WakeSound: {fileID: 0}
   WakeSlashSound: {fileID: 0}
   JumpEffectPrefab: {fileID: 821954542}
