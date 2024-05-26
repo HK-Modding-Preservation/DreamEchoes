@@ -1828,6 +1828,8 @@ MonoBehaviour:
   m_Script: {fileID: -1259710145, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WakeSound: {fileID: 0}
+  WakeSlashSound: {fileID: 0}
   JumpEffectPrefab: {fileID: 821954542}
   DashSound: {fileID: 8300000, guid: 787dfa1ce6181904ca2b40aff23faeea, type: 3}
   Slash1Sound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}

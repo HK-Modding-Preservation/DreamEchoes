@@ -5,6 +5,9 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class SeerAnimator : RingLib.Components.Animator
 {
+    public AudioClip WakeSound;
+    public AudioClip WakeSlashSound;
+
     public GameObject JumpEffectPrefab;
 
     public AudioClip DashSound;
@@ -15,6 +18,16 @@ internal class SeerAnimator : RingLib.Components.Animator
     public List<AudioClip> HugRadiantNailSounds;
 
     public AudioClip ParryCounterSound;
+
+    public void PlayWakeSound()
+    {
+        PlaySound(WakeSound);
+    }
+
+    public void PlayWakeSlashSound()
+    {
+        PlaySound(WakeSlashSound);
+    }
 
     public void SpawnJumpEffect()
     {

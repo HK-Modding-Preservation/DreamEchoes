@@ -5,6 +5,9 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal class SeerAnimator : MonoBehaviour
 {
+    public AudioClip WakeSound;
+    public AudioClip WakeSlashSound;
+
     public GameObject JumpEffectPrefab;
 
     public AudioClip DashSound;
@@ -15,6 +18,10 @@ internal class SeerAnimator : MonoBehaviour
     public List<AudioClip> HugRadiantNailSounds;
 
     public AudioClip ParryCounterSound;
+
+    public void PlayWakeSound() { }
+
+    public void PlayWakeSlashSound() { }
 
     public void SpawnJumpEffect() { }
 

@@ -3,6 +3,8 @@ using RingLib.StateMachine;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaverCore;
+using WeaverCore.Utilities;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
@@ -44,6 +46,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
+        musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
     }
 
     protected override void EntityStateMachineUpdate()
