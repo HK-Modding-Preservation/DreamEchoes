@@ -16,6 +16,8 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
 
     public SaveSettings SaveSettings { get; private set; }
 
+    public bool DisableWallJump = false;
+
     private bool renderColliders = false;
 
     public DreamEchoesCore() : base(
@@ -44,6 +46,8 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
     {
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ActiveSceneChanged;
         On.GrassCut.ShouldCut += GrassCutShouldCut;
+        On.HeroController.CanWallJump += HeroControllerCanWallJump;
+        On.HeroController.CanWallSlide += HeroControllerCanWallSlide;
 #if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
 #endif
@@ -63,6 +67,26 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
             return false;
         }
         return orig(collision);
+    }
+
+    private bool HeroControllerCanWallJump(On.HeroController.orig_CanWallJump orig, HeroController self)
+    {
+        var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if (currentScene.name == "DreamEchoesSeer" && DisableWallJump)
+        {
+            return false;
+        }
+        return orig(self);
+    }
+
+    private bool HeroControllerCanWallSlide(On.HeroController.orig_CanWallSlide orig, HeroController self)
+    {
+        var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        if (currentScene.name == "DreamEchoesSeer" && DisableWallJump)
+        {
+            return false;
+        }
+        return orig(self);
     }
 
     private void HeroControllerUpdate(On.HeroController.orig_Update orig, HeroController self)

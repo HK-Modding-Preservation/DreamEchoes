@@ -21,6 +21,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = Vector2.zero;
         animator.PlayAnimation("WakeLook");
         GameManager.instance.AudioManager.ApplyMusicCue(startMusic, 0, 0, false);
+        DreamEchoesCore.Instance.DisableWallJump = false;
         bool check()
         {
             var myPosition = Position;
@@ -42,6 +43,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("WakeWake") };
         GameManager.instance.AudioManager.ApplyMusicCue(musicCue, 0, 0, false);
         DreamEchoesCore.Instance.SaveSettings.seenSeer = true;
+        DreamEchoesCore.Instance.DisableWallJump = true;
         yield return new ToState { State = nameof(Idle) };
     }
 }
