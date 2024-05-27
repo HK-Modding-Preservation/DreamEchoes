@@ -39,6 +39,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         // WakeWake
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("WakeWake") };
         GameManager.instance.AudioManager.ApplyMusicCue(musicCue, 0, 0, false);
+        DreamEchoesCore.Instance.SaveSettings.seenSeer = true;
         yield return new ToState { State = nameof(Idle) };
     }
 }

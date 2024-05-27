@@ -1,19 +1,44 @@
-﻿using Modding.Utils;
-using RingLib;
+﻿using Modding;
+using Modding.Utils;
 using RingLib.Utils;
 using UnityEngine;
 
 namespace DreamEchoesCore;
 
-internal partial class DreamEchoesCore : Mod
+internal class SaveSettings
 {
-    private bool renederColliders = false;
+    public bool seenSeer = false;
+}
+
+internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSettings>
+{
+    public new static DreamEchoesCore Instance;
+
+    public SaveSettings SaveSettings { get; private set; }
+
+    private bool renderColliders = false;
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
         Utils.Preload.Names,
         ["WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
-    { }
+    {
+        Instance = this;
+    }
+
+    public void OnLoadLocal(SaveSettings s)
+    {
+        RingLib.Log.LogInfo(GetType().Name, "Loading local settings");
+        RingLib.Log.LogInfo(GetType().Name, $"Seen Seer: {s.seenSeer}");
+        SaveSettings = s;
+    }
+
+    public SaveSettings OnSaveLocal()
+    {
+        RingLib.Log.LogInfo(GetType().Name, "Saving local settings");
+        RingLib.Log.LogInfo(GetType().Name, $"Seen Seer: {SaveSettings.seenSeer}");
+        return SaveSettings;
+    }
 
     public override void ModStart()
     {
@@ -43,10 +68,10 @@ internal partial class DreamEchoesCore : Mod
     {
         if (Input.GetKeyDown(KeyCode.F6))
         {
-            renederColliders = !renederColliders;
+            renderColliders = !renderColliders;
             foreach (var stateMachine in RingLib.StateMachine.StateMachine.GetInstances())
             {
-                stateMachine.gameObject.GetOrAddComponent<ColliderRenderer>().Enabled = renederColliders;
+                stateMachine.gameObject.GetOrAddComponent<ColliderRenderer>().Enabled = renderColliders;
             }
         }
         if (Input.GetKeyDown(KeyCode.F11))
