@@ -1,17 +1,21 @@
 ﻿using RingLib.StateMachine;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaverCore;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
+    private WeaverMusicCue emptyMusic;
+
     [State]
     private IEnumerator<Transition> Defeated()
     {
         // DefeatedStart
         var damageHero = GetComponent<DamageHero>();
         damageHero.damageDealt = 0;
+        GameManager.instance.AudioManager.ApplyMusicCue(emptyMusic, 0, 0, false);
         Reset();
         PlayStunEffect();
         if (!FacingTarget())

@@ -51,6 +51,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         entityHealth.OnDeathEvent += OnDeath;
         startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
+        emptyMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("EmptyMusic");
     }
 
     protected override void EntityStateMachineUpdate()

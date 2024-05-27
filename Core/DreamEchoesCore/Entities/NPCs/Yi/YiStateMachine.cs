@@ -1,5 +1,6 @@
 ﻿using RingLib.StateMachine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DreamEchoesCore.Entities.NPCs.Yi;
 
@@ -8,13 +9,30 @@ internal class YiStateMachine : StateMachine
     private YiAnimator animator;
 
     [State]
-    private IEnumerator<Transition> Left()
+    private IEnumerator<Transition> Begin()
     {
         if (!DreamEchoesCore.Instance.SaveSettings.seenSeer)
         {
             gameObject.SetActive(false);
         }
+        else
+        {
+            foreach (var obj in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+            {
+                if (obj.name == "Dream Moth")
+                {
+                    var audioSource = obj.GetComponent<AudioSource>();
+                    Destroy(audioSource);
+                    LogInfo("YiStateMachine", "Destroyed Dream Moth AudioSource");
+                }
+            }
+        }
+        yield return new ToState { State = nameof(Left) };
+    }
 
+    [State]
+    private IEnumerator<Transition> Left()
+    {
         animator.PlayAnimation("Left");
         yield return new WaitTill
         {
@@ -49,7 +67,7 @@ internal class YiStateMachine : StateMachine
     }
 
     public YiStateMachine() : base(
-        startState: nameof(Left),
+        startState: nameof(Begin),
         globalTransitions: [])
     { }
 
