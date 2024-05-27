@@ -228,11 +228,11 @@ GameObject:
   m_Component:
   - component: {fileID: 521374498}
   - component: {fileID: 521374497}
-  - component: {fileID: 521374495}
   - component: {fileID: 521374494}
   - component: {fileID: 521374500}
   - component: {fileID: 521374499}
   - component: {fileID: 521374496}
+  - component: {fileID: 521374495}
   m_Layer: 13
   m_Name: Yi
   m_TagString: Untagged
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 521374493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1296accbbbb99246a6ac7837ed99f1a, type: 3}
+  m_Script: {fileID: -1374895468, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   talkSide: 0

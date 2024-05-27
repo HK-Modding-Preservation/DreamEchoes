@@ -5032,10 +5032,10 @@ GameObject:
   - component: {fileID: 1675520904}
   - component: {fileID: 1675520903}
   - component: {fileID: 1675520902}
-  - component: {fileID: 1675520901}
   - component: {fileID: 1675520900}
   - component: {fileID: 1675520899}
   - component: {fileID: 1675520898}
+  - component: {fileID: 1675520901}
   m_Layer: 13
   m_Name: Ring
   m_TagString: Untagged
@@ -5088,7 +5088,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1675520897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1296accbbbb99246a6ac7837ed99f1a, type: 3}
+  m_Script: {fileID: -1374895468, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   talkSide: 0
@@ -5613,10 +5613,10 @@ GameObject:
   - component: {fileID: 1924405617}
   - component: {fileID: 1924405616}
   - component: {fileID: 1924405615}
-  - component: {fileID: 1924405614}
   - component: {fileID: 1924405613}
   - component: {fileID: 1924405612}
   - component: {fileID: 1924405611}
+  - component: {fileID: 1924405614}
   m_Layer: 13
   m_Name: Yile
   m_TagString: Untagged
@@ -5669,7 +5669,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1924405610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1296accbbbb99246a6ac7837ed99f1a, type: 3}
+  m_Script: {fileID: -1374895468, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   talkSide: 0
