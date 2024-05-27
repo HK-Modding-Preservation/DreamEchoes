@@ -52,6 +52,7 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
     private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
     {
         Scenes.DreamEchoesSeer.Initialize(to.name);
+        Scenes.RestingGrounds_07.Initialize(to.name);
     }
 
     private bool GrassCutShouldCut(On.GrassCut.orig_ShouldCut orig, Collider2D collision)
