@@ -10,6 +10,11 @@ internal class YiStateMachine : StateMachine
     [State]
     private IEnumerator<Transition> Left()
     {
+        if (!DreamEchoesCore.Instance.SaveSettings.seenSeer)
+        {
+            gameObject.SetActive(false);
+        }
+
         animator.PlayAnimation("Left");
         yield return new WaitTill
         {
