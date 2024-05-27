@@ -16,7 +16,10 @@ MonoBehaviour:
   __modAssemblyName: Assembly-CSharp
   features:
   - {fileID: 11400000, guid: 9f78b584f00a3b14e94fbd2be90dd4de, type: 2}
+  - {fileID: 11400000, guid: f07e035e4200cbf4abf42999beec8916, type: 2}
   featureTypeNames:
   - WeaverCore.SceneRecord
+  - WeaverCore.Settings.SaveSpecificSettings
   featureAssemblyNames:
+  - WeaverCore
   - WeaverCore
