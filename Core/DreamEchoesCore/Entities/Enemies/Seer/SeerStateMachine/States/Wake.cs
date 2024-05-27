@@ -7,6 +7,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
+    private WeaverMusicCue startMusic;
     private WeaverMusicCue musicCue;
 
     [State]
@@ -19,14 +20,15 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         Velocity = Vector2.zero;
         animator.PlayAnimation("WakeLook");
-        float distance()
+        GameManager.instance.AudioManager.ApplyMusicCue(startMusic, 0, 0, false);
+        bool check()
         {
             var myPosition = Position;
             var targetPosition = Target().Position();
             var distance = Vector2.Distance(myPosition, targetPosition);
-            return distance;
+            return distance < Config.WakeDistance;
         }
-        yield return new WaitTill { Condition = () => distance() < Config.WakeDistance };
+        yield return new WaitTill { Condition = check };
 
         // WakeIdle
         animator.Roof.SetActive(true);

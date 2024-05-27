@@ -49,6 +49,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
+        startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
     }
 
