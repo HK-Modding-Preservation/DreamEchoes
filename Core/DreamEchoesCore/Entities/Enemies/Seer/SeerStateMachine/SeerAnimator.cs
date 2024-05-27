@@ -15,11 +15,17 @@ internal class SeerAnimator : RingLib.Components.Animator
     public AudioClip DashSound;
 
     public AudioClip Slash1Sound;
+    public AudioClip Slash1Words;
     public AudioClip Slash2Sound;
+    public AudioClip Slash2Words;
+    public AudioClip Slash3Words;
 
     public List<AudioClip> HugRadiantNailSounds;
+    public AudioClip HugWords;
 
     public AudioClip ParryCounterSound;
+
+    public AudioClip StunWords;
 
     public void PlayWakeSound()
     {

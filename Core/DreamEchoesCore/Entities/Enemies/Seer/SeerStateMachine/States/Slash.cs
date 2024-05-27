@@ -27,6 +27,18 @@ internal partial class SeerStateMachine : EntityStateMachine
 
         IEnumerator<Transition> Slash(string slash)
         {
+            if (slash.EndsWith("1"))
+            {
+                speak.PlayOneShot(animator.Slash1Words);
+            }
+            else if (slash.EndsWith("2"))
+            {
+                speak.PlayOneShot(animator.Slash2Words);
+            }
+            else if (slash.EndsWith("3"))
+            {
+                speak.PlayOneShot(animator.Slash3Words);
+            }
             if (!FacingTarget())
             {
                 velocityX *= -1;

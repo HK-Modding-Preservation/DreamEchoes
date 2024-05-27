@@ -18,6 +18,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
     private SeerAnimator animator;
+    private AudioSource speak;
     private InputManager inputManager;
     private List<GameObject> attacks = [];
 
@@ -40,6 +41,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         Rigidbody2D.gravityScale = Config.GravityScale;
         var animation = gameObject.transform.Find("Animation");
         animator = animation.GetComponent<SeerAnimator>();
+        speak = animation.transform.Find("Speak").gameObject.GetComponent<AudioSource>();
         inputManager = gameObject.AddComponent<InputManager>();
         foreach (var attack in gameObject.GetComponentsInChildren<RingLib.Attacks.Attack>(true))
         {

@@ -1834,10 +1834,15 @@ MonoBehaviour:
   JumpEffectPrefab: {fileID: 821954542}
   DashSound: {fileID: 8300000, guid: 787dfa1ce6181904ca2b40aff23faeea, type: 3}
   Slash1Sound: {fileID: 8300000, guid: ca5785156d36b544cae5367162879736, type: 3}
+  Slash1Words: {fileID: 0}
   Slash2Sound: {fileID: 8300000, guid: a09ff5f6202ce244d8913d821969be8b, type: 3}
+  Slash2Words: {fileID: 0}
+  Slash3Words: {fileID: 0}
   HugRadiantNailSounds:
   - {fileID: 8300000, guid: 9c9b2051b5402174ea44a0be1c32f64a, type: 3}
+  HugWords: {fileID: 0}
   ParryCounterSound: {fileID: 0}
+  StunWords: {fileID: 0}
 --- !u!82 &301536763547394540
 AudioSource:
   m_ObjectHideFlags: 0

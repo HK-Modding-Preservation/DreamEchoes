@@ -70,6 +70,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> Hug()
     {
         // HugStart
+        speak.PlayOneShot(animator.HugWords);
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };

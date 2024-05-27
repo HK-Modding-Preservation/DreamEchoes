@@ -12,6 +12,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         // StunStart
         Reset();
         PlayStunEffect();
+        speak.PlayOneShot(animator.StunWords);
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };
