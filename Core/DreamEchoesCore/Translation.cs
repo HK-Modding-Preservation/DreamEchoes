@@ -8,6 +8,8 @@ internal partial class DreamEchoesCore : Mod
     public const string RING_WORDS = "RING_WORDS";
     public const string YILE_NAME = "YILE_NAME";
     public const string YILE_WORDS = "YILE_WORDS";
+    public const string BXN_NAME = "BXN_NAME";
+    public const string BXN_WORDS = "BXN_WORDS";
 
     public const string YI_NAME = "YI_NAME";
     public const string YI_WORDS_1 = "YI_WORDS_1";
@@ -36,6 +38,10 @@ internal partial class DreamEchoesCore : Mod
                     return "伊乐";
                 case YILE_WORDS:
                     return "加入毛茸茸蛾子教吧！（可爱颜文字.txt）";
+                case BXN_NAME:
+                    return "北小鸟";
+                case BXN_WORDS:
+                    return "吾虽年迈，但骨钉未老，若有挑战，必挥舞骨钉，破除迷雾，帝王之翼伴我随行。";
                 case YI_NAME:
                     return "伊";
                 case YI_WORDS_1:
@@ -72,6 +78,10 @@ internal partial class DreamEchoesCore : Mod
                     return "Yile";
                 case YILE_WORDS:
                     return "Join the Fuzzy Moth Cult! (cute emoticon.txt)";
+                case BXN_NAME:
+                    return "BeiXiaoNiao";
+                case BXN_WORDS:
+                    return "Though time has left its mark on me, my nail remains sharp. Should challenges arise, I will wield my nail to sever difficulties, with Monarch Wings accompanying me.";
                 case YI_NAME:
                     return "Yi";
                 case YI_WORDS_1:

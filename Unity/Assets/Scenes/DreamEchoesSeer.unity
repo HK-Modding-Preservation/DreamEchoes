@@ -1031,9 +1031,9 @@ GameObject:
   - component: {fileID: 554066280}
   - component: {fileID: 554066279}
   - component: {fileID: 554066278}
-  - component: {fileID: 554066277}
   - component: {fileID: 554066276}
   - component: {fileID: 554066275}
+  - component: {fileID: 554066277}
   m_Layer: 13
   m_Name: BXN
   m_TagString: Untagged
@@ -1079,7 +1079,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 554066274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 732237027, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Script: {fileID: 278815836, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &554066278
