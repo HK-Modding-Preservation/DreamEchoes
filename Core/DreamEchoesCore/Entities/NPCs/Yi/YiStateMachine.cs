@@ -6,6 +6,8 @@ namespace DreamEchoesCore.Entities.NPCs.Yi;
 
 internal class YiStateMachine : StateMachine
 {
+    public AudioClip Seeya;
+
     private YiAnimator animator;
 
     [State]
@@ -75,5 +77,23 @@ internal class YiStateMachine : StateMachine
     {
         var animation = gameObject.transform.Find("Animation");
         animator = animation.GetComponent<YiAnimator>();
+    }
+
+    private float lastHeroX = 1000;
+
+    private bool OutRange(float heroX)
+    {
+        float threshold = 5;
+        return heroX - gameObject.transform.position.x > threshold;
+    }
+
+    protected override void StateMachineUpdate()
+    {
+        if (!OutRange(lastHeroX) && OutRange(HeroController.instance.transform.position.x))
+        {
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(Seeya);
+        }
+        lastHeroX = HeroController.instance.transform.position.x;
     }
 }

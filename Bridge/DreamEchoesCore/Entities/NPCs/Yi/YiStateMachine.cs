@@ -2,4 +2,7 @@
 
 namespace DreamEchoesCore.Entities.NPCs.Yi;
 
-internal class YiStateMachine : MonoBehaviour { }
+internal class YiStateMachine : MonoBehaviour
+{
+    public AudioClip Seeya;
+}
