@@ -22,12 +22,13 @@ internal partial class SeerStateMachine : EntityStateMachine
         animator.PlayAnimation("WakeLook");
         GameManager.instance.AudioManager.ApplyMusicCue(startMusic, 0, 0, false);
         DreamEchoesCore.Instance.DisableWallJump = false;
+        var oldStunCount = stunCount;
         bool check()
         {
             var myPosition = Position;
             var targetPosition = Target().Position();
             var distance = Vector2.Distance(myPosition, targetPosition);
-            return distance < Config.WakeDistance;
+            return distance < Config.WakeDistance || stunCount != oldStunCount;
         }
         yield return new WaitTill { Condition = check };
 
