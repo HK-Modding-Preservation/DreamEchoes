@@ -1,4 +1,6 @@
-﻿using RingLib.StateMachine;
+﻿using HutongGames.PlayMaker.Actions;
+using RingLib.StateMachine;
+using RingLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -101,6 +103,27 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new CoroutineTransition { Routine = Turn() };
         }
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("Tele2") };
+
+        var position = gameObject.transform.position;
+        GameObject grubberFlyBeam;
+        if (gameObject.transform.GetScaleX() < 0)
+        {
+            grubberFlyBeam = Instantiate(HeroController.instance.grubberFlyBeamPrefabR);
+        }
+        else
+        {
+            grubberFlyBeam = Instantiate(HeroController.instance.grubberFlyBeamPrefabL);
+        }
+        grubberFlyBeam.LocateMyFSM("Control").GetState("Active").GetAction<Wait>(0).time = 1.8f;
+        grubberFlyBeam.LocateMyFSM("damages_enemy").enabled = false;
+        grubberFlyBeam.AddComponent<DamageHero>().damageDealt = 2;
+        var fsm = grubberFlyBeam.LocateMyFSM("Control");
+        fsm.RemoveTransition("Active", "TERRAIN HIT");
+        grubberFlyBeam.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
+        var localScale = grubberFlyBeam.transform.localScale;
+        localScale.x *= 4;
+        localScale.y *= 8;
+        grubberFlyBeam.transform.localScale = localScale;
 
 
         heroX = Target().Position().x;
