@@ -45,4 +45,8 @@ internal class Config
     public float ParryTriggerDistance = 10;
     public float ParryDuration = 0.5f;
     public float ParryVelocityX = 40;
+
+    public float TeleSlashX = 12;
+    public float TeleSlashY = 3;
+    public float TeleSlashXClose = 5;
 }

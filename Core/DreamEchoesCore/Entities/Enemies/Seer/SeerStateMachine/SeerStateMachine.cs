@@ -24,6 +24,9 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     private int stunCount;
 
+    private float minX;
+    private float maxX;
+
     public SeerStateMachine() : base(
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
@@ -54,6 +57,38 @@ internal partial class SeerStateMachine : EntityStateMachine
         startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
         emptyMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("EmptyMusic");
+
+        minX = float.MinValue;
+        maxX = float.MaxValue;
+        var col2d = gameObject.GetComponent<BoxCollider2D>();
+        var leftRays = new List<Vector2>();
+        leftRays.Add(col2d.bounds.min);
+        leftRays.Add(new Vector2(col2d.bounds.min.x, col2d.bounds.center.y));
+        leftRays.Add(new Vector2(col2d.bounds.min.x, col2d.bounds.max.y));
+        for (int l = 0; l < 3; l++)
+        {
+            RaycastHit2D raycastHit2D4 = Physics2D.Raycast(leftRays[l], -Vector2.right, float.MaxValue, 1 << 8);
+            if (raycastHit2D4.collider != null)
+            {
+                minX = Mathf.Max(minX, raycastHit2D4.point.x);
+            }
+        }
+        minX += col2d.size.x * 2;
+        var rightRays = new List<Vector2>();
+        rightRays.Add(col2d.bounds.max);
+        rightRays.Add(new Vector2(col2d.bounds.max.x, col2d.bounds.center.y));
+        rightRays.Add(new Vector2(col2d.bounds.max.x, col2d.bounds.min.y));
+        for (int j = 0; j < 3; j++)
+        {
+            RaycastHit2D raycastHit2D2 = Physics2D.Raycast(rightRays[j], Vector2.right, float.MaxValue, 1 << 8);
+            if (raycastHit2D2.collider != null)
+            {
+                maxX = Mathf.Min(maxX, raycastHit2D2.point.x);
+            }
+        }
+        maxX -= col2d.size.x * 2;
+
+        LogInfo(GetType().Name, $"minX: {minX}, maxX: {maxX}");
     }
 
     protected override void EntityStateMachineUpdate()
