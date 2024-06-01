@@ -45,4 +45,6 @@ internal class SeerAnimator : MonoBehaviour
     public void SpawnRadiantNails() { }
 
     public void PlayParryCounterSound() { }
+
+    public void MakeGrub() { }
 }

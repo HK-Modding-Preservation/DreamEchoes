@@ -119,20 +119,6 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("Tele2") };
 
-        var grubTemplate = animator.TeleSlashGrub;
-        var prefabPos = grubTemplate.transform.position;
-        prefabPos.x = Position.x;
-        var grub = Instantiate(grubTemplate, prefabPos, Quaternion.identity);
-        var scale = grub.transform.localScale;
-        if (Direction() > 0)
-        {
-            scale.x *= -1;
-        }
-        grub.transform.localScale = scale;
-        grub.SetActive(true);
-        grub.GetComponent<Rigidbody2D>().velocity = new Vector2(Config.TeleSlashGrubVelocityX * Direction(), 0);
-        grub.AddComponent<GrubFSM>();
-
         heroX = Target().Position().x;
         candidateXs = new float[] { heroX - Config.TeleSlashXClose, heroX + Config.TeleSlashXClose };
         bool valid(float x)

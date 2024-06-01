@@ -84,4 +84,21 @@ internal class SeerAnimator : RingLib.Components.Animator
     {
         PlaySound(ParryCounterSound);
     }
+
+    public void MakeGrub()
+    {
+        var grubTemplate = TeleSlashGrub;
+        var prefabPos = grubTemplate.transform.position;
+        prefabPos.x = transform.parent.position.x;
+        var grub = Instantiate(grubTemplate, prefabPos, Quaternion.identity);
+        var scale = grub.transform.localScale;
+        if (transform.parent.localScale.x < 0)
+        {
+            scale.x *= -1;
+        }
+        grub.transform.localScale = scale;
+        grub.SetActive(true);
+        grub.GetComponent<Rigidbody2D>().velocity = new Vector2(15 * (scale.x > 0 ? -1 : 1), 0);
+        grub.AddComponent<GrubFSM>();
+    }
 }
