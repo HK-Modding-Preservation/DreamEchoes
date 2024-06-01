@@ -10,6 +10,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private IEnumerator<Transition> Dash()
     {
         // DashStart
+        speak.PlayOneShot(animator.Slash3Words);
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };
