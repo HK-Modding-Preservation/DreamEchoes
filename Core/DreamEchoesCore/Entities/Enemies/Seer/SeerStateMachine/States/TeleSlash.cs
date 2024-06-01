@@ -1,10 +1,23 @@
-﻿using HutongGames.PlayMaker.Actions;
-using RingLib.StateMachine;
-using RingLib.Utils;
+﻿using RingLib.StateMachine;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
+
+internal class GrubFSM : StateMachine
+{
+    [State]
+    private IEnumerator<Transition> Begin()
+    {
+        yield return new WaitFor { Seconds = 10 };
+        Destroy(gameObject);
+    }
+
+    public GrubFSM() : base(
+        startState: nameof(Begin),
+        globalTransitions: [])
+    { }
+}
 
 internal partial class SeerStateMachine : EntityStateMachine
 {
@@ -104,27 +117,19 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("Tele2") };
 
-        var position = gameObject.transform.position;
-        GameObject grubberFlyBeam;
-        if (gameObject.transform.GetScaleX() < 0)
+        var grubTemplate = animator.TeleSlashGrub;
+        var prefabPos = grubTemplate.transform.position;
+        prefabPos.x = Position.x;
+        var grub = Instantiate(grubTemplate, prefabPos, Quaternion.identity);
+        var scale = grub.transform.localScale;
+        if (Direction() > 0)
         {
-            grubberFlyBeam = Instantiate(HeroController.instance.grubberFlyBeamPrefabR);
+            scale.x *= -1;
         }
-        else
-        {
-            grubberFlyBeam = Instantiate(HeroController.instance.grubberFlyBeamPrefabL);
-        }
-        grubberFlyBeam.LocateMyFSM("Control").GetState("Active").GetAction<Wait>(0).time = 1.8f;
-        grubberFlyBeam.LocateMyFSM("damages_enemy").enabled = false;
-        grubberFlyBeam.AddComponent<DamageHero>().damageDealt = 2;
-        var fsm = grubberFlyBeam.LocateMyFSM("Control");
-        fsm.RemoveTransition("Active", "TERRAIN HIT");
-        grubberFlyBeam.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
-        var localScale = grubberFlyBeam.transform.localScale;
-        localScale.x *= 4;
-        localScale.y *= 8;
-        grubberFlyBeam.transform.localScale = localScale;
-
+        grub.transform.localScale = scale;
+        grub.SetActive(true);
+        grub.GetComponent<Rigidbody2D>().velocity = new Vector2(Config.TeleSlashGrubVelocityX * Direction(), 0);
+        grub.AddComponent<GrubFSM>();
 
         heroX = Target().Position().x;
         candidateXs = new float[] { heroX - Config.TeleSlashXClose, heroX + Config.TeleSlashXClose };

@@ -49,4 +49,5 @@ internal class Config
     public float TeleSlashX = 12;
     public float TeleSlashY = 3;
     public float TeleSlashXClose = 5;
+    public float TeleSlashGrubVelocityX = 15;
 }
