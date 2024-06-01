@@ -7242,7 +7242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2107329519
 Transform:
   m_ObjectHideFlags: 0
@@ -7251,7 +7251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107329518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 73, y: 30.2957, z: 0}
+  m_LocalPosition: {x: 73, y: 29.71, z: 0}
   m_LocalScale: {x: 13, y: 9.861465, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7499,6 +7499,10 @@ PrefabInstance:
       propertyPath: TeleSlashGrub
       value: 
       objectReference: {fileID: 2107329518}
+    - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+      propertyPath: TeleSlashWord
+      value: 
+      objectReference: {fileID: 8300000, guid: f50e8cd8460d3104fb5235ca0e9bed2a, type: 3}
     - target: {fileID: 3161486071124587234, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
       propertyPath: m_Name
       value: Seer

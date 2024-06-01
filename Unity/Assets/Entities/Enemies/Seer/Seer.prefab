@@ -1971,6 +1971,7 @@ MonoBehaviour:
   HugWords: {fileID: 8300000, guid: 5f809318731740640aa66662c50773b8, type: 3}
   ParryCounterSound: {fileID: 8300000, guid: 8f53ba10ec002db41a892b95ffcd4a9d, type: 3}
   StunWords: {fileID: 8300000, guid: 2cf3f71c4078126419f8bdf0b13d2f82, type: 3}
+  TeleSlashWord: {fileID: 0}
   TeleSlashGrub: {fileID: 0}
 --- !u!82 &301536763547394540
 AudioSource:

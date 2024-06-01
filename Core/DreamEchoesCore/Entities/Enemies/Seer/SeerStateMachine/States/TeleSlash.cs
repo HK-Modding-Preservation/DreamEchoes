@@ -1,5 +1,6 @@
 ﻿using RingLib.StateMachine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
@@ -31,7 +32,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             };
         }
         var velocityX = (Target().Position().x - Position.x);
-        velocityX *= Config.SlashVelocityXScale;
+        velocityX *= Config.SlashVelocityXScale * 2;
         var minVelocityX = Config.ControlledSlashVelocityX;
         if (Mathf.Abs(velocityX) < minVelocityX)
         {
@@ -88,6 +89,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> TeleSlash()
     {
+        speak.PlayOneShot(animator.TeleSlashWord);
         var currentY = Position.y;
         var heroX = Target().Position().x;
         var candidateXs = new float[] { heroX - Config.TeleSlashX, heroX + Config.TeleSlashX };
@@ -133,13 +135,24 @@ internal partial class SeerStateMachine : EntityStateMachine
 
         heroX = Target().Position().x;
         candidateXs = new float[] { heroX - Config.TeleSlashXClose, heroX + Config.TeleSlashXClose };
-        candidateX = 0;
-        while (true)
+        bool valid(float x)
         {
-            candidateX = candidateXs[Random.Range(0, 2)];
-            if (candidateX > minX && candidateX < maxX)
+            return x > minX && x < maxX;
+        }
+        candidateXs = candidateXs.ToList().Where(valid).ToArray();
+        if (candidateXs.Length == 1)
+        {
+            candidateX = candidateXs[0];
+        }
+        else
+        {
+            if (Direction() > 0)
             {
-                break;
+                candidateX = candidateXs[0];
+            }
+            else
+            {
+                candidateX = candidateXs[1];
             }
         }
         candidateY = currentY;

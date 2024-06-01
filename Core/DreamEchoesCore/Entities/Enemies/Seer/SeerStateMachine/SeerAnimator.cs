@@ -27,6 +27,7 @@ internal class SeerAnimator : RingLib.Components.Animator
 
     public AudioClip StunWords;
 
+    public AudioClip TeleSlashWord;
     public GameObject TeleSlashGrub;
 
     public void PlayWakeSound()
