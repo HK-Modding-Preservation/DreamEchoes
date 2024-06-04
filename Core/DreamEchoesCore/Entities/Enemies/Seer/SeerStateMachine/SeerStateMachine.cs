@@ -1,5 +1,7 @@
-﻿using RingLib.Components;
+﻿using HutongGames.PlayMaker.Actions;
+using RingLib.Components;
 using RingLib.StateMachine;
+using RingLib.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +28,8 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     private float minX;
     private float maxX;
+
+    public GameObject traitorWave;
 
     public SeerStateMachine() : base(
         startState: nameof(Wake),
@@ -89,6 +93,13 @@ internal partial class SeerStateMachine : EntityStateMachine
         maxX -= col2d.size.x * 2;
 
         LogInfo(GetType().Name, $"minX: {minX}, maxX: {maxX}");
+
+        var battleScene = DreamEchoesCore.GetPreloaded("GG_Traitor_Lord", "Battle Scene");
+        var traitorLord = battleScene.transform.Find("Wave 3").gameObject.transform.Find("Mantis Traitor Lord").gameObject;
+        var fsm = traitorLord.LocateMyFSM("Mantis");
+        var state = fsm.GetState("Waves");
+        var action = state.GetAction<SpawnObjectFromGlobalPool>(0);
+        traitorWave = action.gameObject.Value;
     }
 
     protected override void EntityStateMachineUpdate()

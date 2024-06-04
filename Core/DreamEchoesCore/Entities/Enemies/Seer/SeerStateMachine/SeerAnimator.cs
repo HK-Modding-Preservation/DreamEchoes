@@ -90,6 +90,24 @@ internal class SeerAnimator : RingLib.Components.Animator
         var grubTemplate = TeleSlashGrub;
         var prefabPos = grubTemplate.transform.position;
         prefabPos.x = transform.parent.position.x;
+
+        var prefab = transform.parent.GetComponent<SeerStateMachine>().traitorWave;
+        var wave = Object.Instantiate(prefab);
+        wave.transform.position = new Vector3(prefabPos.x, prefabPos.y - 5, 1);
+        wave.GetComponent<Rigidbody2D>().velocity = new Vector2(12, 0);
+        wave.transform.localScale = new Vector3(2, 1, 1);
+
+        if (transform.parent.localScale.x > 0)
+        {
+            var scale = wave.transform.localScale;
+            scale.x *= -1;
+            wave.transform.localScale = scale;
+            var velocity = wave.GetComponent<Rigidbody2D>().velocity;
+            velocity.x *= -1;
+            wave.GetComponent<Rigidbody2D>().velocity = velocity;
+        }
+
+        /*
         var grub = Instantiate(grubTemplate, prefabPos, Quaternion.identity);
         var scale = grub.transform.localScale;
         if (transform.parent.localScale.x < 0)
@@ -100,5 +118,6 @@ internal class SeerAnimator : RingLib.Components.Animator
         grub.SetActive(true);
         grub.GetComponent<Rigidbody2D>().velocity = new Vector2(15 * (scale.x > 0 ? -1 : 1), 0);
         grub.AddComponent<GrubFSM>();
+        */
     }
 }
