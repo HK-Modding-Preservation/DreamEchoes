@@ -40,7 +40,7 @@ internal class Config
     public Vector2 StunColliderSize = new(1.2f, 2.5f);
     public float StunVelocityX = 20;
     public float StunVelocityY = 20;
-    public float StunDuration = 2000;
+    public float StunDuration = 2;
 
     public float ParryTriggerDistance = 10;
     public float ParryDuration = 0.5f;

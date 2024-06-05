@@ -20,6 +20,10 @@ internal partial class DreamEchoesCore : Mod
     public const string YI_WORDS_6 = "YI_WORDS_6";
     public const string YI_WORDS_7 = "YI_WORDS_7";
 
+    public const string YI_GFWORDS_1 = "YI_GFWORDS_1";
+    public const string YI_GFWORDS_2 = "YI_GFWORDS_2";
+    public const string YI_GFWORDS_3 = "YI_GFWORDS_3";
+
     public const string SEER_NAME = "SEER_NAME";
     public const string SEER_DESC = "SEER_DESC";
 
@@ -74,6 +78,12 @@ internal partial class DreamEchoesCore : Mod
                     return "……曾经温和的光……现在如此灼热……";
                 case SEERDREAM_3:
                     return "……向光而生……与光同尘……";
+                case YI_GFWORDS_1:
+                    return "好熟悉的花香……好娇弱的花……你是从哪里找到的……？";
+                case YI_GFWORDS_2:
+                    return "--送出礼物？--";
+                case YI_GFWORDS_3:
+                    return "还是第一次有虫给我送花……谢谢你的好意！这朵花很美，但是它太脆弱了，轻微的颠簸和碰撞都会使它凋落……这样独一无二的珍品应当送给更值得的虫，不是么？";
                 default:
                     return null;
             }

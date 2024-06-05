@@ -9,6 +9,8 @@ internal class YiTalk : Conversation
     public AudioClip FirstMet1;
     public AudioClip FirstMet2;
 
+    public AudioClip GetFlower;
+
     private enum YiState
     {
         FirstMet_1,
@@ -22,6 +24,22 @@ internal class YiTalk : Conversation
         DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_NAME, ""));
 
         var audioSource = GetComponent<AudioSource>();
+
+        if (PlayerData.instance.hasXunFlower && !PlayerData.instance.xunFlowerBroken)
+        {
+            audioSource.PlayOneShot(GetFlower);
+
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_GFWORDS_1, ""));
+
+            yield return PresentYesNoQuestion(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_GFWORDS_2, ""));
+
+            if (DialogBoxResult == YesNoResult.Yes)
+            {
+                yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_GFWORDS_3, ""));
+            }
+
+            yield break;
+        }
 
         if (state == YiState.FirstMet_1)
         {
