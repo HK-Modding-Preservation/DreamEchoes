@@ -7,8 +7,8 @@ internal class Ring : Conversation
 {
     protected override IEnumerator DoConversation()
     {
-        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.RING_NAME));
+        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.RING_NAME, ""));
 
-        yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.RING_WORDS));
+        yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.RING_WORDS, ""));
     }
 }

@@ -23,8 +23,14 @@ internal partial class DreamEchoesCore : Mod
     public const string SEER_NAME = "SEER_NAME";
     public const string SEER_DESC = "SEER_DESC";
 
-    public override string Translate(string key)
+    public const string SEERDREAM_1 = "SEERDREAM_1";
+    public const string SEERDREAM_2 = "SEERDREAM_2";
+    public const string SEERDREAM_3 = "SEERDREAM_3";
+
+    public override string Translate(string key, string sheetTitle)
     {
+        RingLib.Log.LogInfo("", "Translating " + key + " from " + sheetTitle);
+
         var currentLanguage = Language.Language.CurrentLanguage();
         if (currentLanguage == Language.LanguageCode.ZH)
         {
@@ -62,6 +68,12 @@ internal partial class DreamEchoesCore : Mod
                     return "先知";
                 case SEER_DESC:
                     return "温良的守护神";
+                case SEERDREAM_1:
+                    return "……永远铭记……";
+                case SEERDREAM_2:
+                    return "……曾经温和的光……现在如此灼热……";
+                case SEERDREAM_3:
+                    return "……向光而生……与光同尘……";
                 default:
                     return null;
             }
@@ -102,6 +114,12 @@ internal partial class DreamEchoesCore : Mod
                     return "Seer";
                 case SEER_DESC:
                     return "Warm God of Protection";
+                case SEERDREAM_1:
+                    return "...Never forget...";
+                case SEERDREAM_2:
+                    return "...Once a gentle light... now so scorching...";
+                case SEERDREAM_3:
+                    return "...Born towards the light... united with the light...";
                 default:
                     return null;
             }

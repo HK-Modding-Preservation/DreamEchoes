@@ -7,8 +7,8 @@ internal class BXN : Conversation
 {
     protected override IEnumerator DoConversation()
     {
-        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.BXN_NAME));
+        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.BXN_NAME, ""));
 
-        yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.BXN_WORDS));
+        yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.BXN_WORDS, ""));
     }
 }

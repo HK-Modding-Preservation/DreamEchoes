@@ -19,7 +19,7 @@ internal class YiTalk : Conversation
 
     protected override IEnumerator DoConversation()
     {
-        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_NAME));
+        DisplayTitle(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_NAME, ""));
 
         var audioSource = GetComponent<AudioSource>();
 
@@ -27,13 +27,13 @@ internal class YiTalk : Conversation
         {
             audioSource.PlayOneShot(FirstMet1);
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_1));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_1, ""));
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_2));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_2, ""));
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_3));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_3, ""));
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_4));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_4, ""));
 
             state = YiState.FirstMet_2;
         }
@@ -41,11 +41,11 @@ internal class YiTalk : Conversation
         {
             audioSource.PlayOneShot(FirstMet2);
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_5));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_5, ""));
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_6));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_6, ""));
 
-            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_7));
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_WORDS_7, ""));
         }
     }
 }
