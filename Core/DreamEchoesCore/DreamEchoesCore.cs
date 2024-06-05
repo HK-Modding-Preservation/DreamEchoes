@@ -1,6 +1,8 @@
 ﻿using Modding;
 using Modding.Utils;
 using RingLib.Utils;
+using System.IO;
+using System.Reflection;
 using UnityEngine;
 
 namespace DreamEchoesCore;
@@ -19,6 +21,9 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
     public bool DisableWallJump = false;
 
     private bool renderColliders = false;
+
+    public Sprite flower1;
+    public Sprite flower2;
 
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
@@ -42,6 +47,20 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
         return SaveSettings;
     }
 
+    public static Sprite LoadTexture(string path)
+    {
+        var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+        MemoryStream memoryStream = new((int)stream.Length);
+        stream.CopyTo(memoryStream);
+        stream.Close();
+        var bytes = memoryStream.ToArray();
+        memoryStream.Close();
+        Texture2D texture2D = new(0, 0);
+        texture2D.LoadImage(bytes, true);
+        Sprite newSprite = Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+        return newSprite;
+    }
+
     public override void ModStart()
     {
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged += ActiveSceneChanged;
@@ -51,6 +70,8 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
 #if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
 #endif
+        flower1 = LoadTexture("DreamEchoesCore.Resources.YiFlower1.png");
+        flower2 = LoadTexture("DreamEchoesCore.Resources.YiFlower2.png");
     }
 
     private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)
