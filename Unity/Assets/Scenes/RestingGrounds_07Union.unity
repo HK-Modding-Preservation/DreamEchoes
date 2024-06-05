@@ -352,6 +352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstMet1: {fileID: 8300000, guid: e2dfd5179f0bdee4889ef7ec4c02523f, type: 3}
   FirstMet2: {fileID: 8300000, guid: 608f8f1349f89c14d9126a07e9e48306, type: 3}
+  GetFlower: {fileID: 8300000, guid: ff4d99f2d6c206d4690fdee8230ae0db, type: 3}
+  RejFlower: {fileID: 8300000, guid: 588f619efa5fc484884adac22a64c6e8, type: 3}
 --- !u!82 &521374501
 AudioSource:
   m_ObjectHideFlags: 0

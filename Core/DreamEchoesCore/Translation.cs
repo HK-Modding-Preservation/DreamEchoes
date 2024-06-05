@@ -130,6 +130,12 @@ internal partial class DreamEchoesCore : Mod
                     return "...Once a gentle light... now so scorching...";
                 case SEERDREAM_3:
                     return "...Born towards the light... united with the light...";
+                case YI_GFWORDS_1:
+                    return "How familiar the scent of this flower... How delicate the flower... Where did you find it...?";
+                case YI_GFWORDS_2:
+                    return "--Give the flower?--";
+                case YI_GFWORDS_3:
+                    return "It's the first time a bug has given me flowers... Thank you for your kindness! It's beautiful, yet quite fragile; the slightest jostle or bump can cause it to wilt... Such a unique treasure should be given to a bug more deserving, don't you think?";
                 default:
                     return null;
             }

@@ -10,6 +10,7 @@ internal class YiTalk : Conversation
     public AudioClip FirstMet2;
 
     public AudioClip GetFlower;
+    public AudioClip RejFlower;
 
     private enum YiState
     {
@@ -35,6 +36,7 @@ internal class YiTalk : Conversation
 
             if (DialogBoxResult == YesNoResult.Yes)
             {
+                audioSource.PlayOneShot(RejFlower);
                 yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_GFWORDS_3, ""));
             }
 
