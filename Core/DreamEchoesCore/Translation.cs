@@ -31,6 +31,17 @@ internal partial class DreamEchoesCore : Mod
     public const string SEERDREAM_2 = "SEERDREAM_2";
     public const string SEERDREAM_3 = "SEERDREAM_3";
 
+    public const string YI_FLOWER_1_NAME = "YI_FLOWER_1_NAME";
+    public const string YI_FLOWER_1_DESC = "YI_FLOWER_1_DESC";
+    public const string YI_FLOWER_2_NAME = "YI_FLOWER_2_NAME";
+    public const string YI_FLOWER_2_DESC = "YI_FLOWER_2_DESC";
+
+    public const string YI_SEND_FLOWER1 = "YI_SEND_FLOWER1";
+    public const string YI_SEND_FLOWER2 = "YI_SEND_FLOWER2";
+    public const string YI_SEND_FLOWER3 = "YI_SEND_FLOWER3";
+    public const string YI_SEND_FLOWER4 = "YI_SEND_FLOWER4";
+    public const string YI_SEND_FLOWER5 = "YI_SEND_FLOWER5";
+
     public override string Translate(string key, string sheetTitle)
     {
         RingLib.Log.LogInfo("", "Translating " + key + " from " + sheetTitle);
@@ -84,6 +95,24 @@ internal partial class DreamEchoesCore : Mod
                     return "--送出礼物？--";
                 case YI_GFWORDS_3:
                     return "还是第一次有虫给我送花……谢谢你的好意！这朵花很美，但是它太脆弱了，轻微的颠簸和碰撞都会使它凋落……这样独一无二的珍品应当送给更值得的虫，不是么？";
+                case YI_FLOWER_1_NAME:
+                    return "无名野花";
+                case YI_FLOWER_1_DESC:
+                    return "伊给小骑士的礼物，有种让虫安心的淡淡幽香\r\n\r\n这朵花很坚强，不会因为持有者受伤而损毁";
+                case YI_FLOWER_2_NAME:
+                    return "凋零的花";
+                case YI_FLOWER_2_DESC:
+                    return "伊给小骑士的礼物，因为某种原因凋谢了\r\n\r\n虽说花已凋落，但是余下的部分又组成了另一种形态的花";
+                case YI_SEND_FLOWER1:
+                    return "先知奶奶的小屋真让人安心，但我也该启程了，那钟声实在是让我好奇……我这也有一朵花是给你的……";
+                case YI_SEND_FLOWER2:
+                    return "--接受礼物？--";
+                case YI_SEND_FLOWER3:
+                    return "这朵花送给你，它会在你历尽黑暗时尽它最大的努力保护你！";
+                case YI_SEND_FLOWER4:
+                    return "啊……好吧，如果你不喜欢它的话……";
+                case YI_SEND_FLOWER5:
+                    return "再见啦，探险家，说不准我们之后还能在其他地方相逢呢（笑";
                 default:
                     return null;
             }
@@ -136,6 +165,24 @@ internal partial class DreamEchoesCore : Mod
                     return "--Give the flower?--";
                 case YI_GFWORDS_3:
                     return "It's the first time a bug has given me flowers... Thank you for your kindness! It's beautiful, yet quite fragile; the slightest jostle or bump can cause it to wilt... Such a unique treasure should be given to a bug more deserving, don't you think?";
+                case YI_FLOWER_1_NAME:
+                    return "Unnamed Flower";
+                case YI_FLOWER_1_DESC:
+                    return "A gift from Yi to the Knight, a faint scent that calms bugs.\r\n\r\nIt's strong and will not be damaged even if the holder is injured.";
+                case YI_FLOWER_2_NAME:
+                    return "Wilted Flower";
+                case YI_FLOWER_2_DESC:
+                    return "A gift from Yi to the Knight, it has wilted for some reason.\r\n\r\nAlthough wilted, the remnants have formed a different type of flower.";
+                case YI_SEND_FLOWER1:
+                    return "The Seer's little cottage is so comforting, but I must be on my way, too. That chimes I heard piqued my curiosity... I have a flower for you, too...";
+                case YI_SEND_FLOWER2:
+                    return "--Accept the gift？--";
+                case YI_SEND_FLOWER3:
+                    return "This flower is for you; it will do its best to protect you as you brave the darkness!";
+                case YI_SEND_FLOWER4:
+                    return "Ah... Well, if you don't like it...";
+                case YI_SEND_FLOWER5:
+                    return "Farewell then. Who knows, our paths may cross again soon (laughs).";
                 default:
                     return null;
             }

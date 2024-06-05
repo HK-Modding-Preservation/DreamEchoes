@@ -10,6 +10,10 @@ namespace DreamEchoesCore;
 internal class SaveSettings
 {
     public bool seenSeer = false;
+    public bool sentYiFlower = false;
+    public bool yiflw = false;
+    public bool yiflw2 = false;
+    public bool yileft = false;
 }
 
 internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSettings>
@@ -28,9 +32,15 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
     public DreamEchoesCore() : base(
         "DreamEchoesCore", "1.0.0.0",
         Utils.Preload.Names,
-        ["WeaverCore", "DreamEchoes", "MoreGodhomeSpaceMod"])
+        ["WeaverCore", "SFCore", "MoreGodhomeSpaceMod", "DreamEchoes"])
     {
         Instance = this;
+
+        flower1 = LoadFlower("DreamEchoesCore.Resources.YiFlower1.png");
+        flower2 = LoadFlower("DreamEchoesCore.Resources.YiFlower2.png");
+
+        SFCore.ItemHelper.AddNormalItem(flower1, "yiflw", YI_FLOWER_1_NAME, YI_FLOWER_1_DESC);
+        SFCore.ItemHelper.AddNormalItem(flower2, "yiflw2", YI_FLOWER_2_NAME, YI_FLOWER_2_DESC);
     }
 
     public void OnLoadLocal(SaveSettings s)
@@ -47,7 +57,7 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
         return SaveSettings;
     }
 
-    public static Sprite LoadTexture(string path)
+    public static Sprite LoadFlower(string path)
     {
         var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
         MemoryStream memoryStream = new((int)stream.Length);
@@ -57,7 +67,9 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
         memoryStream.Close();
         Texture2D texture2D = new(0, 0);
         texture2D.LoadImage(bytes, true);
-        Sprite newSprite = Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+        float originalPixelsPerUnit = texture2D.width;  // Assuming square textures for simplicity
+        float scaledPixelsPerUnit = originalPixelsPerUnit / 1.4f;
+        Sprite newSprite = Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), scaledPixelsPerUnit);
         return newSprite;
     }
 
@@ -70,8 +82,20 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
 #if DEBUG
         On.HeroController.Update += HeroControllerUpdate;
 #endif
-        flower1 = LoadTexture("DreamEchoesCore.Resources.YiFlower1.png");
-        flower2 = LoadTexture("DreamEchoesCore.Resources.YiFlower2.png");
+        ModHooks.GetPlayerBoolHook += ModHooks_GetPlayerBoolHook;
+    }
+
+    private bool ModHooks_GetPlayerBoolHook(string name, bool orig)
+    {
+        if (name == "yiflw")
+        {
+            return SaveSettings.yiflw;
+        }
+        if (name == "yiflw2")
+        {
+            return SaveSettings.yiflw2;
+        }
+        return orig;
     }
 
     private void ActiveSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to)

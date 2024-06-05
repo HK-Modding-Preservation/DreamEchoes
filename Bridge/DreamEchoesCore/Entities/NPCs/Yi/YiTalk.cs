@@ -9,4 +9,6 @@ internal class YiTalk : MonoBehaviour
 
     public AudioClip GetFlower;
     public AudioClip RejFlower;
+
+    public AudioClip SendFlower;
 }

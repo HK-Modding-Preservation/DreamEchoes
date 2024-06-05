@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DreamEchoesCore.Utils;
+using System.Collections;
 using UnityEngine;
 using WeaverCore.Assets.Components;
 
@@ -11,6 +12,8 @@ internal class YiTalk : Conversation
 
     public AudioClip GetFlower;
     public AudioClip RejFlower;
+
+    public AudioClip SendFlower;
 
     private enum YiState
     {
@@ -26,7 +29,31 @@ internal class YiTalk : Conversation
 
         var audioSource = GetComponent<AudioSource>();
 
-        if (PlayerData.instance.hasXunFlower && !PlayerData.instance.xunFlowerBroken)
+        if (DreamEchoesCore.Instance.SaveSettings.sentYiFlower)
+        {
+            audioSource.PlayOneShot(SendFlower);
+
+            yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_SEND_FLOWER1, ""));
+
+            yield return PresentYesNoQuestion(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_SEND_FLOWER2, ""));
+
+            if (DialogBoxResult == YesNoResult.Yes)
+            {
+                yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_SEND_FLOWER3, ""));
+                yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_SEND_FLOWER5, ""));
+                DreamEchoesCore.Instance.SaveSettings.yiflw = true;
+            }
+            else
+            {
+                yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_SEND_FLOWER4, ""));
+            }
+            DreamEchoesCore.Instance.SaveSettings.yileft = true;
+            var weavernpc = GetComponent<WeaverNPCOverride>();
+            weavernpc.CanTalk = false;
+            yield break;
+        }
+
+        if (PlayerData.instance.hasXunFlower && !PlayerData.instance.xunFlowerBroken && !DreamEchoesCore.Instance.SaveSettings.sentYiFlower)
         {
             audioSource.PlayOneShot(GetFlower);
 
@@ -37,6 +64,7 @@ internal class YiTalk : Conversation
             if (DialogBoxResult == YesNoResult.Yes)
             {
                 audioSource.PlayOneShot(RejFlower);
+                DreamEchoesCore.Instance.SaveSettings.sentYiFlower = true;
                 yield return Speak(DreamEchoesCore.Instance.Translate(DreamEchoesCore.YI_GFWORDS_3, ""));
             }
 

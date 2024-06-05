@@ -77,6 +77,10 @@ internal class YiStateMachine : StateMachine
     {
         var animation = gameObject.transform.Find("Animation");
         animator = animation.GetComponent<YiAnimator>();
+        if (DreamEchoesCore.Instance.SaveSettings.yileft)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     private float lastHeroX = 1000;
