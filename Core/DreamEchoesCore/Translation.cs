@@ -98,13 +98,13 @@ internal partial class DreamEchoesCore : Mod
                 case YI_FLOWER_1_NAME:
                     return "无名野花";
                 case YI_FLOWER_1_DESC:
-                    return "伊给小骑士的礼物，有种让虫安心的淡淡幽香\r\n\r\n这朵花很坚强，不会因为持有者受伤而损毁";
+                    return "伊给小骑士的礼物，有种让虫安心的淡淡幽香\r\n\r\n这朵花很坚强，不会因为持有者受伤而损毁。";
                 case YI_FLOWER_2_NAME:
                     return "凋零的花";
                 case YI_FLOWER_2_DESC:
-                    return "伊给小骑士的礼物，因为某种原因凋谢了\r\n\r\n虽说花已凋落，但是余下的部分又组成了另一种形态的花";
+                    return "伊给小骑士的礼物，因为某种原因凋谢了\r\n\r\n虽说花已凋落，但是余下的部分又组成了另一种形态的花。";
                 case YI_SEND_FLOWER1:
-                    return "先知奶奶的小屋真让人安心，但我也该启程了，那钟声实在是让我好奇……我这也有一朵花是给你的……";
+                    return "先知的小屋真让人安心，但我也该启程了，那远处的声音实在是让我好奇……我这也有一朵花是给你的……";
                 case YI_SEND_FLOWER2:
                     return "--接受礼物？--";
                 case YI_SEND_FLOWER3:

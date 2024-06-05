@@ -80,9 +80,27 @@ internal partial class DreamEchoesCore : RingLib.Mod, ILocalSettings<SaveSetting
         On.HeroController.CanWallJump += HeroControllerCanWallJump;
         On.HeroController.CanWallSlide += HeroControllerCanWallSlide;
 #if DEBUG
-        On.HeroController.Update += HeroControllerUpdate;
+        // On.HeroController.Update += HeroControllerUpdate;
 #endif
         ModHooks.GetPlayerBoolHook += ModHooks_GetPlayerBoolHook;
+        On.PlayerData.TakeHealth += PlayerData_TakeHealth;
+    }
+
+    private void PlayerData_TakeHealth(On.PlayerData.orig_TakeHealth orig, PlayerData self, int amount)
+    {
+        orig(self, amount);
+        if (PlayerData.instance.GetInt("health") <= 0 && DreamEchoesCore.Instance.SaveSettings.yiflw)
+        {
+            PlayerData.instance.SetInt("health", 1);
+            EventRegister.SendEvent("ADD BLUE HEALTH");
+            EventRegister.SendEvent("ADD BLUE HEALTH");
+            EventRegister.SendEvent("ADD BLUE HEALTH");
+            EventRegister.SendEvent("ADD BLUE HEALTH");
+            EventRegister.SendEvent("ADD BLUE HEALTH");
+            DreamEchoesCore.Instance.SaveSettings.yiflw = false;
+            DreamEchoesCore.Instance.SaveSettings.yiflw2 = true;
+            return;
+        }
     }
 
     private bool ModHooks_GetPlayerBoolHook(string name, bool orig)
