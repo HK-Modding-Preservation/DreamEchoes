@@ -46,7 +46,10 @@ internal partial class SeerStateMachine : EntityStateMachine
 
         // LaserFly
         animator.PlayAnimation("LaserFly");
-        IEnumerator<Transition> adjust()
+        var hand = animator.gameObject.transform.Find("LaserHand").gameObject;
+        var aim = hand.transform.Find("LaserAim").gameObject;
+        var att = hand.transform.Find("LaserAtt").gameObject;
+        IEnumerator<Transition> bodyFollow()
         {
             while (true)
             {
@@ -75,8 +78,13 @@ internal partial class SeerStateMachine : EntityStateMachine
                     targetX = targetXLeft;
                 }
                 Velocity = new Vector2((targetX - Position.x) * Config.LaserVelocityXScale, 0);
-
-                var hand = animator.gameObject.transform.Find("LaserHand").gameObject;
+                yield return new NoTransition();
+            }
+        }
+        IEnumerator<Transition> handFollow()
+        {
+            while (true)
+            {
                 var handPosition = hand.transform.position;
                 var heroPosition = Target().Position();
                 if (gameObject.transform.localScale.x < 0)
@@ -85,19 +93,36 @@ internal partial class SeerStateMachine : EntityStateMachine
                 }
                 var direction = (heroPosition - handPosition).normalized;
                 var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                angle -= 180 + 13;
-                hand.transform.localRotation = Quaternion.Euler(0, 0, angle);
-
+                float normalizeAngle(float angle)
+                {
+                    while (angle < -180)
+                    {
+                        angle += 360;
+                    }
+                    while (angle > 180)
+                    {
+                        angle -= 360;
+                    }
+                    return angle;
+                }
+                angle = normalizeAngle(angle - 180 - 8);
+                var currentAngle = normalizeAngle(hand.transform.localRotation.eulerAngles.z);
+                var deltaAngle = angle - currentAngle;
+                var newAngle = currentAngle + deltaAngle * Config.LaserHandFollowSpeed * Time.deltaTime;
+                hand.transform.localRotation = Quaternion.Euler(0, 0, newAngle);
                 yield return new NoTransition();
             }
         }
+        aim.SetActive(true);
         yield return new CoroutineTransition
         {
             Routines = [
                 new WaitFor { Seconds = 10 },
-                adjust()
+                bodyFollow(),
+                handFollow(),
             ]
         };
+        aim.SetActive(false);
 
         // LaserEnd1
         Rigidbody2D.gravityScale = Config.GravityScale;

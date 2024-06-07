@@ -53,4 +53,5 @@ internal class Config
     public float LaserDistance = 8;
     public float LaserVelocityXScale = 3;
     public float LaserEndVelY = -20;
+    public float LaserHandFollowSpeed = 30;
 }
