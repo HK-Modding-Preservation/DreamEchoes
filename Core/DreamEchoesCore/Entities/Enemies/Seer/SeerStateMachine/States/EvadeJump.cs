@@ -40,6 +40,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         // JumpDescend
         animator.PlayAnimation("JumpDescend");
         yield return new WaitTill { Condition = Landed };
+        animator.PlayLandSound();
 
         // JumpEnd
         Velocity = Vector2.zero;

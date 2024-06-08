@@ -7851,9 +7851,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1050255391}
     - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+      propertyPath: RunSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d0506562c50fabd408bddb403343b8c3, type: 3}
+    - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+      propertyPath: LandSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 938235b28b32c28408aac4477c0469a0, type: 3}
+    - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
       propertyPath: LaserFire
       value: 
       objectReference: {fileID: 8300000, guid: d5adfd8c285049d45baf413a2dff158b, type: 3}
+    - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+      propertyPath: LaserWord
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d2725fa134d3934b8dba1660d2c4609, type: 3}
     - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
       propertyPath: TeleSlashGrub
       value: 

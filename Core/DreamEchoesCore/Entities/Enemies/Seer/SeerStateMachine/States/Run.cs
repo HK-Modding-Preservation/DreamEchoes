@@ -28,9 +28,11 @@ internal partial class SeerStateMachine : EntityStateMachine
         };
 
         // Run
+        animator.PlayRunSound();
         Velocity = new Vector2(velocityX, 0);
         animator.PlayAnimation("Run");
         yield return new WaitFor { Seconds = Config.RunDuration };
+        animator.StopRunSound();
 
         // RunEnd
         Transition endUpdater(float normalizedTime)

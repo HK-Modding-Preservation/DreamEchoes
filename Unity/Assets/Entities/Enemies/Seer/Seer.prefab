@@ -1974,6 +1974,9 @@ MonoBehaviour:
   TeleSlashWord: {fileID: 0}
   TeleSlashGrub: {fileID: 0}
   LaserFire: {fileID: 0}
+  LaserWord: {fileID: 0}
+  RunSound: {fileID: 0}
+  LandSound: {fileID: 0}
 --- !u!82 &301536763547394540
 AudioSource:
   m_ObjectHideFlags: 0

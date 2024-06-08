@@ -29,6 +29,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = new Vector2(velocityX, velocityY);
         animator.PlayAnimation("StunAir");
         yield return new WaitTill { Condition = Landed };
+        animator.PlayLandSound();
 
         // StunLand
         Velocity = Vector2.zero;

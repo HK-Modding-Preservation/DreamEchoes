@@ -108,6 +108,7 @@ internal partial class SeerStateMachine : EntityStateMachine
 
 
         // LaserStart
+        speak.PlayOneShot(animator.LaserWord);
         Rigidbody2D.gravityScale = 0;
         Velocity = Vector2.zero;
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("LaserBegin") };
@@ -189,6 +190,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = new Vector2(0, Config.LaserBodyEndVelY);
         animator.PlayAnimation("LaserEnd1");
         yield return new WaitTill { Condition = Landed };
+        animator.PlayLandSound();
 
         // LaserEnd2
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("LaserEnd2") };

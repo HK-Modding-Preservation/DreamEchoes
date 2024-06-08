@@ -31,6 +31,10 @@ internal class SeerAnimator : RingLib.Components.Animator
     public GameObject TeleSlashGrub;
 
     public AudioClip LaserFire;
+    public AudioClip LaserWord;
+
+    public AudioClip RunSound;
+    public AudioClip LandSound;
 
     public void PlayWakeSound()
     {
@@ -126,5 +130,20 @@ internal class SeerAnimator : RingLib.Components.Animator
     public void PlayLaserFire()
     {
         PlaySound(LaserFire);
+    }
+
+    public void PlayRunSound()
+    {
+        PlaySoundLoop(RunSound);
+    }
+
+    public void StopRunSound()
+    {
+        StopSoundLoop();
+    }
+
+    public void PlayLandSound()
+    {
+        PlaySound(LandSound);
     }
 }
