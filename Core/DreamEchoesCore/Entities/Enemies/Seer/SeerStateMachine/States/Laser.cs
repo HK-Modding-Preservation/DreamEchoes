@@ -1,4 +1,5 @@
-﻿using RingLib.StateMachine;
+﻿using GlobalEnums;
+using RingLib.StateMachine;
 using RingLib.Utils;
 using System;
 using System.Collections.Generic;
@@ -74,33 +75,16 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
     }
 
-    IEnumerator<Transition> rayCast(GameObject hand, GameObject hit, Func<Vector3> targetPos)
+    IEnumerator<Transition> ddPrevent()
     {
         while (true)
         {
-            var handX = hand.transform.position.x;
-            var handY = hand.transform.position.y;
-            var heroPosition = targetPos();
-            var heroX = heroPosition.x;
-            var heroY = heroPosition.y;
-            var ray = new Vector2(heroX - handX, heroY - handY);
-            RaycastHit2D raycastHit2D4 = Physics2D.Raycast(new Vector2(handX, handY), ray, float.MaxValue, 1 << 8);
-            float hitY = -1000;
-            float hitX = -1000;
-            if (raycastHit2D4.collider != null)
+            var hero = HeroController.instance;
+            if (hero.damageMode == DamageMode.HAZARD_ONLY)
             {
-                RingLib.Log.LogInfo("", $"Start: {handX}, {handY}");
-                RingLib.Log.LogInfo("", $"Mid: {heroX}, {heroY}");
-                RingLib.Log.LogInfo("", $"End: {raycastHit2D4.point.x}, {raycastHit2D4.point.y}");
-                hitY = raycastHit2D4.point.y;
-                hitX = raycastHit2D4.point.x;
+                hero.damageMode = DamageMode.FULL_DAMAGE;
+                RingLib.Log.LogInfo("", "don't ddark");
             }
-            // animator.UpdateLaserCutoff(hitY + 0.5f);
-            var globalPos = hit.transform.position;
-            globalPos.y = hitY + Config.HitDY;
-            globalPos.x = hitX + Config.HitDX;
-            hit.transform.position = globalPos;
-            hit.SetActive(true);
             yield return new NoTransition();
         }
     }
@@ -214,7 +198,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             {
                 Routines = [
                     handFollow(hand, movingPos),
-                    // rayCast(hand, hit, movingPos),
+                    ddPrevent(),
                     new WaitFor { Seconds = Config.LaserAttackLaserWait }
                 ]
             };
