@@ -45,6 +45,17 @@ internal partial class SeerStateMachine : EntityStateMachine
         GameManager.instance.AudioManager.ApplyMusicCue(musicCue, 0, 0, false);
         DreamEchoesCore.Instance.SaveSettings.seenSeer = true;
         DreamEchoesCore.Instance.DisableWallJump = true;
+        foreach (var obj in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (obj.name == "CameraLockArea(Clone)(Clone)")
+            {
+                obj.SetActive(false);
+                var cameraLockArea = obj.GetComponent<CameraLockArea>();
+                cameraLockArea.cameraYMax = cameraLockArea.cameraYMin;
+                obj.SetActive(true);
+                RingLib.Log.LogInfo("", "CameraLockArea found and locked");
+            }
+        }
         yield return new ToState { State = nameof(Idle) };
     }
 }
