@@ -11,7 +11,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         new(value: nameof(Slash), weight: 1, maxCount: 2, maxMiss: 5),
         new(value: nameof(Hug), weight: 1, maxCount: 2, maxMiss: 5),
         new(value: nameof(TeleSlash), weight: 1, maxCount: 2, maxMiss: 5),
-        new(value: nameof(Laser), weight: 1, maxCount: 1, maxMiss: 5),
+        new(value: nameof(Laser), weight: 0.5f, maxCount: 1, maxMiss: 10),
     ]);
 
     [State]
