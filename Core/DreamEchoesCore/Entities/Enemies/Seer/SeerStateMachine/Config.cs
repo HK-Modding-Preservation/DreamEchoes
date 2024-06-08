@@ -55,7 +55,7 @@ internal class Config
     public float LaserBodyEndVelY = -20;
     public float LaserHandFollowSpeed = 30;
     public float LaserAttackInitialWait = 0;
-    public int LaserAttackCount = 4;
+    public int LaserAttackCount = 3;
     public float LaserAttackIdleWait = 0.75f;
     public float LaserAttackAimDeltaX = 3;
     public float LaserAttackAimWait = 0.4f;
