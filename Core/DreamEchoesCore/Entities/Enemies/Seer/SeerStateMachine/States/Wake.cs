@@ -28,7 +28,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             var myPosition = Position;
             var targetPosition = Target().Position();
             var distance = Vector2.Distance(myPosition, targetPosition);
-            return distance < Config.WakeDistance || stunCount != oldStunCount;
+            return distance < Config.WakeDistance || stunCount != oldStunCount || dreamNailed;
         }
         yield return new WaitTill { Condition = check };
 

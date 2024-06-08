@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
+using UnityEngine;
 
 namespace DreamEchoesCore.Utils;
 
@@ -14,6 +15,8 @@ public class WeaverCoreDream : MonoBehaviour
         if (other.gameObject.tag == "Dream Attack")
         {
             spriteFlasher.flashDreamImpact();
+            var seerStateMachine = GetComponent<SeerStateMachine>();
+            seerStateMachine.dreamNailed = true;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 internal partial class SeerStateMachine : EntityStateMachine
 {
     internal class StunEvent : RingLib.StateMachine.Event { }
+    public bool dreamNailed = false;
 
     internal class DefeatedEvent : RingLib.StateMachine.Event { }
 
