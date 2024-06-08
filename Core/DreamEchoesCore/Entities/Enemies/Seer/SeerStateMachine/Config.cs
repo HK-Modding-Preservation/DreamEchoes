@@ -52,7 +52,7 @@ internal class Config
 
     public float LaserBodyDistance = 10;
     public float LaserBodyVelocityXScale = 3;
-    public float LaserBodyEndVelY = -20;
+    public float LaserBodyEndVelY = -40;
     public float LaserHandFollowSpeed = 30;
     public float LaserAttackInitialWait = 0;
     public int LaserAttackCount = 3;
