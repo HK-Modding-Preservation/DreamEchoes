@@ -36,6 +36,10 @@ internal class SeerAnimator : RingLib.Components.Animator
     public AudioClip RunSound;
     public AudioClip LandSound;
 
+    public Renderer laserRenderer;
+
+    public GameObject LaserHit;
+
     public void PlayWakeSound()
     {
         PlaySound(WakeSound);
@@ -145,5 +149,10 @@ internal class SeerAnimator : RingLib.Components.Animator
     public void PlayLandSound()
     {
         PlaySound(LandSound);
+    }
+
+    public void UpdateLaserCutoff(float y)
+    {
+        laserRenderer.material.SetFloat("_CutoffY", y);
     }
 }

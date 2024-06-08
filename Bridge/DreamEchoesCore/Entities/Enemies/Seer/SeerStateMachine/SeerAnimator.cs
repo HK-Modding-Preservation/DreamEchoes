@@ -36,6 +36,10 @@ internal class SeerAnimator : MonoBehaviour
     public AudioClip RunSound;
     public AudioClip LandSound;
 
+    public Renderer laserRenderer;
+
+    public GameObject LaserHit;
+
     public void PlayWakeSound() { }
 
     public void PlayWakeSlashSound() { }

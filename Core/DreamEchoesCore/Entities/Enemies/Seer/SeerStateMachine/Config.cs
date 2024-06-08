@@ -61,4 +61,6 @@ internal class Config
     public float LaserAttackAimWait = 0.4f;
     public float LaserAttackLaserWait = 0.5f;
     public float LaserAttackMoveSpeed = 30;
+    public float HitDX = 0;
+    public float HitDY = 0;
 }

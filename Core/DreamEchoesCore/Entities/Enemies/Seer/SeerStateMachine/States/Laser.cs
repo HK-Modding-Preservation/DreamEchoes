@@ -74,6 +74,37 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
     }
 
+    IEnumerator<Transition> rayCast(GameObject hand, GameObject hit, Func<Vector3> targetPos)
+    {
+        while (true)
+        {
+            var handX = hand.transform.position.x;
+            var handY = hand.transform.position.y;
+            var heroPosition = targetPos();
+            var heroX = heroPosition.x;
+            var heroY = heroPosition.y;
+            var ray = new Vector2(heroX - handX, heroY - handY);
+            RaycastHit2D raycastHit2D4 = Physics2D.Raycast(new Vector2(handX, handY), ray, float.MaxValue, 1 << 8);
+            float hitY = -1000;
+            float hitX = -1000;
+            if (raycastHit2D4.collider != null)
+            {
+                RingLib.Log.LogInfo("", $"Start: {handX}, {handY}");
+                RingLib.Log.LogInfo("", $"Mid: {heroX}, {heroY}");
+                RingLib.Log.LogInfo("", $"End: {raycastHit2D4.point.x}, {raycastHit2D4.point.y}");
+                hitY = raycastHit2D4.point.y;
+                hitX = raycastHit2D4.point.x;
+            }
+            // animator.UpdateLaserCutoff(hitY + 0.5f);
+            var globalPos = hit.transform.position;
+            globalPos.y = hitY + Config.HitDY;
+            globalPos.x = hitX + Config.HitDX;
+            hit.transform.position = globalPos;
+            hit.SetActive(true);
+            yield return new NoTransition();
+        }
+    }
+
     [State]
     private IEnumerator<Transition> Laser()
     {
@@ -114,10 +145,14 @@ internal partial class SeerStateMachine : EntityStateMachine
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("LaserBegin") };
 
         // LaserFly
-        animator.PlayAnimation("LaserFly");
         var hand = animator.gameObject.transform.Find("LaserHand").gameObject;
         var aim = hand.transform.Find("LaserAim").gameObject;
         var att = hand.transform.Find("LaserAtt").gameObject;
+        var hit = animator.LaserHit;
+        aim.SetActive(false);
+        att.SetActive(false);
+        hit.SetActive(false);
+        animator.PlayAnimation("LaserFly");
 
         // InitialWait
         RingLib.Log.LogInfo("", "Laser Initial Wait");
@@ -179,10 +214,12 @@ internal partial class SeerStateMachine : EntityStateMachine
             {
                 Routines = [
                     handFollow(hand, movingPos),
+                    // rayCast(hand, hit, movingPos),
                     new WaitFor { Seconds = Config.LaserAttackLaserWait }
                 ]
             };
             att.SetActive(false);
+            hit.SetActive(false);
         }
 
         // LaserEnd1
