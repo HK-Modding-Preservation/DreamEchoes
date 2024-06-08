@@ -50,8 +50,15 @@ internal class Config
     public float TeleSlashY = 3;
     public float TeleSlashXClose = 5;
 
-    public float LaserDistance = 8;
-    public float LaserVelocityXScale = 3;
-    public float LaserEndVelY = -20;
+    public float LaserBodyDistance = 10;
+    public float LaserBodyVelocityXScale = 3;
+    public float LaserBodyEndVelY = -20;
     public float LaserHandFollowSpeed = 30;
+    public float LaserAttackInitialWait = 0;
+    public int LaserAttackCount = 4;
+    public float LaserAttackIdleWait = 0.75f;
+    public float LaserAttackAimDeltaX = 3;
+    public float LaserAttackAimWait = 0.4f;
+    public float LaserAttackLaserWait = 0.5f;
+    public float LaserAttackMoveSpeed = 30;
 }

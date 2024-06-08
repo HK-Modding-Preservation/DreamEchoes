@@ -30,6 +30,8 @@ internal class SeerAnimator : RingLib.Components.Animator
     public AudioClip TeleSlashWord;
     public GameObject TeleSlashGrub;
 
+    public AudioClip LaserFire;
+
     public void PlayWakeSound()
     {
         PlaySound(WakeSound);
@@ -119,5 +121,10 @@ internal class SeerAnimator : RingLib.Components.Animator
         grub.GetComponent<Rigidbody2D>().velocity = new Vector2(15 * (scale.x > 0 ? -1 : 1), 0);
         grub.AddComponent<GrubFSM>();
         */
+    }
+
+    public void PlayLaserFire()
+    {
+        PlaySound(LaserFire);
     }
 }

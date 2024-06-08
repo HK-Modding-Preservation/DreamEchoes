@@ -30,6 +30,8 @@ internal class SeerAnimator : MonoBehaviour
     public AudioClip TeleSlashWord;
     public GameObject TeleSlashGrub;
 
+    public AudioClip LaserFire;
+
     public void PlayWakeSound() { }
 
     public void PlayWakeSlashSound() { }
