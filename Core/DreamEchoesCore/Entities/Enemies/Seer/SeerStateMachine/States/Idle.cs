@@ -23,6 +23,14 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = Vector2.zero;
         animator.PlayAnimation("Idle");
         yield return new WaitFor { Seconds = Config.IdleDuration };
+
+        if (entityHealth.Health <= treeHP)
+        {
+            treeHP = int.MinValue;
+            LockStun();
+            yield return new ToState { State = nameof(TreeSummon) };
+        }
+
         yield return new ToState { State = idleRandomSelector.Get() };
     }
 }

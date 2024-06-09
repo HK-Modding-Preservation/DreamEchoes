@@ -32,6 +32,10 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     public GameObject traitorWave;
 
+    WeaverCore.Components.EntityHealth entityHealth;
+    private int fullHP;
+    private int treeHP;
+
     public SeerStateMachine() : base(
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
@@ -56,9 +60,11 @@ internal partial class SeerStateMachine : EntityStateMachine
             attacks.Add(attack.gameObject);
             RingLib.Log.LogInfo(GetType().Name, $"Attack {attack.name} discovered");
         }
-        var entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
+        entityHealth = gameObject.GetComponent<WeaverCore.Components.EntityHealth>();
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
+        fullHP = entityHealth.Health;
+        treeHP = fullHP;
         startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
         emptyMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("EmptyMusic");
@@ -139,6 +145,18 @@ internal partial class SeerStateMachine : EntityStateMachine
             stunCount = int.MinValue;
             ReceiveEvent(new StunEvent());
         }
+    }
+
+    private int previousStunCount;
+    private void LockStun()
+    {
+        previousStunCount = stunCount;
+        stunCount = int.MinValue;
+    }
+
+    private void UnlockStun()
+    {
+        stunCount = previousStunCount;
     }
 
     private void OnDeath(HitInfo hitInfo)
