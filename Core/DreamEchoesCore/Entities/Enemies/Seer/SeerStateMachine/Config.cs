@@ -35,7 +35,7 @@ internal class Config
     public float HugVelocityY = 5;
     public float HugRadiantNailSpeed = 20;
 
-    public int StunThreshold = 24;
+    public int StunThreshold = 36;
     public Vector2 StunColliderOffset = new(0, -0.75f);
     public Vector2 StunColliderSize = new(1.2f, 2.5f);
     public float StunVelocityX = 20;
