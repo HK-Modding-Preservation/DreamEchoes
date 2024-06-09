@@ -1,4 +1,5 @@
 ﻿using RingLib.StateMachine;
+using RingLib.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -86,6 +87,14 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = Vector2.zero;
     }
 
+    private RandomSelector<string> teleSlashRandomSelector = new([
+        new(value: nameof(Dash), weight: 1, maxCount: 2, maxMiss: 5),
+        new(value: nameof(Slash), weight: 1, maxCount: 2, maxMiss: 5),
+        new(value: nameof(Hug), weight: 1, maxCount: 2, maxMiss: 5),
+        // new(value: nameof(TeleSlash), weight: 1, maxCount: 2, maxMiss: 8),
+        // new(value: nameof(Laser), weight: 0.6f, maxCount: 1, maxMiss: 8),
+    ]);
+
     [State]
     private IEnumerator<Transition> TeleSlash()
     {
@@ -149,6 +158,10 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new CoroutineTransition { Routine = Turn() };
         }
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("Tele3") };
+
+        Velocity = Vector2.zero;
+        yield return new ToState { State = teleSlashRandomSelector.Get() };
+
         yield return new CoroutineTransition
         {
             Routine = TeleSlashSlash()
