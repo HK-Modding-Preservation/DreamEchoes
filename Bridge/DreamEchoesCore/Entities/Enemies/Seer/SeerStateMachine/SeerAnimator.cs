@@ -42,6 +42,8 @@ internal class SeerAnimator : MonoBehaviour
 
     public AudioClip TreeHa;
 
+    public GameObject Tree;
+
     public void PlayWakeSound() { }
 
     public void PlayWakeSlashSound() { }
@@ -65,4 +67,6 @@ internal class SeerAnimator : MonoBehaviour
     public void SetFullCollider() { }
 
     public void TreeSummon() { }
+
+    public void TreeGrow() { }
 }
