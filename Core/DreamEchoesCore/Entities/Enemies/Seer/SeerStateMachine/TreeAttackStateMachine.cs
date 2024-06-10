@@ -20,13 +20,19 @@ internal class OrbMod : MonoBehaviour
     }
     private void Update()
     {
+        var meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer.enabled == false)
+        {
+            GameObject.Destroy(gameObject);
+            RingLib.Log.LogInfo("OrbMod", "Destroyed");
+        }
         var scale = transform.localScale;
         scale.x = 1.5f;
         scale.y = 1.5f;
         transform.localScale = scale;
-        damageHero.damageDealt = 2;
+        damageHero.damageDealt = 0;
 
-        tk2DSprite.color = new Color(0.6f, 0.4f, 1, 0.7f);
+        tk2DSprite.color = new Color(0.6f, 0.4f, 1, 0f);
 
         if (update)
         {
@@ -94,14 +100,21 @@ internal class TreeAttackStateMachine : StateMachine
         var fsm = orb.LocateMyFSM("Orb Control");
         fsm.SendEvent("FIRE");
         orb.AddComponent<OrbMod>();
-        gameObject.SetActive(false);
-        yield return new NoTransition();
-        /*
-        yield return new CoroutineTransition
+        while (true)
         {
-            Routine = Track()
-        };
-        */
+            if (orb)
+            {
+                gameObject.transform.position = orb.transform.position;
+            }
+            else
+            {
+                GameObject.Destroy(gameObject);
+            }
+            var angleVel = 72;
+            var angle = Clockwise ? angleVel : -angleVel;
+            transform.Rotate(0, 0, angle * Time.deltaTime);
+            yield return new NoTransition();
+        }
     }
 
     public TreeAttackStateMachine() : base(
@@ -118,13 +131,5 @@ internal class TreeAttackStateMachine : StateMachine
         var state = fsm.GetState("Shoot");
         var action = state.GetAction<SpawnObjectFromGlobalPool>(3);
         orbTemplate = action.gameObject.Value;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.layer == 8)
-        {
-            gameObject.SetActive(false);
-        }
     }
 }
