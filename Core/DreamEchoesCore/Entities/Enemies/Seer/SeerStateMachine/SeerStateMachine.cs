@@ -21,7 +21,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
     private SeerAnimator animator;
-    private AudioSource speak;
+    public AudioSource speak;
     private InputManager inputManager;
     private List<GameObject> attacks = [];
 
@@ -157,6 +157,18 @@ internal partial class SeerStateMachine : EntityStateMachine
     private void UnlockStun()
     {
         stunCount = previousStunCount;
+    }
+
+    public void SetHalfCollider()
+    {
+        BoxCollider2D.offset = Config.StunColliderOffset;
+        BoxCollider2D.size = Config.StunColliderSize;
+    }
+
+    public void SetFullCollider()
+    {
+        BoxCollider2D.offset = originalBoxCollider2DOffset;
+        BoxCollider2D.size = originalBoxCollider2DSize;
     }
 
     private void OnDeath(HitInfo hitInfo)

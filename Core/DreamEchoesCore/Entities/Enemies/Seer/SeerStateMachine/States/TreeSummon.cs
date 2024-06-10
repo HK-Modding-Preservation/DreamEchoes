@@ -47,6 +47,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         Velocity = Vector2.zero;
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("JumpEnd") };
 
+        // speak.PlayOneShot(animator.Slash1Words);
+        // animator.PlaySlash2Sound();
         yield return new CoroutineTransition { Routine = animator.PlayAnimation("TreeSummon") };
 
         UnlockStun();

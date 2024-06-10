@@ -155,4 +155,23 @@ internal class SeerAnimator : RingLib.Components.Animator
     {
         laserRenderer.material.SetFloat("_CutoffY", y);
     }
+
+    public void SetHalfCollider()
+    {
+        var seerStateMachine = transform.parent.GetComponent<SeerStateMachine>();
+        seerStateMachine.SetHalfCollider();
+    }
+
+    public void SetFullCollider()
+    {
+        var seerStateMachine = transform.parent.GetComponent<SeerStateMachine>();
+        seerStateMachine.SetFullCollider();
+    }
+
+    public void TreeSummon()
+    {
+        var seerStateMachine = transform.parent.GetComponent<SeerStateMachine>();
+        seerStateMachine.speak.PlayOneShot(Slash1Words);
+        PlaySlash2Sound();
+    }
 }

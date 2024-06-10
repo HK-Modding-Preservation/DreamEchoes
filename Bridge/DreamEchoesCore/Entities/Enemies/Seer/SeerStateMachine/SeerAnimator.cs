@@ -57,4 +57,10 @@ internal class SeerAnimator : MonoBehaviour
     public void PlayParryCounterSound() { }
 
     public void MakeGrub() { }
+
+    public void SetHalfCollider() { }
+
+    public void SetFullCollider() { }
+
+    public void TreeSummon() { }
 }
