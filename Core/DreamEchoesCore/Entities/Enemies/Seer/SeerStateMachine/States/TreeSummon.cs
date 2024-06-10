@@ -12,7 +12,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         // JumpStart
         var jumpRadiusMin = Config.EvadeJumpRadiusMin;
         var jumpRadiusMax = Config.EvadeJumpRadiusMax;
-        var jumpRadius = Random.Range(jumpRadiusMin, jumpRadiusMax);
+        var jumpRadius = 0;
         var targetPosX = (minX + maxX) / 2;
         var targetXLeft = targetPosX - jumpRadius;
         var targetXRight = targetPosX + jumpRadius;
