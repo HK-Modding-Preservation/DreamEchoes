@@ -1,5 +1,4 @@
-﻿using RingLib.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
@@ -171,66 +170,9 @@ internal class SeerAnimator : RingLib.Components.Animator
         seerStateMachine.SetFullCollider();
     }
 
-    private static void RewriteActions(PlayMakerFSM fsm)
-    {
-        foreach (var state in fsm.FsmStates)
-        {
-            for (int i = 0; i < state.Actions.Length; ++i)
-            {
-                var action = state.Actions[i];
-                var type = action.GetType();
-                if (action is HutongGames.PlayMaker.Actions.SpawnObjectFromGlobalPoolOverTimeV2)
-                {
-                    var oldAction = action as HutongGames.PlayMaker.Actions.SpawnObjectFromGlobalPoolOverTimeV2;
-                    var newAction = new Utils.SpawnObjectFromGlobalPoolOverTimeV2
-                    {
-                        gameObject = oldAction.gameObject,
-                        spawnPoint = oldAction.spawnPoint,
-                        position = oldAction.position,
-                        rotation = oldAction.rotation,
-                        frequency = oldAction.frequency,
-                        scaleMin = oldAction.scaleMin,
-                        scaleMax = oldAction.scaleMax,
-                    };
-                    state.Actions[i] = newAction;
-                    RingLib.Log.LogInfo("Rewrite", $"    Rewrote {state.Name} : {i} of type {type.Name}");
-                }
-            }
-        }
-    }
-
     public void TreeSummon()
     {
         var seerStateMachine = transform.parent.GetComponent<SeerStateMachine>();
         seerStateMachine.speak.PlayOneShot(TreeHa);
-        // PlaySlash2Sound();
-
-        return;
-        if (true)
-        {
-            var shockwave = Instantiate(seerStateMachine.WaveTemplate);
-            shockwave.transform.position = seerStateMachine.transform.position;
-            shockwave.transform.Translate(0, -2f, 0);
-            shockwave.LocateMyFSM("shockwave").FsmVariables.GetFsmBool("Facing Right").Value = true;
-            shockwave.LocateMyFSM("shockwave").FsmVariables.GetFsmFloat("Speed").Value = 50;
-            shockwave.LocateMyFSM("shockwave").RemoveTransition("Move", "WALL");
-            shockwave.LocateMyFSM("shockwave").RemoveTransition("Move", "HIT");
-            shockwave.transform.SetScaleX(2);
-            shockwave.AddComponent<RingLib.EntityManagement.DestroyAfter>().Seconds = 5;
-            RewriteActions(shockwave.LocateMyFSM("shockwave"));
-        }
-        if (true)
-        {
-            var shockwave = Instantiate(seerStateMachine.WaveTemplate);
-            shockwave.transform.position = seerStateMachine.transform.position;
-            shockwave.transform.Translate(0, -2f, 0);
-            shockwave.LocateMyFSM("shockwave").FsmVariables.GetFsmBool("Facing Right").Value = false;
-            shockwave.LocateMyFSM("shockwave").FsmVariables.GetFsmFloat("Speed").Value = 50;
-            shockwave.LocateMyFSM("shockwave").RemoveTransition("Move", "WALL");
-            shockwave.LocateMyFSM("shockwave").RemoveTransition("Move", "HIT");
-            shockwave.transform.SetScaleX(2);
-            shockwave.AddComponent<RingLib.EntityManagement.DestroyAfter>().Seconds = 5;
-            RewriteActions(shockwave.LocateMyFSM("shockwave"));
-        }
     }
 }
