@@ -40,6 +40,8 @@ internal class SeerAnimator : MonoBehaviour
 
     public GameObject LaserHit;
 
+    public AudioClip TreeHa;
+
     public void PlayWakeSound() { }
 
     public void PlayWakeSlashSound() { }

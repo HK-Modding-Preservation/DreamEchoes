@@ -40,6 +40,8 @@ internal class SeerAnimator : RingLib.Components.Animator
 
     public GameObject LaserHit;
 
+    public AudioClip TreeHa;
+
     public void PlayWakeSound()
     {
         PlaySound(WakeSound);
@@ -171,7 +173,7 @@ internal class SeerAnimator : RingLib.Components.Animator
     public void TreeSummon()
     {
         var seerStateMachine = transform.parent.GetComponent<SeerStateMachine>();
-        seerStateMachine.speak.PlayOneShot(Slash1Words);
+        seerStateMachine.speak.PlayOneShot(TreeHa);
         PlaySlash2Sound();
     }
 }
