@@ -203,5 +203,6 @@ internal partial class SeerStateMachine : EntityStateMachine
             attack.SetActive(false);
         }
         animator.LaserHit.SetActive(false);
+        animator.StopRunSound();
     }
 }

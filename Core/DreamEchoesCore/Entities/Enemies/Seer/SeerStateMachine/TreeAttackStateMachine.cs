@@ -10,10 +10,13 @@ internal class OrbMod : MonoBehaviour
 {
     private DamageHero damageHero;
     private tk2dSprite tk2DSprite;
+    private PlayMakerFSM fsm;
+    private bool update = false;
     private void Start()
     {
         damageHero = GetComponentInChildren<DamageHero>();
         tk2DSprite = GetComponentInChildren<tk2dSprite>();
+        fsm = GetComponent<PlayMakerFSM>();
     }
     private void Update()
     {
@@ -23,7 +26,22 @@ internal class OrbMod : MonoBehaviour
         transform.localScale = scale;
         damageHero.damageDealt = 2;
 
-        tk2DSprite.color = new Color(0.7f, 0.4f, 1, 1);
+        tk2DSprite.color = new Color(0.6f, 0.4f, 1, 0.7f);
+
+        if (update)
+        {
+            return;
+        }
+        var state = fsm.GetState("Impact");
+        var action = state.GetAction<Wait>(7);
+        if (action.time.Value <= 0.02f)
+        {
+            update = true;
+        }
+        action.time.Value = 0.01f;
+        state = fsm.GetState("Stop Particles");
+        action = state.GetAction<Wait>(1);
+        action.time.Value = 0.01f;
     }
 }
 
