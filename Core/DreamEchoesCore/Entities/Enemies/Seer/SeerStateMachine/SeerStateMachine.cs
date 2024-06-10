@@ -67,7 +67,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         entityHealth.OnHealthChangeEvent += OnHit;
         entityHealth.OnDeathEvent += OnDeath;
         fullHP = entityHealth.Health;
-        treeHP = fullHP - 100;
+        treeHP = fullHP / 3 * 2;
         startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
         emptyMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("EmptyMusic");

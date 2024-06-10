@@ -18,7 +18,7 @@ internal class TreeStateMachine : StateMachine
     private IEnumerator<Transition> Flash()
     {
         var originalColor = spriteRenderer.color;
-        var purpleColor = new Color(0.5f, 0, 0.5f, 1);
+        var purpleColor = new Color(0.75f, 0.5f, 0.75f, 1);
         while (true)
         {
             spriteRenderer.color = originalColor;
@@ -44,7 +44,7 @@ internal class TreeStateMachine : StateMachine
         RingLib.Log.LogInfo("TreeStateMachine", "WaitFirst");
         yield return new CoroutineTransition
         {
-            Routine = WaitForIdle(3)
+            Routine = WaitForIdle(7)
         };
 
         // Flash
