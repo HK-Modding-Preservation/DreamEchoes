@@ -16,6 +16,10 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Idle()
     {
+        if (treeStateMachine.status >= 1)
+        {
+            treeStateMachine.status += 1;
+        }
         if (!FacingTarget())
         {
             yield return new CoroutineTransition { Routine = Turn() };

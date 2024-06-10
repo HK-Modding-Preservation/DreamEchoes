@@ -37,6 +37,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     private int treeHP;
 
     public GameObject WaveTemplate;
+    public TreeStateMachine treeStateMachine;
 
     public SeerStateMachine() : base(
         startState: nameof(Wake),
@@ -113,6 +114,15 @@ internal partial class SeerStateMachine : EntityStateMachine
         var mageLord = DreamEchoesCore.GetPreloaded("GG_Soul_Master", "Mage Lord");
         var mageState = mageLord.LocateMyFSM("Mage Lord").GetState("Quake Waves");
         WaveTemplate = mageState.GetAction<SpawnObjectFromGlobalPool>(0).gameObject.Value;
+
+        foreach (var root in UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            if (root.name == "Tree")
+            {
+                var treeanim = root.transform.Find("Animation");
+                treeStateMachine = treeanim.GetComponent<TreeStateMachine>();
+            }
+        }
     }
 
     protected override void EntityStateMachineUpdate()

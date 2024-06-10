@@ -11,13 +11,80 @@ internal class TreeStateMachine : StateMachine
     private AudioSource audioSource;
     public AudioClip GrowSound;
 
-    [State]
-    private IEnumerator<Transition> Begin()
+    private SpriteRenderer spriteRenderer;
+
+    public int status = 0;
+
+    private IEnumerator<Transition> Flash()
     {
+        var originalColor = spriteRenderer.color;
+        var purpleColor = new Color(0.5f, 0, 0.5f, 1);
         while (true)
+        {
+            spriteRenderer.color = originalColor;
+            yield return new WaitFor { Seconds = 0.1f };
+            spriteRenderer.color = purpleColor;
+            yield return new WaitFor { Seconds = 0.1f };
+        }
+    }
+
+    private IEnumerator<Transition> WaitForIdle(int count)
+    {
+        status = 1;
+        while (status <= count)
         {
             yield return new NoTransition();
         }
+    }
+
+    [State]
+    private IEnumerator<Transition> Begin()
+    {
+        // Wait
+        RingLib.Log.LogInfo("TreeStateMachine", "WaitFirst");
+        yield return new CoroutineTransition
+        {
+            Routine = WaitForIdle(3)
+        };
+
+        // Flash
+        RingLib.Log.LogInfo("TreeStateMachine", "Flash1");
+        var originalColor = spriteRenderer.color;
+        yield return new CoroutineTransition
+        {
+            Routines = [
+                Flash(),
+                new WaitFor { Seconds = 0.5f },
+            ]
+        };
+        spriteRenderer.color = originalColor;
+
+        RingLib.Log.LogInfo("TreeStateMachine", "Flash2");
+        // Flash & Wait
+        yield return new CoroutineTransition
+        {
+            Routines = [
+                Flash(),
+                WaitForIdle(2),
+            ]
+        };
+        spriteRenderer.color = originalColor;
+
+        RingLib.Log.LogInfo("TreeStateMachine", "End");
+        PlayGrowSound();
+        foreach (var attack in Attacks.GetComponentsInChildren<TreeAttackStateMachine>())
+        {
+            attack.isAttacking = true;
+        }
+        float currentAlpha = 1;
+        float alphaVel = 1;
+        while (currentAlpha > 0)
+        {
+            currentAlpha -= alphaVel * Time.deltaTime;
+            spriteRenderer.color = new Color(1, 1, 1, currentAlpha);
+            yield return new NoTransition();
+        }
+        GameObject.Destroy(gameObject);
     }
 
     public TreeStateMachine() : base(
@@ -28,6 +95,7 @@ internal class TreeStateMachine : StateMachine
     protected override void StateMachineStart()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     public void StartAttacks()
