@@ -5,6 +5,7 @@ namespace DreamEchoesCore.Utils;
 internal class Preload
 {
     public static List<(string, string)> Names = [
+        ("GG_Soul_Master", "Mage Lord"),
         ("GG_Traitor_Lord", "Battle Scene"),
         ("RestingGrounds_07", "Dream Moth"),
         ("GG_Radiance", "Boss Control/Absolute Radiance"),

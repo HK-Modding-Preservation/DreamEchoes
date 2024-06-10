@@ -36,6 +36,8 @@ internal partial class SeerStateMachine : EntityStateMachine
     private int fullHP;
     private int treeHP;
 
+    public GameObject WaveTemplate;
+
     public SeerStateMachine() : base(
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
@@ -107,6 +109,10 @@ internal partial class SeerStateMachine : EntityStateMachine
         var state = fsm.GetState("Waves");
         var action = state.GetAction<SpawnObjectFromGlobalPool>(0);
         traitorWave = action.gameObject.Value;
+
+        var mageLord = DreamEchoesCore.GetPreloaded("GG_Soul_Master", "Mage Lord");
+        var mageState = mageLord.LocateMyFSM("Mage Lord").GetState("Quake Waves");
+        WaveTemplate = mageState.GetAction<SpawnObjectFromGlobalPool>(0).gameObject.Value;
     }
 
     protected override void EntityStateMachineUpdate()
