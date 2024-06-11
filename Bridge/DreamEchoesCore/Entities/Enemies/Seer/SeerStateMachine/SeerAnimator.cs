@@ -44,6 +44,8 @@ internal class SeerAnimator : MonoBehaviour
 
     public GameObject Tree;
 
+    public AudioClip ShadowWord;
+
     public void PlayWakeSound() { }
 
     public void PlayWakeSlashSound() { }

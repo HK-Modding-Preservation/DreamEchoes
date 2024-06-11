@@ -63,4 +63,6 @@ internal class Config
     public float LaserAttackMoveSpeed = 30;
     public float HitDX = 0;
     public float HitDY = 0;
+
+    public float LaserSweepSpeed = 120;
 }

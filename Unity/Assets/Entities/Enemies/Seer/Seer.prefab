@@ -1981,6 +1981,7 @@ MonoBehaviour:
   LaserHit: {fileID: 0}
   TreeHa: {fileID: 0}
   Tree: {fileID: 0}
+  ShadowWord: {fileID: 0}
 --- !u!82 &301536763547394540
 AudioSource:
   m_ObjectHideFlags: 0

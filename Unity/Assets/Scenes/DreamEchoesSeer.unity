@@ -9668,6 +9668,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 2d2725fa134d3934b8dba1660d2c4609, type: 3}
     - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+      propertyPath: ShadowWord
+      value: 
+      objectReference: {fileID: 8300000, guid: 99afd84fa8d346c44804ea4afd64ad75, type: 3}
+    - target: {fileID: 3161486070624962387, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
       propertyPath: TeleSlashGrub
       value: 
       objectReference: {fileID: 2107329518}

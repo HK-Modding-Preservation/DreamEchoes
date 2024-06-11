@@ -44,6 +44,8 @@ internal class SeerAnimator : RingLib.Components.Animator
 
     public GameObject Tree;
 
+    public AudioClip ShadowWord;
+
     public void PlayWakeSound()
     {
         PlaySound(WakeSound);

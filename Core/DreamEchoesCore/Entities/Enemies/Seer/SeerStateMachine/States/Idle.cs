@@ -36,6 +36,14 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new ToState { State = nameof(TreeSummon) };
         }
 
+        if (entityHealth.Health <= shadowHP)
+        {
+            RingLib.Log.LogInfo("ShadowSummon", "Current health is " + entityHealth.Health + " and shadowHP is " + shadowHP);
+            shadowHP = int.MinValue;
+            LockStun();
+            yield return new ToState { State = nameof(ShadowSummon) };
+        }
+
         yield return new ToState { State = idleRandomSelector.Get() };
     }
 }
