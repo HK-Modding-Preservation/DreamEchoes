@@ -39,6 +39,8 @@ internal partial class SeerStateMachine : EntityStateMachine
     public GameObject WaveTemplate;
     public TreeStateMachine treeStateMachine;
 
+    public int IdleCount = 0;//listen to idle event
+
     public SeerStateMachine() : base(
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
