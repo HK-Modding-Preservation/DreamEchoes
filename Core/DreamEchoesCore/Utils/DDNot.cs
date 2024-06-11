@@ -18,7 +18,7 @@ public class DDNot : MonoBehaviour
             if (hero.damageMode == DamageMode.HAZARD_ONLY)
             {
                 hero.damageMode = DamageMode.FULL_DAMAGE;
-                RingLib.Log.LogInfo("", "don't ddark");
+                RingLib.Log.LogInfo("", "don't ddark new");
             }
         }
     }
