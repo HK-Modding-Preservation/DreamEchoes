@@ -9,12 +9,21 @@ internal class ShadowStateMachine : StateMachine
 {
     private GameObject hand;
 
-    IEnumerator<Transition> handFollow(Func<Vector3> targetPos)
+    IEnumerator<Transition> HandFollow(Func<Vector3> targetPos)
     {
         while (true)
         {
             var handPosition = hand.transform.position;
             var heroPosition = targetPos();
+
+            var localScale = gameObject.transform.localScale;
+            localScale.x = Mathf.Abs(localScale.x);
+            if (heroPosition.x > transform.position.x)
+            {
+                localScale.x *= -1;
+            }
+            gameObject.transform.localScale = localScale;
+
             if (gameObject.transform.localScale.x < 0)
             {
                 heroPosition.x = 2 * gameObject.transform.position.x - heroPosition.x;
@@ -45,9 +54,15 @@ internal class ShadowStateMachine : StateMachine
     [State]
     private IEnumerator<Transition> Begin()
     {
+        yield return new ToState { State = nameof(Follow) };
+    }
+
+    [State]
+    private IEnumerator<Transition> Follow()
+    {
         yield return new CoroutineTransition
         {
-            Routine = handFollow(() => HeroController.instance.transform.position)
+            Routine = HandFollow(() => HeroController.instance.transform.position)
         };
     }
 
@@ -59,6 +74,9 @@ internal class ShadowStateMachine : StateMachine
     protected override void StateMachineStart()
     {
         var animation = gameObject.transform.Find("Animation").gameObject;
+        Animator animator = animation.GetComponent<Animator>();
+        animator.Play("Idle", -1, UnityEngine.Random.Range(0f, 1f));
+
         hand = animation.transform.Find("Hand").gameObject;
     }
 }

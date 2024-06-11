@@ -1,5 +1,4 @@
-﻿using GlobalEnums;
-using RingLib.StateMachine;
+﻿using RingLib.StateMachine;
 using RingLib.Utils;
 using System;
 using System.Collections.Generic;
@@ -75,6 +74,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         }
     }
 
+    /*
     IEnumerator<Transition> ddPrevent()
     {
         while (true)
@@ -88,6 +88,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new NoTransition();
         }
     }
+    */
 
     [State]
     private IEnumerator<Transition> Laser()
@@ -198,7 +199,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             {
                 Routines = [
                     handFollow(hand, movingPos),
-                    ddPrevent(),
+                    //ddPrevent(),
                     new WaitFor { Seconds = Config.LaserAttackLaserWait }
                 ]
             };
