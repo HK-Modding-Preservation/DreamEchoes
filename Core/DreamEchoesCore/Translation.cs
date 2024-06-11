@@ -42,9 +42,56 @@ internal partial class DreamEchoesCore : Mod
     public const string YI_SEND_FLOWER4 = "YI_SEND_FLOWER4";
     public const string YI_SEND_FLOWER5 = "YI_SEND_FLOWER5";
 
+    static private int YI_DREAM_INDEX = 0;
+
+    public static string YiDream()
+    {
+        string[] cn = [
+            "……送花……",
+            "……远处……声音回响……",
+            "……不完整……",
+            "……是在探寻我的内心么……",
+            "……在我面前反复挥舞着小手……我知道……梦之钉能切开现实和梦境的面纱……",
+            "……想在我这里寻求什么吗？……",
+            "……相信我，这里没有任何有价值的东西……只有对花的执念……除此之外我所经历的一切都会随着时间的推移消逝在记忆长河中……",
+            "……坐在这里，然后安静休息一会儿吧……",
+        ];
+        string[] en = [
+            "...flowers...",
+            "...in the distance... the echo of a bell...",
+            "...incomplete...",
+            "...are you probing into my heart...",
+            "...waving little hands in front of me... I know... the Dream Nail can cut through the veil between reality and dreams...",
+            "...seeking something from me?...",
+            "...trust me, there's nothing of value here... only an obsession with flowers... everything else I've experienced will fade away with time...",
+            "...sit here, then rest quietly for a while..."
+        ];
+        var currentLanguage = Language.Language.CurrentLanguage();
+        string ans;
+        if (currentLanguage == Language.LanguageCode.ZH)
+        {
+            ans = cn[YI_DREAM_INDEX];
+        }
+        else
+        {
+            ans = en[YI_DREAM_INDEX];
+        }
+        YI_DREAM_INDEX++;
+        if (YI_DREAM_INDEX >= cn.Length)
+        {
+            YI_DREAM_INDEX = 0;
+        }
+        return ans;
+    }
+
     public override string Translate(string key, string sheetTitle)
     {
         RingLib.Log.LogInfo("", "Translating " + key + " from " + sheetTitle);
+
+        if (key == "YIDREAM_1")
+        {
+            return YiDream();
+        }
 
         var currentLanguage = Language.Language.CurrentLanguage();
         if (currentLanguage == Language.LanguageCode.ZH)

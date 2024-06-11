@@ -87,7 +87,7 @@ internal class YiStateMachine : StateMachine
 
     private bool OutRange(float heroX)
     {
-        float threshold = 5;
+        float threshold = 9;
         return heroX - gameObject.transform.position.x > threshold;
     }
 
