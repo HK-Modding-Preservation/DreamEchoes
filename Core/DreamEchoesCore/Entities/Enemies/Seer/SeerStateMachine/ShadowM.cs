@@ -1,6 +1,8 @@
 ﻿using RingLib.StateMachine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using WeaverCore.Utilities;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
@@ -10,6 +12,7 @@ internal class ShadowM : StateMachine
 
     private List<GameObject> shadows = new List<GameObject>();
     private List<ShadowStateMachine> fsms = new List<ShadowStateMachine>();
+    private List<Vector3> points = new List<Vector3>();
 
     private IEnumerable<Transition> WaitForReady()
     {
@@ -79,12 +82,33 @@ internal class ShadowM : StateMachine
                     break;
                 }
             }
+            int trycount = 0;
+            List<int> indices = [0, 1, 2, 3];
+            while (true)
+            {
+                ++trycount;
+                indices = indices.Shuffle().ToList();
+                var success = true;
+                for (int i = 0; i < indices.Count; i++)
+                {
+                    if (indices[i] == i)
+                    {
+                        success = false;
+                        break;
+                    }
+                }
+                if (success)
+                {
+                    break;
+                }
+            }
+            RingLib.Log.LogInfo("", "tried " + trycount);
             for (int i = 0; i < shadows.Count; i++)
             {
                 var shadow = fsms[i];
                 shadow.ready = false;
                 shadow.plsattack = true;
-                shadow.target = HeroController.instance.gameObject.Position();
+                shadow.target = points[indices[i]];
             }
         }
     }
@@ -105,6 +129,7 @@ internal class ShadowM : StateMachine
             shadow.transform.Translate(0, -20, 0);
             shadows.Add(shadow);
             fsms.Add(shadowStateMachine);
+            points.Add(new Vector3(shadow.transform.position.x, 24, 0));
         }
     }
 }
