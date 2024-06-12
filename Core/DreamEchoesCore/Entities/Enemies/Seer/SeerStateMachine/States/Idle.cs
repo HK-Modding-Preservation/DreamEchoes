@@ -16,7 +16,6 @@ internal partial class SeerStateMachine : EntityStateMachine
     [State]
     private IEnumerator<Transition> Idle()
     {
-        IdleCount += 1;
         if (treeStateMachine.status >= 1)
         {
             treeStateMachine.status += 1;
@@ -44,6 +43,11 @@ internal partial class SeerStateMachine : EntityStateMachine
             yield return new ToState { State = nameof(ShadowSummon) };
         }
 
-        yield return new ToState { State = idleRandomSelector.Get() };
+        var next = idleRandomSelector.Get();
+        if (next != nameof(Parry))
+        {
+            IdleCount += 1;
+        }
+        yield return new ToState { State = next };
     }
 }

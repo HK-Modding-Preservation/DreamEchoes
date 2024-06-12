@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaverCore.Components;
 
 namespace DreamEchoesCore.Entities.Enemies.Seer.SeerStateMachine;
 
@@ -13,6 +14,60 @@ internal class ShadowStateMachine : StateMachine
     private GameObject hand;
     private GameObject aim;
     private GameObject att;
+
+    public ShadowM manager;
+
+    IEnumerator<Transition> HandFollowV2(Func<Vector3> targetPos, bool isaim)
+    {
+        while (true)
+        {
+            var handPosition = hand.transform.position;
+            var heroPosition = targetPos();
+
+            var localScale = gameObject.transform.localScale;
+            localScale.x = Mathf.Abs(localScale.x);
+            if (heroPosition.x > transform.position.x)
+            {
+                localScale.x *= -1;
+            }
+            gameObject.transform.localScale = localScale;
+
+            if (gameObject.transform.localScale.x < 0)
+            {
+                heroPosition.x = 2 * gameObject.transform.position.x - heroPosition.x;
+            }
+            var direction = (heroPosition - handPosition).normalized;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float normalizeAngle(float angle)
+            {
+                while (angle < -180)
+                {
+                    angle += 360;
+                }
+                while (angle > 180)
+                {
+                    angle -= 360;
+                }
+                return angle;
+            }
+            angle = normalizeAngle(angle - 180 - 8);
+            var currentAngle = normalizeAngle(hand.transform.localRotation.eulerAngles.z);
+            var deltaAngle = angle - currentAngle;
+            var newAngle = currentAngle + deltaAngle * 30 * Time.deltaTime;
+            hand.transform.localRotation = Quaternion.Euler(0, 0, angle);
+            if (isaim)
+            {
+                aim.SetActive(true);
+                att.SetActive(false);
+            }
+            else
+            {
+                att.SetActive(true);
+                aim.SetActive(false);
+            }
+            yield return new NoTransition();
+        }
+    }
 
     IEnumerator<Transition> HandFollow(Func<Vector3> targetPos)
     {
@@ -105,18 +160,25 @@ internal class ShadowStateMachine : StateMachine
             }
 
             plsattack = false;
-            aim.SetActive(true);
             RingLib.Log.LogInfo("", "Laser Attack Aim");
+            IEnumerator<Transition> aimwait()
+            {
+                var seerStateMachine = manager.Seer.GetComponent<SeerStateMachine>();
+                var currentIdleCount = seerStateMachine.IdleCount;
+                while (currentIdleCount == seerStateMachine.IdleCount)
+                {
+                    yield return new NoTransition();
+                }
+            }
             yield return new CoroutineTransition
             {
                 Routines = [
                     // bodyFollow(),
-                    HandFollow(() => target),
-                    new WaitFor { Seconds = 0.4f }
-               ]
+                    HandFollowV2(() => target, true),
+                    new WaitFor { Seconds = 1f }
+                    //aimwait()
+                ]
             };
-            aim.SetActive(false);
-            att.SetActive(true);
             //var lockedPosition = positionWithOffset();
             //animator.PlayLaserFire();
             //Velocity = Vector2.zero;
@@ -124,12 +186,13 @@ internal class ShadowStateMachine : StateMachine
             yield return new CoroutineTransition
             {
                 Routines = [
-                   HandFollow(() => target),
+                   HandFollowV2(() => target, false),
                     //ddPrevent(),
                     new WaitFor { Seconds = 0.2f }
                 ]
             };
             att.SetActive(false);
+            aim.SetActive(false);
         }
     }
 
@@ -185,5 +248,8 @@ internal class ShadowStateMachine : StateMachine
         hand = animation.transform.Find("Hand").gameObject;
         aim = hand.transform.Find("LaserAim").gameObject;
         att = hand.transform.Find("LaserAtt").gameObject;
+
+        var playerDamager = gameObject.GetComponentInChildren<PlayerDamager>();
+        Destroy(playerDamager);
     }
 }

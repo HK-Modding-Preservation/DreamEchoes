@@ -1,4 +1,5 @@
 ﻿using RingLib.StateMachine;
+using RingLib.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -35,6 +36,13 @@ internal class ShadowM : StateMachine
             yield return new NoTransition();
         }
     }
+
+    private RandomSelector<int> attacksel = new([
+       new(value: 0, weight: 1, maxCount: 1, maxMiss: 6),
+        new(value: 1, weight: 1, maxCount: 1, maxMiss: 6),
+        new(value: 2, weight: 1, maxCount: 1, maxMiss: 6),
+        new(value: 3, weight: 1, maxCount: 1, maxMiss: 6)
+   ]);
 
     [State]
     private IEnumerator<Transition> Begin()
@@ -103,8 +111,14 @@ internal class ShadowM : StateMachine
                 }
             }
             RingLib.Log.LogInfo("", "tried " + trycount);
+            var thistime = attacksel.Get();
+            var thistime2 = attacksel.Get();
             for (int i = 0; i < shadows.Count; i++)
             {
+                if (i != thistime && i != thistime2)
+                {
+                    continue;
+                }
                 var shadow = fsms[i];
                 shadow.ready = false;
                 shadow.plsattack = true;
@@ -124,6 +138,7 @@ internal class ShadowM : StateMachine
         {
             var shadow = transform.GetChild(i).gameObject;
             var shadowStateMachine = shadow.GetComponent<ShadowStateMachine>();
+            shadowStateMachine.manager = this;
             var currentY = shadow.transform.position.y;
             shadowStateMachine.originaY = currentY;
             shadow.transform.Translate(0, -20, 0);

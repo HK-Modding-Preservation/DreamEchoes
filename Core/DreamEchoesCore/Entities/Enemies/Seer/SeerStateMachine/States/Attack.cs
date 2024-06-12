@@ -14,9 +14,12 @@ internal partial class SeerStateMachine : EntityStateMachine
         new(value: nameof(Laser), weight: 0.6f, maxCount: 1, maxMiss: 8),
     ]);
 
+    public int attackcnt = 0;
+
     [State]
     private IEnumerator<Transition> Attack()
     {
+        attackcnt += 1;
         yield return new ToState { State = attackRandomSelector.Get() };
     }
 }
