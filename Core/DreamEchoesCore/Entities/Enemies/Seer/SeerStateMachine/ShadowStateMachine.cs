@@ -205,7 +205,7 @@ internal class ShadowStateMachine : StateMachine
         var upVel = UnityEngine.Random.Range(5f, 7f);
         var rigid = GetComponent<Rigidbody2D>();
         rigid.velocity = new Vector2(0, upVel);
-        while (transform.position.y < originaY - 2)
+        while (transform.position.y < originaY - 1)
         {
             yield return new NoTransition();
         }

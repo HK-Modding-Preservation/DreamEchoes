@@ -123,6 +123,8 @@ internal class ShadowM : StateMachine
                 shadow.ready = false;
                 shadow.plsattack = true;
                 shadow.target = points[indices[i]];
+                shadow.target = HeroController.instance.gameObject.transform.position;
+                shadow.target.y = 24;
             }
         }
     }

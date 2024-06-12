@@ -74,7 +74,7 @@ internal partial class SeerStateMachine : EntityStateMachine
         fullHP = entityHealth.Health;
         treeHP = fullHP / 3 * 2;
         shadowHP = fullHP / 3;
-        shadowHP = fullHP - 1;
+        //shadowHP = fullHP - 1;
         startMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("StartMusic");
         musicCue = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("DreamEchoesSeerMusicCue");
         emptyMusic = WeaverAssets.LoadAssetFromBundle<WeaverMusicCue, DreamEchoes.DreamEchoes>("EmptyMusic");

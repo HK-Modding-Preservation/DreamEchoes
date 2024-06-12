@@ -13,6 +13,8 @@ internal partial class SeerStateMachine : EntityStateMachine
         new(value: nameof(Parry), weight: 1, maxCount: 1, maxMiss: 5)
     ]);
 
+    public bool disableEvadeJump = false;
+
     [State]
     private IEnumerator<Transition> Idle()
     {
@@ -40,6 +42,7 @@ internal partial class SeerStateMachine : EntityStateMachine
             RingLib.Log.LogInfo("ShadowSummon", "Current health is " + entityHealth.Health + " and shadowHP is " + shadowHP);
             shadowHP = int.MinValue;
             LockStun();
+            disableEvadeJump = true;
             yield return new ToState { State = nameof(ShadowSummon) };
         }
 
@@ -47,6 +50,10 @@ internal partial class SeerStateMachine : EntityStateMachine
         if (next != nameof(Parry))
         {
             IdleCount += 1;
+        }
+        if (disableEvadeJump && next == nameof(EvadeJump))
+        {
+            next = nameof(Run);
         }
         yield return new ToState { State = next };
     }
