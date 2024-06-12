@@ -15,6 +15,8 @@ internal class TreeStateMachine : StateMachine
 
     public int status = 0;
 
+    public SeerStateMachine seerFSM;
+
     private IEnumerator<Transition> Flash()
     {
         var originalColor = spriteRenderer.color;
@@ -37,6 +39,15 @@ internal class TreeStateMachine : StateMachine
         }
     }
 
+    private IEnumerator<Transition> WaitForIdleV2()
+    {
+        var currentIdleCnt = seerFSM.IdleCount;
+        while (seerFSM.IdleCount == currentIdleCnt)
+        {
+            yield return new NoTransition();
+        }
+    }
+
     [State]
     private IEnumerator<Transition> Begin()
     {
@@ -47,25 +58,20 @@ internal class TreeStateMachine : StateMachine
             Routine = WaitForIdle(7)
         };
 
-        // Flash
-        RingLib.Log.LogInfo("TreeStateMachine", "Flash1");
-        var originalColor = spriteRenderer.color;
-        yield return new CoroutineTransition
+        var currentIdleCnt = seerFSM.IdleCount;
+        while (seerFSM.IdleCount == currentIdleCnt)
         {
-            Routines = [
-                Flash(),
-                new WaitFor { Seconds = 0.5f },
-            ]
-        };
-        spriteRenderer.color = originalColor;
+            yield return new NoTransition();
+        }
 
         RingLib.Log.LogInfo("TreeStateMachine", "Flash2");
+        var originalColor = spriteRenderer.color;
         // Flash & Wait
         yield return new CoroutineTransition
         {
             Routines = [
                 Flash(),
-                WaitForIdle(2),
+                WaitForIdleV2(),
             ]
         };
         spriteRenderer.color = originalColor;

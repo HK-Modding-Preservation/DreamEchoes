@@ -8,6 +8,8 @@ internal class TreeStateMachine : MonoBehaviour
 
     public AudioClip GrowSound;
 
+    public SeerStateMachine seerFSM;
+
     public void StartAttacks() { }
 
     public void PlayGrowSound() { }

@@ -20,7 +20,7 @@ internal partial class SeerStateMachine : EntityStateMachine
     public Config Config = new();
     private Vector2 originalBoxCollider2DOffset;
     private Vector2 originalBoxCollider2DSize;
-    private SeerAnimator animator;
+    public SeerAnimator animator;
     public AudioSource speak;
     private InputManager inputManager;
     private List<GameObject> attacks = [];

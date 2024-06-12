@@ -180,6 +180,10 @@ internal class ShadowStateMachine : StateMachine
                 ]
             };
             //var lockedPosition = positionWithOffset();
+            var sound = manager.Seer.GetComponent<SeerStateMachine>().animator.LaserFire;
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.volume = 0.5f;
+            audioSource.PlayOneShot(sound);
             //animator.PlayLaserFire();
             //Velocity = Vector2.zero;
             RingLib.Log.LogInfo("", "Laser Attack Laser");

@@ -9052,6 +9052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attacks: {fileID: 1931072374}
   GrowSound: {fileID: 8300000, guid: 9c9b2051b5402174ea44a0be1c32f64a, type: 3}
+  seerFSM: {fileID: 3161486071353194379}
 --- !u!82 &1947744093
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9603,10 +9604,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shadow
       objectReference: {fileID: 0}
-    - target: {fileID: 2487030424699434498, guid: 3bd9e469ffda5554ea5fabd87bb07f56, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9185571512659890308, guid: 3bd9e469ffda5554ea5fabd87bb07f56, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9795,5 +9792,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 536474134, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3161486071353194379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3161486071124587246, guid: 7722010a13665a04680ebbd59587eed0, type: 3}
+  m_PrefabInstance: {fileID: 3161486071353194375}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161486071353194377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1761944919, guid: f8d4d09392d01cc4c98694c86ee64cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
