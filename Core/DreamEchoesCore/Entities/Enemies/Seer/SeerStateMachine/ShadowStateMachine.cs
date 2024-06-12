@@ -105,7 +105,6 @@ internal class ShadowStateMachine : StateMachine
             }
 
             plsattack = false;
-            ready = false;
             aim.SetActive(true);
             RingLib.Log.LogInfo("", "Laser Attack Aim");
             yield return new CoroutineTransition
@@ -184,5 +183,7 @@ internal class ShadowStateMachine : StateMachine
         animator.Play("Idle", -1, UnityEngine.Random.Range(0f, 1f));
 
         hand = animation.transform.Find("Hand").gameObject;
+        aim = hand.transform.Find("LaserAim").gameObject;
+        att = hand.transform.Find("LaserAtt").gameObject;
     }
 }
