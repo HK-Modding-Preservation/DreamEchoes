@@ -161,6 +161,11 @@ internal partial class SeerStateMachine : EntityStateMachine
             ]
         };
         */
+        shadownCanOut = true;
+        if (!FacingTarget())
+        {
+            yield return new CoroutineTransition { Routine = Turn() };
+        }
         yield return new CoroutineTransition
         {
             Routines = [

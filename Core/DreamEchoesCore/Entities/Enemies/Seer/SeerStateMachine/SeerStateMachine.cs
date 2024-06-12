@@ -42,6 +42,8 @@ internal partial class SeerStateMachine : EntityStateMachine
 
     public int IdleCount = 0;//listen to idle event
 
+    public bool shadownCanOut = false;
+
     public SeerStateMachine() : base(
         startState: nameof(Wake),
         globalTransitions: new Dictionary<Type, string>
